@@ -21,6 +21,7 @@
         "react-native"
     ],
     "rules": {
+        "brace-style": ["error", "allman"],
         "react/jsx-filename-extension": "off",
         "react-native/no-unused-styles": "error",
         "react-native/no-inline-styles": "error",
