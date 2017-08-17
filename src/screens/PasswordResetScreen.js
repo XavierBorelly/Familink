@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-export const HOME_SCENE_NAME = 'HOME_SCENE';
+export const PASSWORD_RESET_SCENE_NAME = 'HOME_SCENE';
 
 const $bgColor = '#F5FCFF';
 
@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class HomeScreen extends Component
+export default class PasswordResetScreen extends Component
 {
   static navigationOptions = {
-    title: 'Home',
+    title: 'Password reset',
   };
 
   render()
@@ -30,7 +30,7 @@ export default class HomeScreen extends Component
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Screen : Home
+          Screen : Password reset
         </Text>
         <Button
           onPress={() => {
