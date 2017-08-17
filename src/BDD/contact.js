@@ -14,11 +14,8 @@ export async function getAllContactsFromBDD()
     const contacts = await AsyncStorage.getItem(keyStorageContact);
     if (contacts !== null)
     {
-      console.log('value de la BDD : ');
-      console.log(JSON.parse(contacts));
       return Promise.resolve(JSON.parse(contacts));
     }
-    console.log('BDD vide');
     return false;
   }
   catch (error)
@@ -53,8 +50,6 @@ export async function saveContactToBDD(newContact)
   getAllContactsFromBDD().then((contacts) =>
   {
     contacts.push(newContact);
-    console.log(contacts);
-    console.log(`newContact : ${newContact.phoneNumber}  ajouter`);
     saveAllContactsToBDD(contacts);
   });
 }
@@ -88,7 +83,6 @@ export async function deleteContactToBDD(phoneNumber)
     {
       if (contacts[i].phoneNumber.indexOf(phoneNumber) > -1)
       {
-        console.log(`contact ${contacts[i].phoneNumber} supprimer`);
         contacts.splice(i, 1);
         saveAllContactsToBDD(contacts);
         break;
@@ -110,7 +104,6 @@ export async function editContactToBDD(phoneNumber, contactEdit)
     {
       if (contact[i].phoneNumber.indexOf(phoneNumber) > -1)
       {
-        console.log(`contact ${phoneNumber} modifier`);
         contact[i] = contactEdit;
         saveAllContactsToBDD(contact);
         break;
