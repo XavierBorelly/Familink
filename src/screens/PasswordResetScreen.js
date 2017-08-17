@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
+import Header from '../components/Header';
+import { LOGIN_SCENE_NAME } from './LoginScreen';
+
 export const PASSWORD_RESET_SCENE_NAME = 'PASSWORD_RESET_SCENE';
 
 const $bgColor = '#F5FCFF';
@@ -12,11 +15,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: $bgColor,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
 });
 
 export default class PasswordResetScreen extends Component
@@ -27,15 +25,14 @@ export default class PasswordResetScreen extends Component
 
   render()
   {
+    const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Screen : Password reset
-        </Text>
-        <Button
-          onPress={() => {
-            this.props.navigation.navigate('DrawerOpen')}
-          } title="Open drawer"
+        <Header navigation={navigation} title="Mot de passe oublié" />
+        <Button onPress={() => {
+          navigation.navigate(LOGIN_SCENE_NAME) 
+        ;}}
+        title="Connexion"
         />
       </View>
     );

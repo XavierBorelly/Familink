@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, View } from 'react-native';
 
+import Header from '../components/Header';
+import { HOME_SCENE_NAME } from './HomeScreen';
+import { CONTACT_SCENE_NAME } from './ContactScreen';
 import MenuIcon from '../../assets/icon_phonebook.jpg';
 
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
@@ -14,11 +17,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: $bgColor,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
   icon: {
     width: 48,
     height: 48,
@@ -31,14 +29,15 @@ export default class PhonebookScreen extends Component
     drawerLabel: 'Phonebook',
     drawerIcon: (<Image source={MenuIcon}  style={[styles.icon]}/>),
   };
-
+  
   render()
   {
+    let navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Screen : Phonebook
-        </Text>
+        <Header navigation={navigation} title="Répertoire" />
+        <Button onPress={() => { navigation.navigate(HOME_SCENE_NAME)} } title="Retour au menu connecté" />
+        <Button onPress={() => { navigation.navigate(CONTACT_SCENE_NAME) } } title="Modifier contact" />
       </View>
     );
   }
