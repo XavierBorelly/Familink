@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-export const PASSWORD_RESET_SCENE_NAME = 'HOME_SCENE';
+export const PASSWORD_RESET_SCENE_NAME = 'PASSWORD_RESET_SCENE';
 
 const $bgColor = '#F5FCFF';
 
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 export default class PasswordResetScreen extends Component
 {
   static navigationOptions = {
-    title: 'Password reset',
+    drawerLabel: 'Password reset',
   };
 
   render()

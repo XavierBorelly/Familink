@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
+
+import MenuIcon from '../../assets/icon_emergency_config.jpg';
 
 export const EMERGENCY_CONFIG_SCENE_NAME = 'EMERGNCY_CONFIG_SCENE';
 
@@ -17,12 +19,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  icon: {
+    width: 48,
+    height: 48,
+  },
 });
 
 export default class EmergencyConfigScreen extends Component
 {
   static navigationOptions = {
-    title: 'Emergency config',
+    drawerLabel: 'Emergency config',
+    drawerIcon: (<Image source={MenuIcon} style={[styles.icon]}/>),
   };
 
   render()

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
+
+import MenuIcon from '../../assets/icon_profile.jpg';
 
 export const PHONEBOOK_SCENE_NAME = 'PROFILE_SCENE';
 
@@ -17,12 +19,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  icon: {
+    width: 48,
+    height: 48,
+  },
 });
 
 export default class ProfileScreen extends Component
 {
   static navigationOptions = {
-    title: 'Profile',
+    drawerLabel: 'Profile',
+    drawerIcon: (<Image source={MenuIcon}  style={[styles.icon]}/>),
   };
 
   render()

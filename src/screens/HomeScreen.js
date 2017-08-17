@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Image, Button, StyleSheet, Text, View } from 'react-native';
+
+import MenuIcon from '../../assets/icon_home.jpg';
 
 export const HOME_SCENE_NAME = 'HOME_SCENE';
 
@@ -17,12 +19,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  icon: {
+    width: 48,
+    height: 48,
+  },
 });
 
 export default class HomeScreen extends Component
 {
   static navigationOptions = {
-    title: 'Home',
+    drawerLabel: 'Home',
+    drawerIcon: (<Image source={MenuIcon}  style={[styles.icon]}/>),
   };
 
   render()
@@ -34,8 +41,11 @@ export default class HomeScreen extends Component
         </Text>
         <Button
           onPress={() => {
-            this.props.navigation.navigate('DrawerOpen')}
-          } title="Open drawer"
+            this.props.navigation.navigate('SIGNUP_SCENE');
+            //this.props.navigation.navigate('DrawerOpen')
+            }
+          }
+title="Open drawer"
         />
       </View>
     );

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 export default class HomeScreen extends Component
 {
   static navigationOptions = {
-    title: 'Login',
+    drawerLabel: 'Login',
   };
 
   render()

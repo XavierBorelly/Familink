@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 export default class SignUpScreen extends Component
 {
   static navigationOptions = {
-    title: 'Sign Up',
+    drawerLabel: 'Sign Up',
   };
 
   render()

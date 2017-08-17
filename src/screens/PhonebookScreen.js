@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
+
+import MenuIcon from '../../assets/icon_phonebook.jpg';
 
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
 
@@ -17,12 +19,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  icon: {
+    width: 48,
+    height: 48,
+  },
 });
 
 export default class PhonebookScreen extends Component
 {
   static navigationOptions = {
-    title: 'Phonebook',
+    drawerLabel: 'Phonebook',
+    drawerIcon: (<Image source={MenuIcon}  style={[styles.icon]}/>),
   };
 
   render()
