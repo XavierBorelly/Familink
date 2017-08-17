@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
-import BackButton from '../components/BackButton';
+import { Image, StyleSheet, View } from 'react-native';
+
 import Header from '../components/Header';
 import { HOME_SCENE_NAME } from './HomeScreen';
 import MenuIcon from '../../assets/icon_profile.jpg';
-import UpdateProfil from '../components/UpdateProfil';
+import BackButton from '../components/BackButton';
 
 export const PROFILE_SCENE_NAME = 'PROFILE_SCENE';
 
-const $bgColor = '#C9E5F1';
+const $bgColor = '#F5FCFF';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,24 +22,26 @@ const styles = StyleSheet.create({
     height: 48,
   },
 });
+
 export default class ProfileScreen extends Component
 {
   static navigationOptions = {
     drawerLabel: 'Mon Profil',
     drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
+
   render()
   {
     const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Header hasMenu navigation={navigation} title="Mon Profil" />
+        <Header hasMenu navigation={navigation} title="Mon profil" />
         <BackButton navigation={navigation} param={HOME_SCENE_NAME} />
-        <UpdateProfil />
       </View>
     );
   }
 }
+
 ProfileScreen.propTypes = {
   navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };
