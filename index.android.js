@@ -4,14 +4,17 @@
  * @flow
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 
 import ApplicationNavigator from './src/AppNavigator';
 
-export default function familink()
+export default class familink extends Component
 {
-  return (<ApplicationNavigator />);
+  render()
+  {
+    return <ApplicationNavigator />;
+  }
 }
 
 AppRegistry.registerComponent('familink', () => familink);
