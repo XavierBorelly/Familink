@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, View } from 'react-native';
 
-export const PHONEBOOK_SCENE_NAME = 'PROFILE_SCENE';
+import Header from '../components/Header';
+import { HOME_SCENE_NAME } from './HomeScreen';
+import MenuIcon from '../../assets/icon_profile.jpg';
+
+export const PROFILE_SCENE_NAME = 'PROFILE_SCENE';
 
 const $bgColor = '#F5FCFF';
 
@@ -12,26 +16,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: $bgColor,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  icon: {
+    width: 48,
+    height: 48,
   },
 });
 
 export default class ProfileScreen extends Component
 {
   static navigationOptions = {
-    title: 'Profile',
+    drawerLabel: 'Profile',
+    drawerIcon: (<Image source={MenuIcon}  style={[styles.icon]}/>),
   };
 
   render()
   {
+    let navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Screen : Profile
-        </Text>
+        <Header navigation={navigation} title="Mon profil" />
+        <Button onPress={() => { navigation.navigate(HOME_SCENE_NAME)} } title="Retour au menu connecté" />
       </View>
     );
   }
