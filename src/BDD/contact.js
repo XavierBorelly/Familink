@@ -1,41 +1,24 @@
-import
-{
-  AsyncStorage
-} from 'react-native';
+import { AsyncStorage } from 'react-native';
+
+const key = '@MyContacts:key';
 
 /**
- * permet l'enregistrement d'un conctact
- *
- * param newContactJson = l'object contact sous forme d'une string encoder en Json
- */
-export async function saveContactToDBB(newContactJson)
-{
-  try
-  {
-    AsyncStorage.mergeItem('@MyContacts:key', JSON.stringify(newContactJson));
-  }
-  catch (error)
-  {
-    console.log(error);
-  }
-}
-
-/**
- * permet de récupérer tous les contacts
- *
- * return tous les objects contacts sous forme d'une string encoder en Json
- */
+* permet de récupérer tous les contacts
+*
+* return tous les objects contacts sous forme d'une string encoder en Json
+*/
 export async function getAllContactsFromDBB()
 {
   try
   {
-    const value = await AsyncStorage.getItem('@MyContacts:key');
-    if (value !== null)
+    const contacts = await AsyncStorage.getItem(key);
+    if (contacts !== null)
     {
       console.log('value de la BDD : ');
-      console.log(JSON.parse(value));
-      return Promise.resolve(JSON.parse(value));
+      console.log(JSON.parse(contacts));
+      return Promise.resolve(JSON.parse(contacts));
     }
+    console.log('BDD vide');
   }
   catch (error)
   {
@@ -44,37 +27,89 @@ export async function getAllContactsFromDBB()
 }
 
 /**
- * permet l'enregistrement de tous les conctacts (utiliser aussi pour la modification d'un contact)
- *
- * param contactsJson = tous les contacts sous forme d'une string encoder en Json
- */
-export async function saveAllContactsToDBB(contactsJson)
+* permet l'enregistrement de tous les conctacts
+*/
+export async function saveAllContactsToDBB(contacts)
 {
   try
   {
-    await AsyncStorage.setItem('@MyContact:key', JSON.stringify(contactsJson));
+    await AsyncStorage.setItem(key, JSON.stringify(contacts));
     console.log('BDD save');
   }
   catch (error)
   {
-    console.log(error);
+    return Promise.reject(error);
   }
 }
 
 /**
- * permet de supprimer un contact précis
- *
- * param contactJson = l'object contact sous forme d'une string encoder en Json
- */
-export async function deleteContactToDBB(contactJson, deleteContact);
+* permet l'enregistrement d'un conctact
+*/
+export async function saveContactToDBB(newContact)
+{
+  getAllContactsFromDBB().then((contacts) =>
+  {
+    contacts.push(newContact);
+    console.log(contacts);
+    console.log(`newContact : ${newContact.phoneNumber}  ajouter`);
+    saveAllContactsToDBB(contacts);
+  });
+}
+
+/**
+* permet de supprimer tous les contacts
+*/
+export async function deleteAllContactsToDBB()
 {
   try
   {
-    //TODO revenir ici quand possibilité de tester, il faut enlever un élément de la liste JSON
-    saveAllContactsToDBB(contactJson);
+    await AsyncStorage.removeItem(key);
+    console.log('BDD clean');
   }
   catch (error)
   {
-    console.log(error);
+    return Promise.reject(error);
   }
+}
+
+/**
+* permet de supprimer un contact précis
+*/
+export async function deleteContactToDBB(phoneNumber)
+{
+  let i = 0;
+  getAllContactsFromDBB().then((contacts) =>
+  {
+    for (i = 0; i < contacts.length; i += 1)
+    {
+      if (contacts[i].phoneNumber.indexOf(phoneNumber) > -1)
+      {
+        console.log(`contact ${contacts[i].phoneNumber} supprimer`);
+        contacts.splice(i, 1);
+        saveAllContactsToDBB(contacts);
+        break;
+      }
+    }
+  });
+}
+
+/**
+* permet de modifier un concact
+*/
+export async function editContactToDBB(phoneNumber, contactEdit)
+{
+  let i = 0;
+  getAllContactsFromDBB().then((contacts) =>
+  {
+    for (i = 0; i < contacts.length; i += 1)
+    {
+      if (contacts[i].phoneNumber.indexOf(phoneNumber) > -1)
+      {
+        console.log(`contact ${phoneNumber} modifier`);
+        contacts[i] = contactEdit;
+        saveAllContactsToDBB(contacts);
+        break;
+      }
+    }
+  });
 }
