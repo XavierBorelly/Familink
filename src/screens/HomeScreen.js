@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, Button, StyleSheet, Text, View } from 'react-native';
+
+import Header from '../components/Header';
+import { PROFILE_SCENE_NAME } from './ProfileScreen';
+import { PHONEBOOK_SCENE_NAME } from './PhonebookScreen';
+import MenuIcon from '../../assets/icon_home.jpg';
 
 export const HOME_SCENE_NAME = 'HOME_SCENE';
 
@@ -12,26 +17,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: $bgColor,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  icon: {
+    width: 48,
+    height: 48,
   },
 });
 
 export default class HomeScreen extends Component
 {
   static navigationOptions = {
-    title: 'Home',
+    drawerLabel: 'Home',
+    drawerIcon: (<Image source={MenuIcon}  style={[styles.icon]}/>),
   };
 
   render()
   {
+    let navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Screen : Home
-        </Text>
+        <Header navigation={navigation} title="Menu connecté" />
+
+        <Button onPress={() => { navigation.navigate(PROFILE_SCENE_NAME) } } title="Mon profil" />
+        <Button onPress={() => { navigation.navigate(PHONEBOOK_SCENE_NAME) } } title="Répertoire" />
       </View>
     );
   }
