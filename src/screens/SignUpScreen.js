@@ -22,6 +22,7 @@ export default class SignUpScreen extends Component
 {
   static navigationOptions = {
     drawerLabel: 'Sign Up',
+    drawerLockMode: 'locked-closed',
   };
 
   render()

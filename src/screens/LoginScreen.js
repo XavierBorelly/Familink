@@ -23,6 +23,7 @@ export default class LoginScreen extends Component
 {
   static navigationOptions = {
     drawerLabel: 'Login',
+    drawerLockMode: 'locked-closed',
   };
 
   render()

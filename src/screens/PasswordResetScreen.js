@@ -22,6 +22,7 @@ export default class PasswordResetScreen extends Component
 {
   static navigationOptions = {
     drawerLabel: 'Password reset',
+    drawerLockMode: 'locked-closed',
   };
 
   render()
