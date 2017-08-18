@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { Dimensions, Platform, Text, Image, View, Button, StyleSheet, TouchableHighlight } from 'react-native';
+import { Dimensions, Platform, Text, Image, View, StyleSheet, TouchableHighlight } from 'react-native';
+
+import MenuIcon from '../../assets/icon_menu.jpg';
 
 const styles = StyleSheet.create({
   header_container: {
@@ -20,22 +22,24 @@ const styles = StyleSheet.create({
 });
 
 
-export default class Header extends Component 
+export default class Header extends Component
 {
-  constructor(props) 
-{
+  constructor(props)
+  {
     super(props);
   }
 
-  render() 
-{
+  render()
+  {
     const props = this.props;
     return (
       <View style={styles.header_container} >
-        <TouchableHighlight onPress={() => 
-{ props.navigation.navigate('DrawerOpen'); 
-}} >
-          <Image style={styles.icon} source={require('../../assets/icon_menu.jpg')} />
+        <TouchableHighlight onPress={() =>
+        {
+          props.navigation.navigate('DrawerOpen');
+        }}
+        >
+          <Image style={styles.icon} source={MenuIcon} />
         </TouchableHighlight>
         <Text style={styles.title}>{props.title}</Text>
       </View>

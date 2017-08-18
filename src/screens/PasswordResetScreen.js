@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import Header from '../components/Header';
 import { LOGIN_SCENE_NAME } from './LoginScreen';
+import BackButton from '../components/BackButton';
 
 export const PASSWORD_RESET_SCENE_NAME = 'PASSWORD_RESET_SCENE';
 
@@ -29,12 +30,12 @@ export default class PasswordResetScreen extends Component
     return (
       <View style={styles.container}>
         <Header navigation={navigation} title="Mot de passe oublié" />
-        <Button onPress={() => {
-          navigation.navigate(LOGIN_SCENE_NAME) 
-        ;}}
-        title="Connexion"
-        />
+        <BackButton navigation={navigation} param={LOGIN_SCENE_NAME} />
       </View>
     );
   }
 }
+
+PasswordResetScreen.propTypes = {
+  navigation: React.PropTypes.func.isRequired,
+};

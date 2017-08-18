@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import Header from '../components/Header';
 import { PHONEBOOK_SCENE_NAME } from './PhonebookScreen';
+import BackButton from '../components/BackButton';
 
 export const CONTACT_SCENE_NAME = 'CONTACT_SCENE';
 
@@ -15,11 +16,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: $bgColor,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
 });
 
 export default class ContactScreen extends Component
@@ -30,12 +26,16 @@ export default class ContactScreen extends Component
 
   render()
   {
-    let navigation = this.props.navigation;
+    const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
         <Header navigation={navigation} title="Modifier contact" />
-        <Button onPress={() => { navigation.navigate(PHONEBOOK_SCENE_NAME)} } title="Valider contact" />
+        <BackButton navigation={navigation} param={PHONEBOOK_SCENE_NAME} />
       </View>
     );
   }
 }
+
+ContactScreen.propTypes = {
+  navigation: React.PropTypes.func.isRequired,
+};
