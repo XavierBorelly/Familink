@@ -1,31 +1,26 @@
 import React, { Component, PropTypes } from 'react';
-import { AppRegistry, Image, TouchableHighlight, StyleSheet } from 'react-native';
+import { Platform, AppRegistry, Image, TouchableHighlight, StyleSheet, Dimensions, View } from 'react-native';
 
 import BackIcon from '../../assets/back-button.png';
-// import { HOME_SCENE_NAME } from '../screens/HomeScreen';
 
 const styles = StyleSheet.create({
   backContainer:
   {
     position: 'absolute',
     bottom: 0,
-    width: 0,
-    height: 0,
-    // alignItems: 'flex-end',
-    // justifyContent: 'center',
+    width: Dimensions.get('window').width,
+    height: 36,
   },
   back:
   {
-    width: 0,
-    height: 0,
-    // alignItems: 'flex-end',
-    // justifyContent: 'center',
+    width: Dimensions.get('window').width,
+    height: 36,
   },
 });
 
 export default class BackButton extends Component
 {
-  render()
+  getButton()
   {
     const navigation = this.props.navigation;
     return (
@@ -42,6 +37,12 @@ export default class BackButton extends Component
         />
       </TouchableHighlight>
     );
+  }
+
+  render()
+  {
+    const button = (Platform.OS === 'ios') ? this.getButton() : (<View style={styles.backContainer} />);
+    return button;
   }
 }
 
