@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Button, StyleSheet, Text, View } from 'react-native';
+import { Image, Button, StyleSheet, View } from 'react-native';
 
 import Header from '../components/Header';
 import { PROFILE_SCENE_NAME } from './ProfileScreen';
@@ -27,19 +27,36 @@ export default class HomeScreen extends Component
 {
   static navigationOptions = {
     drawerLabel: 'Home',
-    drawerIcon: (<Image source={MenuIcon}  style={[styles.icon]}/>),
+    drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
 
   render()
   {
-    let navigation = this.props.navigation;
+    const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Header navigation={navigation} title="Menu connecté" />
-
-        <Button onPress={() => { navigation.navigate(PROFILE_SCENE_NAME) } } title="Mon profil" />
-        <Button onPress={() => { navigation.navigate(PHONEBOOK_SCENE_NAME) } } title="Répertoire" />
+        <Header hasMenu navigation={navigation} title="Menu connecté" />
+        <Button
+          onPress={() =>
+          {
+            navigation.navigate(PROFILE_SCENE_NAME);
+          }
+          }
+          title="Mon profil"
+        />
+        <Button
+          onPress={() =>
+          {
+            navigation.navigate(PHONEBOOK_SCENE_NAME);
+          }
+          }
+          title="Répertoire"
+        />
       </View>
     );
   }
 }
+
+HomeScreen.propTypes = {
+  navigation: React.PropTypes.func.isRequired,
+};

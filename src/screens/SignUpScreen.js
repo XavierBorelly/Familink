@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import BackButton from '../components/BackButton';
 
 import Header from '../components/Header';
 import { LOGIN_SCENE_NAME } from './LoginScreen';
@@ -14,23 +15,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: $bgColor,
-  }
+  },
 });
 
 export default class SignUpScreen extends Component
 {
   static navigationOptions = {
     drawerLabel: 'Sign Up',
+    drawerLockMode: 'locked-closed',
   };
 
   render()
   {
-    let navigation = this.props.navigation;
+    const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
         <Header navigation={navigation} title="S'enregistrer" />
-        <Button onPress={() => { navigation.navigate(LOGIN_SCENE_NAME)} } title="Connexion" />
+        <BackButton navigation={navigation} param={LOGIN_SCENE_NAME} />
       </View>
     );
   }
 }
+
+SignUpScreen.propTypes = {
+  navigation: React.PropTypes.func.isRequired,
+};
