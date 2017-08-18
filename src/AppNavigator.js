@@ -9,6 +9,7 @@ import LoginScreen, { LOGIN_SCENE_NAME } from './screens/LoginScreen';
 import SignUpScreen, { SIGNUP_SCENE_NAME } from './screens/SignUpScreen';
 import PasswordResetScreen, { PASSWORD_RESET_SCENE_NAME } from './screens/PasswordResetScreen';
 import ContactScreen, { CONTACT_SCENE_NAME } from './screens/ContactScreen';
+import Hidden from './components/Hidden';
 
 const stackNavigatorConfig = {};
 
@@ -34,14 +35,23 @@ stackNavigatorConfig[LOGIN_SCENE_NAME] = {
 
 stackNavigatorConfig[SIGNUP_SCENE_NAME] = {
   screen: SignUpScreen,
+  navigationOptions: {
+    drawerLabel: <Hidden />,
+  },
 };
 
 stackNavigatorConfig[PASSWORD_RESET_SCENE_NAME] = {
   screen: PasswordResetScreen,
+  navigationOptions: {
+    drawerLabel: <Hidden />,
+  },
 };
 
 stackNavigatorConfig[CONTACT_SCENE_NAME] = {
   screen: ContactScreen,
+  navigationOptions: {
+    drawerLabel: <Hidden />,
+  },
 };
 
 const ApplicationNavigator = DrawerNavigator(stackNavigatorConfig, {
@@ -49,4 +59,3 @@ const ApplicationNavigator = DrawerNavigator(stackNavigatorConfig, {
 });
 
 export default () => <ApplicationNavigator />;
-
