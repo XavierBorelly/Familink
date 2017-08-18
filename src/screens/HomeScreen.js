@@ -35,7 +35,7 @@ export default class HomeScreen extends Component
     const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Header navigation={navigation} title="Menu connecté" />
+        <Header hasMenu navigation={navigation} title="Menu connecté" />
         <Button
           onPress={() =>
           {

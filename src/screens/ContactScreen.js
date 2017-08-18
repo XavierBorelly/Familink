@@ -29,7 +29,7 @@ export default class ContactScreen extends Component
     const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Header navigation={navigation} title="Modifier contact" />
+        <Header hasMenu navigation={navigation} title="Modifier contact" />
         <BackButton navigation={navigation} param={PHONEBOOK_SCENE_NAME} />
       </View>
     );

@@ -36,7 +36,7 @@ export default class PhonebookScreen extends Component
     const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Header navigation={navigation} title="Répertoire" />
+        <Header hasMenu navigation={navigation} title="Répertoire" />
         <Button
           onPress={() =>
           {

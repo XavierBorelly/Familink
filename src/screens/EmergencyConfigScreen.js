@@ -35,7 +35,7 @@ export default class EmergencyConfigScreen extends Component
     const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Header navigation={navigation} title="Configuration d'urgence" />
+        <Header hasMenu navigation={navigation} title="Configuration d'urgence" />
         <BackButton navigation={navigation} param={PROFILE_SCENE_NAME} />
       </View>
     );
