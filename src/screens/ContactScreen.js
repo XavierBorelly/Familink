@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 import Header from '../components/Header';
-import { LOGIN_SCENE_NAME } from './LoginScreen';
+import { PHONEBOOK_SCENE_NAME } from './PhonebookScreen';
 
-export const SIGNUP_SCENE_NAME = 'SIGNUP_SCENE';
+export const CONTACT_SCENE_NAME = 'CONTACT_SCENE';
 
 const $bgColor = '#F5FCFF';
 
@@ -14,13 +14,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: $bgColor,
-  }
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
 });
 
-export default class SignUpScreen extends Component
+export default class ContactScreen extends Component
 {
   static navigationOptions = {
-    drawerLabel: 'Sign Up',
+    drawerLabel: 'Contact detail',
   };
 
   render()
@@ -28,8 +33,8 @@ export default class SignUpScreen extends Component
     let navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Header navigation={navigation} title="S'enregistrer" />
-        <Button onPress={() => { navigation.navigate(LOGIN_SCENE_NAME)} } title="Connexion" />
+        <Header navigation={navigation} title="Modifier contact" />
+        <Button onPress={() => { navigation.navigate(PHONEBOOK_SCENE_NAME)} } title="Valider contact" />
       </View>
     );
   }

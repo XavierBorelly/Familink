@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
+import Header from '../components/Header';
+import { HOME_SCENE_NAME } from './HomeScreen';
+import { SIGNUP_SCENE_NAME } from './SignUpScreen';
+import { PASSWORD_RESET_SCENE_NAME } from './PasswordResetScreen';
+
 export const LOGIN_SCENE_NAME = 'LOGIN_SCENE';
 
 const $bgColor = '#F5FCFF';
@@ -12,31 +17,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: $bgColor,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
 });
 
 export default class HomeScreen extends Component
 {
   static navigationOptions = {
-    title: 'Login',
+    drawerLabel: 'Login',
   };
 
   render()
   {
+    let navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Screen : Login
-        </Text>
-        <Button
-          onPress={() => {
-            this.props.navigation.navigate('DrawerOpen')}
-          } title="Open drawer"
-        />
+        <Header navigation={navigation} title="Connexion" />
+        <Button onPress={() => { navigation.navigate(HOME_SCENE_NAME)} } title="Menu connecté" />
+        <Button onPress={() => { navigation.navigate(SIGNUP_SCENE_NAME)} } title="S'inscrire" />
+        <Button onPress={() => { navigation.navigate(PASSWORD_RESET_SCENE_NAME)} } title="Mot de passe oublié ?" />
       </View>
     );
   }
