@@ -122,7 +122,6 @@ export async function deleteContactToDBB(phoneNumber)
     {
       if (contacts[i].phoneNumber.indexOf(phoneNumber) > -1)
       {
-        console.log(`contact ${contacts[i].phoneNumber} supprimer`);
         contacts.splice(i, 1);
         saveAllContactsToDBB(contacts);
         break;
@@ -139,13 +138,13 @@ export async function editContactToDBB(phoneNumber, contactEdit)
   let i = 0;
   getAllContactsFromDBB().then((contacts) =>
   {
-    for (i = 0; i < contacts.length; i += 1)
+    const contact = contacts;
+    for (i = 0; i < contact.length; i += 1)
     {
-      if (contacts[i].phoneNumber.indexOf(phoneNumber) > -1)
+      if (contact[i].phoneNumber.indexOf(phoneNumber) > -1)
       {
-        console.log(`contact ${phoneNumber} modifier`);
-        contacts[i] = contactEdit;
-        saveAllContactsToDBB(contacts);
+        contact[i] = contactEdit;
+        saveAllContactsToDBB(contact);
         break;
       }
     }
