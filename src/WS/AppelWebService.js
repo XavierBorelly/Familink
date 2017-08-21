@@ -6,7 +6,7 @@ export async function appelGet(lien)
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-    }
+    },
   });
   const responseJson = await response.json();
   return responseJson;
@@ -14,7 +14,7 @@ export async function appelGet(lien)
 
 export async function appelPost(lien, data)
 {
-  const response =  await fetch(`${url}${lien}`, {
+  const response = await fetch(`${url}${lien}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export async function appelPost(lien, data)
 
 export async function appelDelete(lien, data)
 {
-  const response =  await fetch(`${url}${lien}`, {
+  const response = await fetch(`${url}${lien}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -38,9 +38,9 @@ export async function appelDelete(lien, data)
   return responseJson;
 }
 
-export async function appelPut()
+export async function appelPut(lien, data)
 {
-  const response =  await fetch(`${url}${lien}`, {
+  const response = await fetch(`${url}${lien}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

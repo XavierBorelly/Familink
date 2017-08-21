@@ -1,4 +1,4 @@
-import { appelGet, appelPost } from './AppelWebService'
+import { appelGet, appelPost } from './AppelWebService';
 
 /** permet d'obtenir les différents profil d'utilisateur
  *
