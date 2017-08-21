@@ -1,10 +1,15 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { DrawerNavigator } from 'react-navigation';
 
 import HomeScreen, { HOME_SCENE_NAME } from './screens/HomeScreen';
 import EmergencyConfigScreen, { EMERGENCY_CONFIG_SCENE_NAME } from './screens/EmergencyConfigScreen';
 import PhonebookScreen, { PHONEBOOK_SCENE_NAME } from './screens/PhonebookScreen';
 import ProfileScreen, { PROFILE_SCENE_NAME } from './screens/ProfileScreen';
+import LoginScreen, { LOGIN_SCENE_NAME } from './screens/LoginScreen';
+import SignUpScreen, { SIGNUP_SCENE_NAME } from './screens/SignUpScreen';
+import PasswordResetScreen, { PASSWORD_RESET_SCENE_NAME } from './screens/PasswordResetScreen';
+import ContactScreen, { CONTACT_SCENE_NAME } from './screens/ContactScreen';
+import Hidden from './components/Hidden';
 
 const stackNavigatorConfig = {};
 
@@ -24,9 +29,33 @@ stackNavigatorConfig[PROFILE_SCENE_NAME] = {
   screen: ProfileScreen,
 };
 
-const ApplicationNavigator = StackNavigator(stackNavigatorConfig, {
-  initialRouteName: HOME_SCENE_NAME,
+stackNavigatorConfig[LOGIN_SCENE_NAME] = {
+  screen: LoginScreen,
+};
+
+stackNavigatorConfig[SIGNUP_SCENE_NAME] = {
+  screen: SignUpScreen,
+  navigationOptions: {
+    drawerLabel: <Hidden />,
+  },
+};
+
+stackNavigatorConfig[PASSWORD_RESET_SCENE_NAME] = {
+  screen: PasswordResetScreen,
+  navigationOptions: {
+    drawerLabel: <Hidden />,
+  },
+};
+
+stackNavigatorConfig[CONTACT_SCENE_NAME] = {
+  screen: ContactScreen,
+  navigationOptions: {
+    drawerLabel: <Hidden />,
+  },
+};
+
+const ApplicationNavigator = DrawerNavigator(stackNavigatorConfig, {
+  initialRouteName: LOGIN_SCENE_NAME,
 });
 
 export default () => <ApplicationNavigator />;
-

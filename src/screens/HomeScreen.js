@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { Image, Button, StyleSheet, View } from 'react-native';
 
 import Contact from '../../modele/contact'
-
 import { editContactToDBB, saveContactToDBB, deleteContactToDBB, getAllContactsFromDBB, saveAllContactsToDBB, deleteAllContactsToDBB } from '../BDD/contact';
+
+import Header from '../components/Header';
+import { PROFILE_SCENE_NAME } from './ProfileScreen';
+import { PHONEBOOK_SCENE_NAME } from './PhonebookScreen';
+import MenuIcon from '../../assets/icon_home.jpg';
 
 export const HOME_SCENE_NAME = 'HOME_SCENE';
 
@@ -16,17 +20,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: $bgColor,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  icon: {
+    width: 48,
+    height: 48,
   },
 });
 
 export default class HomeScreen extends Component
 {
   static navigationOptions = {
-    title: 'Home',
+    drawerLabel: 'Home',
+    drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
 
   constructor(props) {
@@ -77,41 +81,57 @@ export default class HomeScreen extends Component
 
   render()
   {
-    console.log(this.state.contact);
+    const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Screen : Home
-        </Text>
+        <Header hasMenu navigation={navigation} title="Menu connecté" />
         <Button
-          onPress={this.look}
-          title='look'
+          onPress={() =>
+          {
+            navigation.navigate(PROFILE_SCENE_NAME);
+          }
+          }
+          title="Mon profil"
         />
         <Button
-          onPress={this.clearAll}
-          title='clearAll'
-        />
-        <Button
-          onPress={this.clear}
-          title='clear'
-        />
-        <Button
-          onPress={this.add}
-          title='add'
-        />
-        <Button
-          onPress={this.addAll}
-          title='addAll'
-        />
-        <Button
-          onPress={this.edit}
-          title='edit'
-        />
-        <Button
-          onPress={this.editBis}
-          title='editBis'
-        />
+          onPress={() =>
+          {
+            navigation.navigate(PHONEBOOK_SCENE_NAME);
+          }
+          }
+          title="Répertoire"/>
+          <Button
+            onPress={this.look}
+            title='look'
+          />
+          <Button
+            onPress={this.clearAll}
+            title='clearAll'
+          />
+          <Button
+            onPress={this.clear}
+            title='clear'
+          />
+          <Button
+            onPress={this.add}
+            title='add'
+          />
+          <Button
+            onPress={this.addAll}
+            title='addAll'
+          />
+          <Button
+            onPress={this.edit}
+            title='edit'
+          />
+          <Button
+            onPress={this.editBis}
+            title='editBis'/>
       </View>
     );
   }
 }
+
+HomeScreen.propTypes = {
+  navigation: React.PropTypes.func.isRequired,
+};

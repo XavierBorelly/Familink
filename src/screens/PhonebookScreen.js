@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet, View } from 'react-native';
+
+import Header from '../components/Header';
+import { HOME_SCENE_NAME } from './HomeScreen';
+import { CONTACT_SCENE_NAME } from './ContactScreen';
+import MenuIcon from '../../assets/icon_phonebook.jpg';
+import BackButton from '../components/BackButton';
 
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
 
@@ -12,27 +18,39 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: $bgColor,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  icon: {
+    width: 48,
+    height: 48,
   },
 });
 
 export default class PhonebookScreen extends Component
 {
   static navigationOptions = {
-    title: 'Phonebook',
+    drawerLabel: 'Phonebook',
+    drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
 
   render()
   {
+    const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Screen : Phonebook
-        </Text>
+        <Header hasMenu navigation={navigation} title="Répertoire" />
+        <Button
+          onPress={() =>
+          {
+            navigation.navigate(CONTACT_SCENE_NAME);
+          }
+          }
+          title="Modifier contact"
+        />
+        <BackButton navigation={navigation} param={HOME_SCENE_NAME} />
       </View>
     );
   }
 }
+
+PhonebookScreen.propTypes = {
+  navigation: React.PropTypes.func.isRequired,
+};

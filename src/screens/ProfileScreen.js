@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 
-export const PHONEBOOK_SCENE_NAME = 'PROFILE_SCENE';
+import Header from '../components/Header';
+import { HOME_SCENE_NAME } from './HomeScreen';
+import MenuIcon from '../../assets/icon_profile.jpg';
+import BackButton from '../components/BackButton';
+
+export const PROFILE_SCENE_NAME = 'PROFILE_SCENE';
 
 const $bgColor = '#F5FCFF';
 
@@ -12,27 +17,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: $bgColor,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  icon: {
+    width: 48,
+    height: 48,
   },
 });
 
 export default class ProfileScreen extends Component
 {
   static navigationOptions = {
-    title: 'Profile',
+    drawerLabel: 'Profile',
+    drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
 
   render()
   {
+    const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Screen : Profile
-        </Text>
+        <Header hasMenu navigation={navigation} title="Mon profil" />
+        <BackButton navigation={navigation} param={HOME_SCENE_NAME} />
       </View>
     );
   }
 }
+
+ProfileScreen.propTypes = {
+  navigation: React.PropTypes.func.isRequired,
+};
