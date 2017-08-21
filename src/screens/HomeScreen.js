@@ -24,15 +24,6 @@ export default class HomeScreen extends Component
     drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
 
-  constructor(props) {
-        super(props);
-
-        this.state = {
-            contact : null
-        };
-
-    }
-
   render()
   {
     const navigation = this.props.navigation;
