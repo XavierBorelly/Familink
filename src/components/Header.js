@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flexDirection: 'row',
     top: (Platform.OS === 'ios') ? 20 : 0,
-    height: 36,
+    height: 38,
     width: Dimensions.get('window').width,
     borderWidth: 1,
   },
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   title: {
     position: 'absolute',
-    left: 36,
+    left: 38,
     borderLeftWidth: 1,
     paddingLeft: 10,
     fontSize: 26,
