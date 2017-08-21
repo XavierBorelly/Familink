@@ -3,6 +3,8 @@ import { Dimensions, Platform, Text, Image, View, StyleSheet, TouchableHighlight
 
 import MenuIcon from '../../assets/icon_menu.jpg';
 
+const $bgHeaderColor = '#0E9A01';
+
 const styles = StyleSheet.create({
   header_container: {
     position: 'absolute',
@@ -11,6 +13,7 @@ const styles = StyleSheet.create({
     height: 36,
     width: Dimensions.get('window').width,
     borderWidth: 1,
+    backgroundColor: $bgHeaderColor,
   },
   icon: {
     width: 36,
