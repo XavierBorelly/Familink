@@ -19,6 +19,7 @@ export async function getAllContactsFromDBB()
       return Promise.resolve(JSON.parse(contacts));
     }
     console.log('BDD vide');
+    return false;
   }
   catch (error)
   {
@@ -35,6 +36,8 @@ export async function saveAllContactsToDBB(contacts)
   {
     await AsyncStorage.setItem(key, JSON.stringify(contacts));
     console.log('BDD save');
+    getAllContactsFromDBB();
+    return true;
   }
   catch (error)
   {
@@ -65,6 +68,7 @@ export async function deleteAllContactsToDBB()
   {
     await AsyncStorage.removeItem(key);
     console.log('BDD clean');
+    return true;
   }
   catch (error)
   {
@@ -101,13 +105,14 @@ export async function editContactToDBB(phoneNumber, contactEdit)
   let i = 0;
   getAllContactsFromDBB().then((contacts) =>
   {
-    for (i = 0; i < contacts.length; i += 1)
+    const contact = contacts;
+    for (i = 0; i < contact.length; i += 1)
     {
-      if (contacts[i].phoneNumber.indexOf(phoneNumber) > -1)
+      if (contact[i].phoneNumber.indexOf(phoneNumber) > -1)
       {
         console.log(`contact ${phoneNumber} modifier`);
-        contacts[i] = contactEdit;
-        saveAllContactsToDBB(contacts);
+        contact[i] = contactEdit;
+        saveAllContactsToDBB(contact);
         break;
       }
     }
