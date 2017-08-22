@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Platform, View, TextInput } from 'react-native';
+import { Button, StyleSheet, Platform, View, TextInput, AsyncStorage } from 'react-native';
 import { ListItem, CheckBox, Text, Body } from 'native-base';
 
 import Header from '../components/Header';
@@ -54,12 +54,69 @@ export default class LoginScreen extends Component
   constructor(props)
   {
     super(props);
-    this.state = { checked: false };
+    this.navigate = this.props.navigation.navigate;
+    this.state = { checked: false, user: null };
+  }
+
+  componentWillMount()
+  {
+    this.getRemember();
+  }
+
+  async getRemember()
+  {
+    try
+    {
+      await AsyncStorage.getItem('@MonEtat:key').then((etat) =>
+      {
+        this.setState({ checked: JSON.parse(etat) });
+      });
+      if (this.state.checked === true)
+      {
+        await AsyncStorage.getItem('@MonIdentifiant:key').then((identifiant) =>
+        {
+          this.setState({ user: identifiant });
+        });
+      }
+    }
+    catch (error)
+    {
+      // Error retrieving data
+    }
   }
 
   checkboxCheck()
   {
     this.setState({ checked: !this.state.checked });
+  }
+
+  async doConnection()
+  {
+    const user = this.state.user;
+    // const password = this.state.password;
+    const checked = this.state.checked;
+    try
+    {
+      await AsyncStorage.setItem('@MonEtat:key', JSON.stringify(checked)).bind(this);
+    }
+    catch (e)
+    {
+      // Error saving data
+    }
+    if (checked === true)
+    {
+      try
+      {
+        await AsyncStorage.setItem('@MonIdentifiant:key', user).bind(this);
+      }
+      catch (error)
+      {
+        // Error saving data
+      }
+    }
+    // On fait l'appel au service de connection
+    // on renvoie le token et on change de page si tout est bon
+    this.props.navigation.navigate(HOME_SCENE_NAME);
   }
 
   render()
@@ -72,9 +129,10 @@ export default class LoginScreen extends Component
           <View style={styles.cell}>
             <TextInput
               style={styles.textInput}
-              onChangeText={text => this.keepText(text)}
+              onChangeText={user => this.setState({ user })}
               keyboardType="numeric"
               placeholder="Numéro de téléphone"
+              defaultValue={this.state.user}
               ref={(input) =>
               {
                 this.textInput = input;
@@ -83,7 +141,7 @@ export default class LoginScreen extends Component
             />
             <TextInput
               style={styles.textInput}
-              onChangeText={text => this.setState({ text })}
+              onChangeText={password => this.setState({ password })}
               keyboardType="numeric"
               placeholder="Mot de passe"
               secureTextEntry
@@ -101,7 +159,7 @@ export default class LoginScreen extends Component
               style={styles.button}
               onPress={() =>
               {
-                navigation.navigate(HOME_SCENE_NAME);
+                this.doConnection();
               }
               }
               title="Se connecter"
