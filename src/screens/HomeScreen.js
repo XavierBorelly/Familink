@@ -5,6 +5,11 @@ import Header from '../components/Header';
 import { PROFILE_SCENE_NAME } from './ProfileScreen';
 import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
 import MenuIcon from '../../assets/icon_home.jpg';
+
+import { login, editUser, getProfil } from '../WS/WebServiceUser'
+
+import { DeleteTokenFromBDD } from '../BDD/Token';
+
 export const HOME_SCENE_NAME = 'HOME_SCENE';
 
 const $bgColor = '#F5FCFF';
@@ -51,6 +56,45 @@ export default class HomeScreen extends Component
           }
           title="Répertoire"
         />
+
+        <Button
+          onPress={() =>
+          {
+
+              login('0606060606', '1234');
+          }
+          }
+          title="log"
+        />
+
+        <Button
+          onPress={() =>
+          {
+            editUser('xavier','borelly','borelly.xavier@gmail.com','SENIOR', navigation);
+          }
+          }
+          title="edit"
+        />
+        <Button
+          onPress={() =>
+          {
+            console.log(getProfil());
+          }
+          }
+          title="profil"
+        />
+
+
+        <Button
+          onPress={() =>
+          {
+            DeleteTokenFromBDD();
+          }
+          }
+          title="logout"
+        />
+
+
       </View>
     );
   }
