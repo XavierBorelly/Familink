@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     width: '100%',
-    top: (Platform.OS === 'ios') ? 56 : 36,
+    top: (Platform.OS === 'ios') ? 38 + 20 : 38,
   },
   cell: {
     flex: 1,
