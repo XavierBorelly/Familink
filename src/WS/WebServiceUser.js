@@ -18,9 +18,10 @@ export async function login(phone, password)
     password,
   });
 
-  const response = appelPost('/public/login', body);
-
-  console.log(response.token);
+  appelPost('/public/login', body).then((response) =>
+  {
+    console.log(response);
+  });
 }
 
 /** permet d'enregistrer un nouveau utilisateur

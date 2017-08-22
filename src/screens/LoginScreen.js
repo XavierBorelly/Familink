@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import { HOME_SCENE_NAME } from './HomeScreen';
 import { SIGNUP_SCENE_NAME } from './SignUpScreen';
 import { PASSWORD_RESET_SCENE_NAME } from './PasswordResetScreen';
+import { login } from '../WS/WebServiceUser';
 
 export const LOGIN_SCENE_NAME = 'LOGIN_SCENE';
 
@@ -55,7 +56,7 @@ export default class LoginScreen extends Component
   {
     super(props);
     this.navigate = this.props.navigation.navigate;
-    this.state = { checked: false, user: null };
+    this.state = { checked: false, user: '', password: null };
   }
 
   componentWillMount()
@@ -93,7 +94,7 @@ export default class LoginScreen extends Component
   async doConnection()
   {
     const user = this.state.user;
-    // const password = this.state.password;
+    const password = this.state.password;
     const checked = this.state.checked;
     try
     {
@@ -114,8 +115,9 @@ export default class LoginScreen extends Component
         // Error saving data
       }
     }
-    // On fait l'appel au service de connection
-    // on renvoie le token et on change de page si tout est bon
+    login(user, password);
+    console.log(user);
+    console.log(password);
     this.props.navigation.navigate(HOME_SCENE_NAME);
   }
 
