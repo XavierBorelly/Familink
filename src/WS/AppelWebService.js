@@ -1,5 +1,5 @@
 import { urlWs } from '../Util';
-import tokenError from '../error/Token';
+import { tokenInvalide } from '../error/Token';
 
 export async function appelGet(lien, token, propsNavigation)
 {
@@ -11,10 +11,9 @@ export async function appelGet(lien, token, propsNavigation)
     },
   });
 
-  if(token !== '' || token !== undefined || token !== null)
+  if (token !== '' || token !== undefined || token !== null)
   {
-    const tE = new tokenError();
-    if(tE.tokenInvalide(response.status, propsNavigation))
+    if (tokenInvalide(response.status, propsNavigation))
     {
       const responseJson = await response.json();
       return responseJson;
@@ -36,10 +35,9 @@ export async function appelPost(lien, data, token, propsNavigation)
     body: `${data}`,
   });
 
-  if(token !== '' || token !== undefined || token !== null)
+  if (token !== '' || token !== undefined || token !== null)
   {
-    const tE = new tokenError();
-    if(tE.tokenInvalide(response.status, propsNavigation))
+    if (tokenInvalide(response.status, propsNavigation))
     {
       const responseJson = await response.json();
       return responseJson;
@@ -61,10 +59,9 @@ export async function appelDelete(lien, data, token, propsNavigation)
     body: `${data}`,
   });
 
-  if(token !== '' || token !== undefined || token !== null)
+  if (token !== '' || token !== undefined || token !== null)
   {
-    const tE = new tokenError();
-    if(tE.tokenInvalide(response.status, propsNavigation))
+    if (tokenInvalide(response.status, propsNavigation))
     {
       const responseJson = await response.json();
       return responseJson;
@@ -86,10 +83,9 @@ export async function appelPut(lien, data, token, propsNavigation)
     body: `${data}`,
   });
 
-  if(token !== '' || token !== undefined || token !== null)
+  if (token !== '' || token !== undefined || token !== null)
   {
-    const tE = new tokenError();
-    if(tE.tokenInvalide(response.status, propsNavigation))
+    if (tokenInvalide(response.status, propsNavigation))
     {
       const responseJson = await response.json();
       return responseJson;
