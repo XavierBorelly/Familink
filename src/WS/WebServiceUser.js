@@ -1,6 +1,6 @@
 import { appelGet, appelPost, appelPut } from './AppelWebService';
 import { saveTokenToBDD, getTokenFromBDD } from '../BDD/Token';
-import tokenError from '../error/Token';
+import { tokenVide } from '../error/Token';
 
 /** permet d'obtenir les différents profil d'utilisateur
  *
@@ -64,8 +64,7 @@ export async function editUser(name, firstName, email, profile, propsNavigation)
 {
   getTokenFromBDD().then((token) =>
   {
-    const tE = new tokenError();
-    if(tE.tokenVide(token, propsNavigation))
+    if (tokenVide(token, propsNavigation))
     {
       const body = JSON.stringify({
         lastName: name,
