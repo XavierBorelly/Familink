@@ -21,10 +21,13 @@ jest.mock('Linking', () => ({
 }));
 
 // See https://github.com/facebook/react-native/issues/11659
-jest.mock('ScrollView', () => {
+jest.mock('ScrollView', () =>
+{
   const RealComponent = require.requireActual('ScrollView');
-  class ScrollView extends RealComponent {
-    scrollTo = () => {}
+  class ScrollView extends RealComponent
+  {
+    scrollTo = () =>
+    {}
   }
   return ScrollView;
 });
@@ -38,9 +41,10 @@ global.fetch = jest.fn();
  * Helper to mock a success response (only once)
  * @param body {Object}
  */
-global.fetch.mockResponseSuccess = (body = {}, status = 200) => {
+global.fetch.mockResponseSuccess = (body = {}, status = 200) =>
+{
   global.fetch.mockImplementationOnce(
-    () => Promise.resolve({ status, json: () => Promise.resolve(body) })
+    () => Promise.resolve({ status, json: () => Promise.resolve(body) }),
   );
 };
 
@@ -49,10 +53,13 @@ global.fetch.mockResponseSuccess = (body = {}, status = 200) => {
  * @param body {Object}
  * @param headers {Map} add headers to the body response
  */
-global.fetch.mockResponseSuccessWithHeaders = (body = {}, headers = {}, status = 200) => {
+global.fetch.mockResponseSuccessWithHeaders = (body = {}, headers = {}, status = 200) =>
+{
   global.fetch.mockImplementationOnce(
-    () => {
-      if (body.headers) {
+    () =>
+    {
+      if (body.headers)
+      {
         // invalid
         process.exit(9);
       }
@@ -63,15 +70,16 @@ global.fetch.mockResponseSuccessWithHeaders = (body = {}, headers = {}, status =
         },
         json: () => Promise.resolve(body),
       });
-    }
+    },
   );
 };
 
 /**
  * Helper to mock a failure response (only once)
  */
-global.fetch.mockResponseFailure = (error) => {
+global.fetch.mockResponseFailure = (error) =>
+{
   global.fetch.mockImplementationOnce(
-    () => Promise.reject(error)
+    () => Promise.reject(error),
   );
 };
