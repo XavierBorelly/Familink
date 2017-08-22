@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Button, Image, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
+
+import { connect } from 'react-redux';
 
 import Header from '../components/Header';
 import { HOME_SCENE_NAME } from './HomeScreen';
-import { CONTACT_SCENE_NAME } from './ContactScreen';
-import MenuIcon from '../../assets/icon_phonebook.jpg';
+import { CONTACT_SCENE_NAME } from '../apps/ContactApp';
+
 import BackButton from '../components/BackButton';
 
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
@@ -18,32 +20,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: $bgColor,
   },
-  icon: {
-    width: 48,
-    height: 48,
-  },
 });
 
-export default class PhonebookScreen extends Component
+// eslint-disable-next-line react/prefer-stateless-function
+export class PhonebookScreen extends Component
 {
-  static navigationOptions = {
-    drawerLabel: 'Phonebook',
-    drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
-  };
-
   render()
   {
     const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
         <Header hasMenu navigation={navigation} title="Répertoire" />
+        <Text>Contacts in store : {this.props.contactsList.length} </Text>
         <Button
           onPress={() =>
           {
             navigation.navigate(CONTACT_SCENE_NAME);
           }
           }
-          title="Modifier contact"
+          title="Ajouter contact"
         />
         <BackButton navigation={navigation} param={HOME_SCENE_NAME} />
       </View>
@@ -53,4 +48,16 @@ export default class PhonebookScreen extends Component
 
 PhonebookScreen.propTypes = {
   navigation: React.PropTypes.func.isRequired,
+  contactsList: React.PropTypes.func.isRequired,
 };
+
+// Map props from redux state
+function mapStateToProps(state)
+{
+  return {
+    contactsList: state.contactsReducer.contactsList,
+  };
+}
+
+// connect screen elements to redux object
+export default connect(mapStateToProps, null)(PhonebookScreen);
