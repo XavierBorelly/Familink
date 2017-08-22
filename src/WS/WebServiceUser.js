@@ -1,5 +1,6 @@
 import { appelGet, appelPost, appelPut } from './AppelWebService';
 import { saveTokenToBDD, getTokenFromBDD } from '../BDD/Token';
+import tokenError from '../error/Token';
 
 /** permet d'obtenir les différents profil d'utilisateur
  *
@@ -7,7 +8,7 @@ import { saveTokenToBDD, getTokenFromBDD } from '../BDD/Token';
  */
 export async function getProfil()
 {
-  return appelGet('/public/profiles', null);
+  return appelGet('/public/profiles', null, null);
 }
 
 /** permet d'obtenir le token d'authentification (et l'enregistre dans la base de donnée)
@@ -19,7 +20,7 @@ export async function login(phone, password)
     password,
   });
 
-  appelPost('/public/login', body, null).then((response) =>
+  appelPost('/public/login', body, null, null).then((response) =>
   {
     saveTokenToBDD(response.token);
   });
@@ -38,7 +39,7 @@ export async function saveUser(phone, password, name, firstName, email, profile)
     profile,
   });
 
-  appelPost('/public/sign-in', body, null);
+  appelPost('/public/sign-in', body, null, null);
 }
 
 /** permet de faire une demande pour retrouver son password
@@ -49,23 +50,26 @@ export async function forgotPassword(phone)
     phone,
   });
 
-  appelPost('/public/forgot-password', body, null);
+  appelPost('/public/forgot-password', body, null, null);
 }
 
 /** permet de modifier un utilisateur
  */
-export async function editUser(name, firstName, email, profile)
+export async function editUser(name, firstName, email, profile, propsNavigation)
 {
   getTokenFromBDD().then((token) =>
   {
-    const body = JSON.stringify({
-      lastName: name,
-      firstName,
-      email,
-      profile,
-    });
+    const tE = new tokenError();
+    if(tE.tokenVide(token, propsNavigation))
+    {
+      const body = JSON.stringify({
+        lastName: name,
+        firstName,
+        email,
+        profile,
+      });
 
-    const structureToken = `Bearer ${token}`;
-    appelPut('/secured/users', body, structureToken);
+      appelPut('/secured/users', body, token, propsNavigation);
+    }
   });
 }
