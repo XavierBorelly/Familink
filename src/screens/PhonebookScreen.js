@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-
 import { connect } from 'react-redux';
 
-import Header from '../components/Header';
-import { HOME_SCENE_NAME } from './HomeScreen';
 import { CONTACT_SCENE_NAME } from '../apps/ContactApp';
-
+import { HOME_SCENE_NAME } from './HomeScreen';
 import BackButton from '../components/BackButton';
+import Header from '../components/Header';
+import Contact from '../models/Contact';
+
 
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
 
@@ -32,10 +32,11 @@ export class PhonebookScreen extends Component
       <View style={styles.container}>
         <Header hasMenu navigation={navigation} title="Répertoire" />
         <Text>Contacts in store : {this.props.contactsList.length} </Text>
+        {/* <Text>{JSON.stringify(this.props.contactsList)}</Text> */}
         <Button
           onPress={() =>
           {
-            navigation.navigate(CONTACT_SCENE_NAME);
+            navigation.navigate(CONTACT_SCENE_NAME, new Contact(0, {}));
           }
           }
           title="Ajouter contact"
@@ -47,8 +48,8 @@ export class PhonebookScreen extends Component
 }
 
 PhonebookScreen.propTypes = {
-  navigation: React.PropTypes.func.isRequired,
-  contactsList: React.PropTypes.func.isRequired,
+  navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+  contactsList: React.PropTypes.arrayOf(Contact).isRequired,
 };
 
 // Map props from redux state

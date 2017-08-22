@@ -18,3 +18,7 @@ Gravatar.propTypes = {
   email: PropTypes.string.isRequired,
   size: PropTypes.number.isRequired,
 };
+
+Gravatar.defaultProps = {
+  email: '',
+};

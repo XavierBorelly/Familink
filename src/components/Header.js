@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
     top: (Platform.OS === 'ios') ? 20 : 0,
     height: 38,
     width: Dimensions.get('window').width,
-    borderWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
   },
   icon: {
     width: 36,

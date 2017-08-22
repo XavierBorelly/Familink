@@ -12,5 +12,6 @@ export function addContact(data)
   return {
     type: ADD_CONTACT,
     newContact: new Contact(counter, data),
+    saved: true,
   };
 }
