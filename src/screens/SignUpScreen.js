@@ -1,35 +1,248 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-
+import { Button, StyleSheet, Text, TextInput, View, Picker, TouchableOpacity, TabBarIOS } from 'react-native';
 import Header from '../components/Header';
-import { LOGIN_SCENE_NAME } from './LoginScreen';
+import { showDebugPopIn } from '../Popin.js';
+import { getProfil, saveUser } from '../WS/WebService.js';
+import ProfilePicker, { profil }from '../components/ProfilePicker';
 
 export const SIGNUP_SCENE_NAME = 'SIGNUP_SCENE';
 
-const $bgColor = '#F5FCFF';
+const $focusedColor = '#DDFFEE';
+const $inputBorderColor = '#E0E4CC';
+const $inputErrorColor = '#CF000F';
+const $whiteColor = '#FFFFFF';
+const $blackColor = '#000000';
+
+// Chaines de caractères utilisés pour savoir quel élément est focus
+const phoneNumberInput = 'phone';
+const passwordInput = 'password';
+const confirmPasswordInput = 'confirmPassword';
+const nameInput = 'name';
+const surnameInput = 'surname';
+const mailInput = 'email';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: $bgColor,
-  }
+  },
+  header: {
+    flex: 0.1,
+    width: '100%',
+    borderWidth: 1,
+    flexDirection: 'row',
+  },
+  burgerMenu: {
+    width: '20%',
+    borderRightWidth: 1,
+    textAlign: 'center',
+    justifyContent: 'center',
+  },
+  headerTitle: {
+    width: '80%',
+    textAlign: 'center',
+    justifyContent: 'center',
+    fontSize: 40,
+  },
+  content: {
+    backgroundColor: '#EEEEEE',
+    flex: 0.8,
+    width : '80%',
+  },
+  cell: {
+    flex: 1,
+  },
+  cellFocused: {
+    flex: 3,
+  },
+  textInput: {
+    paddingLeft: 10,
+    borderColor: $inputBorderColor,
+    flex: 1,
+    backgroundColor: $whiteColor,
+  },
+  textInputFocused: {
+      paddingLeft: 10,
+      borderColor: $inputBorderColor,
+      flex: 1,
+      backgroundColor: $focusedColor,
+  },
+  textInputError: {
+    paddingLeft: 10,
+    borderColor: $inputBorderColor,
+    flex: 0.8,
+    color: $whiteColor,
+    backgroundColor: $inputErrorColor,
+  },
+  button: {
+    flex: 1,
+    height:99,
+    backgroundColor: $inputErrorColor,
+  },
 });
+
+const profils = [];
 
 export default class SignUpScreen extends Component
 {
-  static navigationOptions = {
-    drawerLabel: 'Sign Up',
+  static navigationOptions =
+  {
+    title: 'Sign Up',
   };
+
+  constructor(props)
+  {
+    super(props);
+    this.state = { errors: null,
+      focused: 'null',
+      phone: null,
+      password: null,
+      name: null,
+      firstName: null,
+      email: null,
+    };
+  }
+
+  componentDidMount()
+  {
+    getProfil().then((p) =>
+    {
+      for (let i = 0; i < 3; i += 1)
+      {
+        profils.push(p[i]);
+      }
+    });
+  }
+
+  setFocus(focusedItemName)
+  {
+    this.setState({
+      focused: focusedItemName,
+    });
+  }
+
+  resetFocus()
+  {
+    this.setState({
+      focused: 'null',
+    });
+  }
 
   render()
   {
-    let navigation = this.props.navigation;
+    const navigation = this.props.navigation;
+    const title = "S'enregistrer";
+
     return (
       <View style={styles.container}>
-        <Header navigation={navigation} title="S'enregistrer" />
-        <Button onPress={() => { navigation.navigate(LOGIN_SCENE_NAME)} } title="Connexion" />
+
+        <Header navigation={navigation} title={title} />
+        <View style={styles.content}>
+
+          <View style={this.state.focused === phoneNumberInput ? styles.cellFocused : styles.cell}>
+            <TextInput
+              style={this.state.focused === phoneNumberInput ?
+                styles.textInputFocused : styles.textInput}
+              onChangeText={text => this.setState({ phone: text })}
+              keyboardType="numeric"
+              placeholder="Numéro de téléphone"
+              selectTextOnFocus
+              onBlur={() => this.resetFocus()}
+              onFocus={() => this.setFocus(phoneNumberInput)}
+              maxLength={10}
+            />
+          </View>
+
+          <View style={this.state.focused === passwordInput ? styles.cellFocused : styles.cell}>
+            <TextInput
+              style={this.state.focused === passwordInput ?
+                styles.textInputFocused : styles.textInput}
+              onChangeText={text => this.setState({ password: text })}
+              keyboardType="numeric"
+              placeholder="Mot de passe"
+              selectTextOnFocus
+              secureTextEntry
+              onBlur={() => this.resetFocus()}
+              onFocus={() => this.setFocus(passwordInput)}
+              maxLength={4}
+            />
+          </View>
+
+          <View style={this.state.focused === confirmPasswordInput ? styles.cellFocused : styles.cell}>
+            <TextInput
+              style={this.state.focused === confirmPasswordInput ?
+                styles.textInputFocused : styles.textInput}
+              onChangeText={text => this.setState({ password: text })}
+              keyboardType="numeric"
+              placeholder="Confirmation du mot de passe"
+              selectTextOnFocus
+              secureTextEntry
+              onBlur={() => this.resetFocus()}
+              onFocus={() => this.setFocus(confirmPasswordInput)}
+              maxLength={4}
+            />
+          </View>
+
+          <View style={this.state.focused === nameInput ? styles.cellFocused : styles.cell}>
+            <TextInput
+              style={this.state.focused === nameInput ? styles.textInputFocused : styles.textInput}
+              onChangeText={text => this.setState({ name: text })}
+              placeholder="Nom"
+              selectTextOnFocus
+              onBlur={() => this.resetFocus()}
+              onFocus={() => this.setFocus(nameInput)}
+              maxLength={15}
+            />
+          </View>
+
+          <View style={this.state.focused === surnameInput ? styles.cellFocused : styles.cell}>
+            <TextInput
+              style={this.state.focused === surnameInput ?
+                styles.textInputFocused : styles.textInput}
+              onChangeText={text => this.setState({ firstName: text })}
+              placeholder="Prenom"
+              selectTextOnFocus
+              onBlur={() => this.resetFocus()}
+              onFocus={() => this.setFocus(surnameInput)}
+              maxLength={15}
+            />
+          </View>
+
+          <View style={this.state.focused === mailInput ? styles.cellFocused : styles.cell}>
+            <TextInput
+              style={this.state.focused === mailInput ? styles.textInputFocused : styles.textInput}
+              onChangeText={text => this.setState({ email: text })}
+              placeholder="Email"
+              selectTextOnFocus
+              maxLength={50}
+              onBlur={() => this.resetFocus()}
+              onFocus={() => this.setFocus(mailInput)}
+              keyboardType="email-address"
+            />
+          </View>
+
+          <ProfilePicker></ProfilePicker>
+
+          <View style={styles.cell}>
+            <Button
+              onPress={() =>
+              {
+                saveUser(this.state.phone, this.state.password, this.state.name, this.state.firstName, this.state.email, profil);
+                console.log(this.state.phone);
+                console.log(this.state.password);
+                console.log(this.state.name);
+                console.log(this.state.firstName);
+                console.log(this.state.email);
+                console.log(profil);
+              }
+              }
+              title="Valider"
+              color="#D35400"
+              accessibilityLabel="Valider"
+            />
+          </View>
+        </View>
       </View>
     );
   }
