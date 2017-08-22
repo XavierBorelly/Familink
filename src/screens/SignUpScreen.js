@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, TextInput, View, Picker, TouchableOpacity, TabBarIOS } from 'react-native';
+import { Button, StyleSheet, TextInput, View } from 'react-native';
+import BackButton from '../components/BackButton';
+
 import Header from '../components/Header';
-import { showDebugPopIn } from '../Popin.js';
-import { getProfil, saveUser } from '../WS/WebService.js';
-import ProfilePicker, { profil }from '../components/ProfilePicker';
+import ProfilePicker, { profil } from '../components/ProfilePicker';
+import { saveUser } from '../WS/WebServiceUser';
+import { LOGIN_SCENE_NAME } from './LoginScreen';
+
 
 export const SIGNUP_SCENE_NAME = 'SIGNUP_SCENE';
 
+const $bgColor = '#F5FCFF';
+
 const $focusedColor = '#DDFFEE';
 const $inputBorderColor = '#E0E4CC';
-const $inputErrorColor = '#CF000F';
+const $lightgrayColor = '#EEEEEE';
 const $whiteColor = '#FFFFFF';
-const $blackColor = '#000000';
 
 // Chaines de caractères utilisés pour savoir quel élément est focus
 const phoneNumberInput = 'phone';
@@ -21,34 +25,18 @@ const nameInput = 'name';
 const surnameInput = 'surname';
 const mailInput = 'email';
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  header: {
-    flex: 0.1,
-    width: '100%',
-    borderWidth: 1,
-    flexDirection: 'row',
-  },
-  burgerMenu: {
-    width: '20%',
-    borderRightWidth: 1,
-    textAlign: 'center',
-    justifyContent: 'center',
-  },
-  headerTitle: {
-    width: '80%',
-    textAlign: 'center',
-    justifyContent: 'center',
-    fontSize: 40,
+    backgroundColor: $bgColor,
   },
   content: {
-    backgroundColor: '#EEEEEE',
+    backgroundColor: $lightgrayColor,
     flex: 0.8,
-    width : '80%',
+    width: '80%',
   },
   cell: {
     flex: 1,
@@ -63,32 +51,18 @@ const styles = StyleSheet.create({
     backgroundColor: $whiteColor,
   },
   textInputFocused: {
-      paddingLeft: 10,
-      borderColor: $inputBorderColor,
-      flex: 1,
-      backgroundColor: $focusedColor,
-  },
-  textInputError: {
     paddingLeft: 10,
     borderColor: $inputBorderColor,
-    flex: 0.8,
-    color: $whiteColor,
-    backgroundColor: $inputErrorColor,
-  },
-  button: {
     flex: 1,
-    height:99,
-    backgroundColor: $inputErrorColor,
+    backgroundColor: $focusedColor,
   },
 });
 
-const profils = [];
-
 export default class SignUpScreen extends Component
 {
-  static navigationOptions =
-  {
-    title: 'Sign Up',
+  static navigationOptions = {
+    drawerLabel: 'Sign Up',
+    drawerLockMode: 'locked-closed',
   };
 
   constructor(props)
@@ -102,17 +76,6 @@ export default class SignUpScreen extends Component
       firstName: null,
       email: null,
     };
-  }
-
-  componentDidMount()
-  {
-    getProfil().then((p) =>
-    {
-      for (let i = 0; i < 3; i += 1)
-      {
-        profils.push(p[i]);
-      }
-    });
   }
 
   setFocus(focusedItemName)
@@ -132,12 +95,11 @@ export default class SignUpScreen extends Component
   render()
   {
     const navigation = this.props.navigation;
-    const title = "S'enregistrer";
-
     return (
       <View style={styles.container}>
+        <Header navigation={navigation} title="S'enregistrer" />
+        <BackButton navigation={navigation} param={LOGIN_SCENE_NAME} />
 
-        <Header navigation={navigation} title={title} />
         <View style={styles.content}>
 
           <View style={this.state.focused === phoneNumberInput ? styles.cellFocused : styles.cell}>
@@ -169,7 +131,9 @@ export default class SignUpScreen extends Component
             />
           </View>
 
-          <View style={this.state.focused === confirmPasswordInput ? styles.cellFocused : styles.cell}>
+          <View style={this.state.focused === confirmPasswordInput ?
+            styles.cellFocused : styles.cell}
+          >
             <TextInput
               style={this.state.focused === confirmPasswordInput ?
                 styles.textInputFocused : styles.textInput}
@@ -222,19 +186,14 @@ export default class SignUpScreen extends Component
             />
           </View>
 
-          <ProfilePicker></ProfilePicker>
+          <ProfilePicker />
 
           <View style={styles.cell}>
             <Button
               onPress={() =>
               {
-                saveUser(this.state.phone, this.state.password, this.state.name, this.state.firstName, this.state.email, profil);
-                console.log(this.state.phone);
-                console.log(this.state.password);
-                console.log(this.state.name);
-                console.log(this.state.firstName);
-                console.log(this.state.email);
-                console.log(profil);
+                saveUser(this.state.phone, this.state.password, this.state.name,
+                  this.state.firstName, this.state.email, profil);
               }
               }
               title="Valider"
@@ -247,3 +206,7 @@ export default class SignUpScreen extends Component
     );
   }
 }
+
+SignUpScreen.propTypes = {
+  navigation: React.PropTypes.func.isRequired,
+};

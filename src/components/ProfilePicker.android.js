@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Picker } from 'react-native';
-import { getProfil } from '../WS/WebService';
+import { getProfil } from '../WS/WebServiceUser';
 
 const profils = [];
 export let profil = 'SENIOR'
