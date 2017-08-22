@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 export default class PhonebookScreen extends Component
 {
   static navigationOptions = {
-    drawerLabel: 'Phonebook',
+    drawerLabel: 'Contacts',
     drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
 

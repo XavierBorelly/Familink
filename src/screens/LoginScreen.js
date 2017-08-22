@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 export default class LoginScreen extends Component
 {
   static navigationOptions = {
-    drawerLabel: 'Login',
+    drawerLabel: 'Déconnection',
     drawerLockMode: 'locked-closed',
   };
 
