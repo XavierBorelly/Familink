@@ -25,5 +25,5 @@ export default class ContactApp extends Component
 }
 
 ContactApp.propTypes = {
-  navigation: React.PropTypes.func.isRequired,
+  navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };

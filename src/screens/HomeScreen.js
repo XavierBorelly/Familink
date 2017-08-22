@@ -58,5 +58,5 @@ export default class HomeScreen extends Component
 }
 
 HomeScreen.propTypes = {
-  navigation: React.PropTypes.func.isRequired,
+  navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };

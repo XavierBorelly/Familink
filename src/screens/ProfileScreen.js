@@ -43,5 +43,5 @@ export default class ProfileScreen extends Component
 }
 
 ProfileScreen.propTypes = {
-  navigation: React.PropTypes.func.isRequired,
+  navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };
