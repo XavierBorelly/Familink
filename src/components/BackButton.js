@@ -47,10 +47,8 @@ export default class BackButton extends Component
 }
 
 BackButton.propTypes = {
-  navigation: PropTypes.func.isRequired,
-  /* eslint-disable */
-  param: PropTypes.any.isRequired,
-  /* eslint-enable */
+  navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+  param: PropTypes.string.isRequired,
 };
 
 AppRegistry.registerComponent('BackButton', () => BackButton);

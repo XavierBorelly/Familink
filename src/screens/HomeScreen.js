@@ -3,7 +3,7 @@ import { Image, Button, StyleSheet, View } from 'react-native';
 
 import Header from '../components/Header';
 import { PROFILE_SCENE_NAME } from './ProfileScreen';
-import { PHONEBOOK_SCENE_NAME } from './PhonebookScreen';
+import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
 import MenuIcon from '../../assets/icon_home.jpg';
 
 export const HOME_SCENE_NAME = 'HOME_SCENE';
@@ -58,5 +58,5 @@ export default class HomeScreen extends Component
 }
 
 HomeScreen.propTypes = {
-  navigation: React.PropTypes.func.isRequired,
+  navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };
