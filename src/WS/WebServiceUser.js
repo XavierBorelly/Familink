@@ -1,6 +1,6 @@
 import { appelGet, appelPost, appelPut } from './AppelWebService';
 import { saveTokenToBDD, getTokenFromBDD } from '../BDD/Token';
-import { tokenVide } from '../error/Token';
+import { tokenVide } from '../errors/Token';
 
 /** permet d'obtenir les différents profil d'utilisateur
  *
