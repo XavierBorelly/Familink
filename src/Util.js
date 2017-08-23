@@ -13,8 +13,9 @@ export const labelExplainForgotPassword = 'Indiquez votre numéro de téléphone
 
 export const regexPhone = /^(0|(\\+33)|(0033))[1-9][0-9]{8}$/;
 export const regexPassword = /^[0-9]{4}$/;
-export const regexMail = /^(([^<>()[]\\.,;:\s@"]+(\.[^<>()[]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+/* eslint-disable */
+export const regexMail = /^(([^<>()\[\]\\.,;:\s@“]+(\.[^<>()\[\]\\.,;:\s@“]+)*)|(“.+“))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+/* eslint-enable */
 export const buttonLabelConnection = 'Se connecter';
 export const buttonLabelForgotPassword = 'Mot de passe oublié';
 export const buttonLabelSignIn = "S'enregistrer";

@@ -8,7 +8,6 @@ import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import Contact from '../models/Contact';
 
-
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
 
 const $bgColor = '#F5FCFF';

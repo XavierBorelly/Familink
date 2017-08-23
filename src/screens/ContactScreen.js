@@ -8,6 +8,8 @@ import BackButton from '../components/BackButton';
 import Gravatar from '../components/Gravatar';
 import Header from '../components/Header';
 
+export const CONTACT_SCENE_NAME = 'CONTACT_SCENE';
+
 const $bgColor = '#F5FCFF';
 const $focusedColor = '#DDFFEE';
 const $inputBorderColor = '#E0E4CC';
@@ -64,7 +66,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-
 });
 
 
@@ -150,7 +151,6 @@ export class ContactScreen extends Component
   render()
   {
     const navigation = this.props.navigation;
-
     const actionButtons = this.getActionButtons();
 
     return (
@@ -232,7 +232,6 @@ export class ContactScreen extends Component
           {actionButtons}
 
         </View>
-
 
         <BackButton navigation={navigation} param={PHONEBOOK_SCENE_NAME} />
       </View>

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 export default class HomeScreen extends Component
 {
   static navigationOptions = {
-    drawerLabel: 'Home',
+    drawerLabel: 'Accueil',
     drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
 

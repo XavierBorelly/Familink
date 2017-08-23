@@ -3,7 +3,7 @@ import { TabBarIOS, View } from 'react-native';
 import { getProfil } from '../WS/WebServiceUser';
 
 const profils = [];
-export let profil = 'SENIOR'
+export const profil = 'SENIOR';
 
 export default class ProfilePicker extends Component
 {
@@ -11,7 +11,6 @@ export default class ProfilePicker extends Component
   {
     super(props);
     this.state = { profil: 'SENIOR' };
-    profil = 'SENIOR';
   }
 
   componentDidMount()
@@ -42,7 +41,7 @@ export default class ProfilePicker extends Component
             selected={this.state.profil === profils[i]}
             onPress={() =>
             {
-              profil = profils[i];
+              // profil = profils[i];
               this.setState({
                 profil: profils[i],
               });

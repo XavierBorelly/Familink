@@ -6,7 +6,9 @@ import Header from '../components/Header';
 import ProfilePicker, { profil } from '../components/ProfilePicker';
 import { saveUser } from '../WS/WebServiceUser';
 import { LOGIN_SCENE_NAME } from './LoginScreen';
-
+import { checkPhoneNumber, checkPassword, checkSurname, checkMail } from '../errors/FamilinkErrors';
+import { errorPopinTitle } from '../errors/ErrorStrings';
+import { showInformativePopin } from '../Popin';
 
 export const SIGNUP_SCENE_NAME = 'SIGNUP_SCENE';
 
@@ -25,6 +27,7 @@ const nameInput = 'name';
 const surnameInput = 'surname';
 const mailInput = 'email';
 
+let errors = [];
 
 const styles = StyleSheet.create({
   container: {
@@ -72,6 +75,7 @@ export default class SignUpScreen extends Component
       focused: 'null',
       phone: null,
       password: null,
+      confirmPassword: null,
       name: null,
       firstName: null,
       email: null,
@@ -136,7 +140,7 @@ export default class SignUpScreen extends Component
             <TextInput
               style={this.state.focused === confirmPasswordInput ?
                 styles.textInputFocused : styles.textInput}
-              onChangeText={text => this.setState({ password: text })}
+              onChangeText={text => this.setState({ confirmPassword: text })}
               keyboardType="numeric"
               placeholder="Confirmation du mot de passe"
               selectTextOnFocus
@@ -191,8 +195,27 @@ export default class SignUpScreen extends Component
             <Button
               onPress={() =>
               {
-                saveUser(this.state.phone, this.state.password, this.state.name,
-                  this.state.firstName, this.state.email, profil);
+                errors = [];
+                errors.push(checkPhoneNumber(this.state.phone));
+                errors.push(checkPassword(this.state.password, this.state.confirmPassword));
+                errors.push(checkSurname(this.state.firstName));
+                errors.push(checkMail(this.state.email));
+
+                let thereIsErrors = false;
+                for (let i = 0; i < errors.length; i += 1)
+                {
+                  if (errors[i] !== '')
+                  {
+                    showInformativePopin(errorPopinTitle, errors[i]);
+                    thereIsErrors = true;
+                    break;
+                  }
+                }
+                if (!thereIsErrors)
+                {
+                  saveUser(this.state.phone, this.state.password, this.state.name,
+                    this.state.firstName, this.state.email, profil);
+                }
               }
               }
               title="Valider"
@@ -207,6 +230,5 @@ export default class SignUpScreen extends Component
 }
 
 SignUpScreen.propTypes = {
-  navigation: React.PropTypes.func.isRequired,
   navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };

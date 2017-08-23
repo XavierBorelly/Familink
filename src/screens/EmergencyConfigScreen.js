@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 export default class EmergencyConfigScreen extends Component
 {
   static navigationOptions = {
-    drawerLabel: 'Emergency config',
+    drawerLabel: 'Config Urgence',
     drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
 
