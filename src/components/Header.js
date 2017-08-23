@@ -1,42 +1,59 @@
 import React, { Component, PropTypes } from 'react';
-import { Dimensions, Platform, Text, Image, View, Button, StyleSheet, TouchableHighlight } from 'react-native';
+import { Dimensions, Platform, Text, Image, View, StyleSheet, TouchableHighlight } from 'react-native';
+
+import MenuIcon from '../../assets/icon_menu.jpg';
+
+const $bgHeaderColor = '#0E9A01';
 
 const styles = StyleSheet.create({
   header_container: {
     position: 'absolute',
     flexDirection: 'row',
-    top: (Platform.OS === 'ios') ? 20 : 10,
-    height: 36,
+    top: (Platform.OS === 'ios') ? 20 : 0,
+    height: 38,
     width: Dimensions.get('window').width,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    backgroundColor: $bgHeaderColor,
   },
   icon: {
     width: 36,
     height: 36,
   },
   title: {
-    fontSize: 30,
-    marginLeft: 10,
+    position: 'absolute',
+    left: 38,
+    borderLeftWidth: 1,
+    paddingLeft: 10,
+    fontSize: 26,
   },
 });
 
 
-export default class Header extends Component 
+export default class Header extends Component
 {
-  constructor(props) 
-{
-    super(props);
-  }
-
-  render() 
-{
+  getMenuButton()
+  {
     const props = this.props;
     return (
+      <TouchableHighlight onPress={() =>
+      {
+        props.navigation.navigate('DrawerOpen');
+      }}
+      >
+        <Image style={styles.icon} source={MenuIcon} />
+      </TouchableHighlight>
+    );
+  }
+
+  render()
+  {
+    const props = this.props;
+    const menuButton = (props.hasMenu) ? this.getMenuButton() : null;
+
+    return (
       <View style={styles.header_container} >
-        <TouchableHighlight onPress={() => 
-{ props.navigation.navigate('DrawerOpen'); 
-}} >
-          <Image style={styles.icon} source={require('../../assets/icon_menu.jpg')} />
-        </TouchableHighlight>
+        {menuButton}
         <Text style={styles.title}>{props.title}</Text>
       </View>
     );

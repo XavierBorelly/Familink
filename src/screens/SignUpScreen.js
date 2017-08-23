@@ -105,7 +105,6 @@ export default class SignUpScreen extends Component
       <View style={styles.container}>
         <Header navigation={navigation} title="S'enregistrer" />
         <BackButton navigation={navigation} param={LOGIN_SCENE_NAME} />
-
         <View style={styles.content}>
 
           <View style={this.state.focused === phoneNumberInput ? styles.cellFocused : styles.cell}>
@@ -242,5 +241,5 @@ export default class SignUpScreen extends Component
 }
 
 SignUpScreen.propTypes = {
-  navigation: React.PropTypes.func.isRequired,
+  navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };
