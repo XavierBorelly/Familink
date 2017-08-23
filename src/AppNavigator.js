@@ -8,7 +8,7 @@ import ProfileScreen, { PROFILE_SCENE_NAME } from './screens/ProfileScreen';
 import LoginScreen, { LOGIN_SCENE_NAME } from './screens/LoginScreen';
 import SignUpScreen, { SIGNUP_SCENE_NAME } from './screens/SignUpScreen';
 import PasswordResetScreen, { PASSWORD_RESET_SCENE_NAME } from './screens/PasswordResetScreen';
-
+import ContactScreen, { CONTACT_SCENE_NAME } from './screens/ContactScreen';
 
 const stackNavigatorConfig = {};
 
@@ -40,8 +40,12 @@ stackNavigatorConfig[PASSWORD_RESET_SCENE_NAME] = {
   screen: PasswordResetScreen,
 };
 
+stackNavigatorConfig[CONTACT_SCENE_NAME] = {
+  screen: ContactScreen,
+};
+
 const ApplicationNavigator = DrawerNavigator(stackNavigatorConfig, {
-  initialRouteName: HOME_SCENE_NAME,
+  initialRouteName: LOGIN_SCENE_NAME,
 });
 
 export default () => <ApplicationNavigator />;

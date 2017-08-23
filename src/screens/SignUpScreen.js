@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, TextInput, View, Picker } from 'react-native';
+import { Button, StyleSheet, TextInput, View } from 'react-native';
+import BackButton from '../components/BackButton';
+
+import Header from '../components/Header';
+import ProfilePicker from '../components/ProfilePicker';
+import { saveUser } from '../WS/WebServiceUser';
+import { LOGIN_SCENE_NAME } from './LoginScreen';
+import { checkPhoneNumber, checkPassword, checkSurname, checkMail } from '../errors/FamilinkErrors';
+import { errorPopinTitle } from '../errors/ErrorStrings';
+import { showInformativePopin } from '../Popin';
+import { labelInformativePopinTitle, labelUserCreated } from '../Util';
 
 export const SIGNUP_SCENE_NAME = 'SIGNUP_SCENE';
 
+const $bgColor = '#F5FCFF';
+
 const $focusedColor = '#DDFFEE';
 const $inputBorderColor = '#E0E4CC';
-const $inputErrorColor = '#CF000F';
+const $lightgrayColor = '#EEEEEE';
 const $whiteColor = '#FFFFFF';
-const $blackColor = '#000000';
 
 // Chaines de caractères utilisés pour savoir quel élément est focus
 const phoneNumberInput = 'phone';
@@ -17,39 +28,19 @@ const nameInput = 'name';
 const surnameInput = 'surname';
 const mailInput = 'email';
 
+let errors = [];
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
-    flexDirection: 'column',
-  },
-  header: {
-    flex: 0.1,
-    width: '100%',
-    borderWidth: 1,
-    flexDirection: 'row',
-  },
-  burgerMenu: {
-    width: '20%',
-    borderRightWidth: 1,
-    textAlign: 'center',
     justifyContent: 'center',
-  },
-  headerTitle: {
-    width: '80%',
-    textAlign: 'center',
-    justifyContent: 'center',
-    fontSize: 40,
+    alignItems: 'center',
+    backgroundColor: $bgColor,
   },
   content: {
-    backgroundColor: '#EEEEEE',
-    flex: 1,
-    width : '100%',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    backgroundColor: $lightgrayColor,
+    flex: 0.8,
+    width: '80%',
   },
   cell: {
     flex: 1,
@@ -64,102 +55,99 @@ const styles = StyleSheet.create({
     backgroundColor: $whiteColor,
   },
   textInputFocused: {
-      paddingLeft: 10,
-      borderColor: $inputBorderColor,
-      flex: 1,
-      backgroundColor: $focusedColor,
-  },
-  textInputError: {
     paddingLeft: 10,
     borderColor: $inputBorderColor,
-    flex: 0.8,
-    color: $whiteColor,
-    backgroundColor: $inputErrorColor,
-  },
-  button: {
     flex: 1,
-    backgroundColor: $inputErrorColor,
+    backgroundColor: $focusedColor,
   },
 });
 
 export default class SignUpScreen extends Component
 {
-  static navigationOptions =
-  {
-    title: 'Sign Up',
+  static navigationOptions = {
+    drawerLabel: 'Sign Up',
+    drawerLockMode: 'locked-closed',
   };
 
   constructor(props)
   {
     super(props);
-    this.state = { errors: null, profil: null, focused: 'null' };
+    this.state = { errors: null,
+      focused: 'null',
+      phone: null,
+      password: null,
+      confirmPassword: null,
+      name: null,
+      firstName: null,
+      email: null,
+      profil: 'SENIOR',
+    };
   }
 
-  setFocus(focusedItemName) {
-         this.setState({
-           focused: focusedItemName,
-     })
-   }
+  setFocus(focusedItemName)
+  {
+    this.setState({
+      focused: focusedItemName,
+    });
+  }
 
-   resetFocus() {
-     this.setState({
-       focused: 'null'
-     })
-   }
-
-
+  resetFocus()
+  {
+    this.setState({
+      focused: 'null',
+    });
+  }
 
   render()
   {
-
-    const title = "S'enregistrer";
+    const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.burgerMenu}>
-            _______
-          </Text>
+        <Header navigation={navigation} title="S'enregistrer" />
+        <BackButton navigation={navigation} param={LOGIN_SCENE_NAME} />
 
-          <Text style={styles.headerTitle}>
-            {title}
-          </Text>
-        </View>
         <View style={styles.content}>
 
           <View style={this.state.focused === phoneNumberInput ? styles.cellFocused : styles.cell}>
             <TextInput
-              style={this.state.focused === phoneNumberInput ? styles.textInputFocused : styles.textInput}
-              onChangeText={(text) => this.setState({text})}
+              style={this.state.focused === phoneNumberInput ?
+                styles.textInputFocused : styles.textInput}
+              onChangeText={text => this.setState({ phone: text })}
               keyboardType="numeric"
               placeholder="Numéro de téléphone"
-              selectTextOnFocus= {true}
+              selectTextOnFocus
               onBlur={() => this.resetFocus()}
               onFocus={() => this.setFocus(phoneNumberInput)}
               maxLength={10}
             />
           </View>
+
           <View style={this.state.focused === passwordInput ? styles.cellFocused : styles.cell}>
             <TextInput
-              style={this.state.focused === passwordInput ? styles.textInputFocused : styles.textInput}
-              onChangeText={(text) => this.setState({text})}
+              style={this.state.focused === passwordInput ?
+                styles.textInputFocused : styles.textInput}
+              onChangeText={text => this.setState({ password: text })}
               keyboardType="numeric"
               placeholder="Mot de passe"
-              selectTextOnFocus= {true}
-              secureTextEntry={true}
+              selectTextOnFocus
+              secureTextEntry
               onBlur={() => this.resetFocus()}
               onFocus={() => this.setFocus(passwordInput)}
               maxLength={4}
             />
           </View>
 
-          <View style={this.state.focused === confirmPasswordInput ? styles.cellFocused : styles.cell}>
+          <View style={this.state.focused === confirmPasswordInput ?
+            styles.cellFocused : styles.cell}
+          >
             <TextInput
-              style={this.state.focused === confirmPasswordInput ? styles.textInputFocused : styles.textInput}
-              onChangeText={(text) => this.setState({text})}
+              style={this.state.focused === confirmPasswordInput ?
+                styles.textInputFocused : styles.textInput}
+              onChangeText={text => this.setState({ confirmPassword: text })}
               keyboardType="numeric"
               placeholder="Confirmation du mot de passe"
-              selectTextOnFocus= {true}
-              secureTextEntry={true}
+              selectTextOnFocus
+              secureTextEntry
               onBlur={() => this.resetFocus()}
               onFocus={() => this.setFocus(confirmPasswordInput)}
               maxLength={4}
@@ -169,9 +157,9 @@ export default class SignUpScreen extends Component
           <View style={this.state.focused === nameInput ? styles.cellFocused : styles.cell}>
             <TextInput
               style={this.state.focused === nameInput ? styles.textInputFocused : styles.textInput}
-              onChangeText={(text) => this.setState({text})}
+              onChangeText={text => this.setState({ name: text })}
               placeholder="Nom"
-              selectTextOnFocus= {true}
+              selectTextOnFocus
               onBlur={() => this.resetFocus()}
               onFocus={() => this.setFocus(nameInput)}
               maxLength={15}
@@ -180,10 +168,11 @@ export default class SignUpScreen extends Component
 
           <View style={this.state.focused === surnameInput ? styles.cellFocused : styles.cell}>
             <TextInput
-              style={this.state.focused === surnameInput ? styles.textInputFocused : styles.textInput}
-              onChangeText={(text) => this.setState({text})}
+              style={this.state.focused === surnameInput ?
+                styles.textInputFocused : styles.textInput}
+              onChangeText={text => this.setState({ firstName: text })}
               placeholder="Prenom"
-              selectTextOnFocus= {true}
+              selectTextOnFocus
               onBlur={() => this.resetFocus()}
               onFocus={() => this.setFocus(surnameInput)}
               maxLength={15}
@@ -193,9 +182,9 @@ export default class SignUpScreen extends Component
           <View style={this.state.focused === mailInput ? styles.cellFocused : styles.cell}>
             <TextInput
               style={this.state.focused === mailInput ? styles.textInputFocused : styles.textInput}
-              onChangeText={(text) => this.setState({text})}
+              onChangeText={text => this.setState({ email: text })}
               placeholder="Email"
-              selectTextOnFocus= {true}
+              selectTextOnFocus
               maxLength={50}
               onBlur={() => this.resetFocus()}
               onFocus={() => this.setFocus(mailInput)}
@@ -203,20 +192,47 @@ export default class SignUpScreen extends Component
             />
           </View>
 
+          <ProfilePicker
+            ref={(profilePickerComponent) =>
+            {
+              this.profilePickerComponent = profilePickerComponent;
+            }
+            }
+          />
+
           <View style={styles.cell}>
-            <Picker
-              selectedValue={this.state.profil}
-              onValueChange={(itemValue, itemIndex) => this.setState({profil: itemValue})}>
-              <Picker.Item label="Senior" value="senior" />
-              <Picker.Item label="Famille" value="famille" />
-              <Picker.Item label="Medecin" value="medecin" />
-            </Picker>
-          </View>
-          <View style={styles.cell}>
-            <Button style={styles.button}
-              //onPress={onPressLearnMore}
+            <Button
+              onPress={() =>
+              {
+                errors = [];
+                errors.push(checkPhoneNumber(this.state.phone));
+                errors.push(checkPassword(this.state.password, this.state.confirmPassword));
+                errors.push(checkSurname(this.state.firstName));
+                errors.push(checkMail(this.state.email));
+
+                let thereIsErrors = false;
+                for (let i = 0; i < errors.length; i += 1)
+                {
+                  if (errors[i] !== '')
+                  {
+                    showInformativePopin(errorPopinTitle, errors[i]);
+                    thereIsErrors = true;
+                    break;
+                  }
+                }
+                if (!thereIsErrors)
+                {
+                  saveUser(this.state.phone, this.state.password, this.state.name,
+                    this.state.firstName, this.state.email,
+                    this.profilePickerComponent.state.profil);
+                  showInformativePopin(labelInformativePopinTitle, labelUserCreated);
+                  navigation.navigate(LOGIN_SCENE_NAME);
+                }
+              }
+              }
               title="Valider"
-              color="#841584"
+              color="#D35400"
+              accessibilityLabel="Valider"
             />
           </View>
         </View>
@@ -224,3 +240,7 @@ export default class SignUpScreen extends Component
     );
   }
 }
+
+SignUpScreen.propTypes = {
+  navigation: React.PropTypes.func.isRequired,
+};

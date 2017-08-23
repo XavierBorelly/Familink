@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
+
+import { HOME_SCENE_NAME } from './HomeScreen';
+import Header from '../components/Header';
+import MenuIcon from '../../assets/icon_emergency_config.jpg';
 
 export const EMERGENCY_CONFIG_SCENE_NAME = 'EMERGNCY_CONFIG_SCENE';
 
@@ -17,21 +21,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  icon: {
+    width: 48,
+    height: 48,
+  },
 });
 
 export default class EmergencyConfigScreen extends Component
 {
   static navigationOptions = {
-    title: 'Emergency config',
+    drawerLabel: 'Emergency config',
+    drawerIcon: (<Image source={MenuIcon} style={[styles.icon]}/>),
   };
 
   render()
   {
+    let navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Screen : Emergency config
-        </Text>
+        <Header navigation={navigation} title="Configuration d'urgence" />
+        <Button onPress={() => { navigation.navigate(HOME_SCENE_NAME)} } title="Retour au menu connecté" />
       </View>
     );
   }
