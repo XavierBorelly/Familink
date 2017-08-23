@@ -3,12 +3,13 @@ import { Button, StyleSheet, TextInput, View } from 'react-native';
 import BackButton from '../components/BackButton';
 
 import Header from '../components/Header';
-import ProfilePicker, { profil } from '../components/ProfilePicker';
+import ProfilePicker from '../components/ProfilePicker';
 import { saveUser } from '../WS/WebServiceUser';
 import { LOGIN_SCENE_NAME } from './LoginScreen';
 import { checkPhoneNumber, checkPassword, checkSurname, checkMail } from '../errors/FamilinkErrors';
 import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
+import { labelInformativePopinTitle, labelUserCreated } from '../Util';
 
 export const SIGNUP_SCENE_NAME = 'SIGNUP_SCENE';
 
@@ -79,6 +80,7 @@ export default class SignUpScreen extends Component
       name: null,
       firstName: null,
       email: null,
+      profil: 'SENIOR',
     };
   }
 
@@ -189,7 +191,13 @@ export default class SignUpScreen extends Component
             />
           </View>
 
-          <ProfilePicker />
+          <ProfilePicker
+            ref={(profilePickerComponent) =>
+            {
+              this.profilePickerComponent = profilePickerComponent;
+            }
+            }
+          />
 
           <View style={styles.cell}>
             <Button
@@ -214,7 +222,10 @@ export default class SignUpScreen extends Component
                 if (!thereIsErrors)
                 {
                   saveUser(this.state.phone, this.state.password, this.state.name,
-                    this.state.firstName, this.state.email, profil);
+                    this.state.firstName, this.state.email,
+                    this.profilePickerComponent.state.profil);
+                  showInformativePopin(labelInformativePopinTitle, labelUserCreated);
+                  navigation.navigate(LOGIN_SCENE_NAME);
                 }
               }
               }
@@ -230,6 +241,5 @@ export default class SignUpScreen extends Component
 }
 
 SignUpScreen.propTypes = {
-  navigation: React.PropTypes.func.isRequired,
   navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };

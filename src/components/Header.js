@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    color: $bgHeaderColor,
+    backgroundColor: $bgHeaderColor,
   },
   icon: {
     width: 36,
