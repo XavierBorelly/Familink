@@ -19,10 +19,15 @@ export async function login(phone, password)
     password,
   });
 
-  appelPost('/public/login', body, null).then((response) =>
+  const messageAppelPost = appelPost('/public/login', body, null).then((response) =>
   {
-    saveTokenToBDD(response.token);
+    if (response.token !== undefined && response.token !== '' && response.token !== null)
+    {
+      saveTokenToBDD(response.token);
+    }
+    return (response.message);
   });
+  return messageAppelPost;
 }
 
 /** permet d'enregistrer un nouveau utilisateur

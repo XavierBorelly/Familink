@@ -7,8 +7,6 @@ import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
 import BackButton from '../components/BackButton';
 import Gravatar from '../components/Gravatar';
 import Header from '../components/Header';
-import { PHONEBOOK_SCENE_NAME } from './PhonebookScreen';
-import BackButton from '../components/BackButton';
 
 export const CONTACT_SCENE_NAME = 'CONTACT_SCENE';
 

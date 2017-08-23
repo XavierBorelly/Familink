@@ -3070,8 +3070,7 @@ lodash@^3.5.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.10.1, lodash@^4.11.1, lodash@^4.14.0, lodash@^4.16.6, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
-
+lodash@^4.0.0, lodash@^4.10.1, lodash@^4.11.1, lodash@^4.14.0, lodash@^4.16.6, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -3812,9 +3811,9 @@ react-native-drawer-layout@1.2.0:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
-"react-native-drawer@https://github.com/GeekyAnts/react-native-drawer":
+"react-native-drawer@git+https://github.com/GeekyAnts/react-native-drawer.git":
   version "2.3.0"
-  resolved "https://github.com/GeekyAnts/react-native-drawer#8d9078516d177c9cb02d2579a6860706d2370d25"
+  resolved "git+https://github.com/GeekyAnts/react-native-drawer.git#8d9078516d177c9cb02d2579a6860706d2370d25"
   dependencies:
     prop-types "^15.5.8"
     tween-functions "^1.0.1"
@@ -3825,9 +3824,9 @@ react-native-easy-grid@0.1.15:
   dependencies:
     lodash "^4.11.1"
 
-"react-native-keyboard-aware-scroll-view@https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view":
+"react-native-keyboard-aware-scroll-view@git+https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view.git":
   version "0.2.9"
-  resolved "https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view#f4805f254d6cc8e3329f5fb224944401f66655db"
+  resolved "git+https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view.git#f4805f254d6cc8e3329f5fb224944401f66655db"
   dependencies:
     create-react-class "^15.6.0"
     prop-types "^15.5.10"
@@ -3850,7 +3849,6 @@ react-native-vector-icons@^4.3.0:
 react-native-vector-icons@~4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-4.1.1.tgz#9ac75bde77d9243346668c51dca7756775428087"
-
   dependencies:
     lodash "^4.0.0"
     prop-types "^15.5.8"
@@ -4386,8 +4384,8 @@ shell-quote@1.6.1, shell-quote@^1.6.1:
     jsonify "~0.0.0"
 
 shellwords@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.0.tgz#66afd47b6a12932d9071cbfd98a52e785cd0ba14"
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
 
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
@@ -4426,8 +4424,8 @@ sntp@1.x.x:
     hoek "2.x.x"
 
 source-map-support@^0.4.2:
-  version "0.4.15"
-  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.15.tgz#03202df65c06d2bd8c7ec2362a193056fef8d3b1"
+  version "0.4.16"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.16.tgz#16fecf98212467d017d586a2af68d628b9421cd8"
   dependencies:
     source-map "^0.5.6"
 
@@ -4438,8 +4436,8 @@ source-map@^0.4.4:
     amdefine ">=0.0.4"
 
 source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.1:
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 
 source-map@~0.2.0:
   version "0.2.0"
