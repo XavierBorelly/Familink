@@ -14,6 +14,8 @@ export async function getAllContacts(propsNavigation)
     {
       return appelGet('/secured/users/contacts', token, propsNavigation);
     }
+
+    return '';
   });
 }
 
@@ -21,7 +23,8 @@ export async function getAllContacts(propsNavigation)
  *
  * return : l'object contact pour pouvoir l'utiliser immédiatement ou une erreur 401
  */
-export async function saveContact(phoneNumber, firstName, lastName, email, gravatar, propsNavigation)
+export async function saveContact(
+  phoneNumber, firstName, lastName, email, gravatar, propsNavigation)
 {
   getTokenFromBDD().then((token) =>
   {
@@ -44,7 +47,8 @@ export async function saveContact(phoneNumber, firstName, lastName, email, grava
  *
  * return : l'object contact pour pouvoir l'utiliser immédiatement ou une erreur 401
  */
-export async function updateContact(phoneNumber, firstName, lastName, email, gravatar, idContact, propsNavigation)
+export async function updateContact(
+  phoneNumber, firstName, lastName, email, gravatar, idContact, propsNavigation)
 {
   getTokenFromBDD().then((token) =>
   {
