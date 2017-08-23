@@ -116,14 +116,14 @@ export async function editContactToBDD(phoneNumber, contactEdit)
 export async function deleteContactToDBB(phoneNumber)
 {
   let i = 0;
-  getAllContactsFromDBB().then((contacts) =>
+  getAllContactsFromBDD().then((contacts) =>
   {
     for (i = 0; i < contacts.length; i += 1)
     {
       if (contacts[i].phoneNumber.indexOf(phoneNumber) > -1)
       {
         contacts.splice(i, 1);
-        saveAllContactsToDBB(contacts);
+        saveAllContactsToBDD(contacts);
         break;
       }
     }
@@ -133,10 +133,10 @@ export async function deleteContactToDBB(phoneNumber)
 /**
 * permet de modifier un concact
 */
-export async function editContactToDBB(phoneNumber, contactEdit)
+export async function editContactToBDD(phoneNumber, contactEdit)
 {
   let i = 0;
-  getAllContactsFromDBB().then((contacts) =>
+  getAllContactsFromBDD().then((contacts) =>
   {
     const contact = contacts;
     for (i = 0; i < contact.length; i += 1)
@@ -144,7 +144,7 @@ export async function editContactToDBB(phoneNumber, contactEdit)
       if (contact[i].phoneNumber.indexOf(phoneNumber) > -1)
       {
         contact[i] = contactEdit;
-        saveAllContactsToDBB(contact);
+        saveAllContactsToBDD(contact);
         break;
       }
     }
