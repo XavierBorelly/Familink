@@ -6,6 +6,11 @@ import { PROFILE_SCENE_NAME } from './ProfileScreen';
 import { PHONEBOOK_SCENE_NAME } from './PhonebookScreen';
 import MenuIcon from '../../assets/icon_home.jpg';
 
+import { getAllContacts, saveContact, updateContact, deleteContact } from '../WS/WebServiceContact';
+import { login } from '../WS/WebServiceUser';
+
+import { DeleteTokenFromBDD } from '../BDD/Token';
+
 export const HOME_SCENE_NAME = 'HOME_SCENE';
 
 const $bgColor = '#F5FCFF';
@@ -51,6 +56,59 @@ export default class HomeScreen extends Component
           }
           }
           title="Répertoire"
+        />
+
+        <Button
+          onPress={() =>
+          {
+            login('0606060606', '1234');
+          }
+          }
+          title="log"
+        />
+
+        <Button
+          onPress={() =>
+          {
+            const data = getAllContacts(navigation);
+            console.log(data);
+          }
+          }
+          title="contact"
+        />
+        <Button
+          onPress={() =>
+          {
+            saveContact('0123456789', 'firstName', 'lastName', 'email', 'https://www.gravatar.com/avatar/d063292387c54b92705e4e7de8d44c40', navigation);
+          }
+          }
+          title="save"
+        />
+        <Button
+          onPress={() =>
+          {
+            updateContact('0661820875', 'Landon', 'Curtis', '', '', '599a99a8482a590826eae8fe', navigation);
+          }
+          }
+          title="update"
+        />
+        <Button
+          onPress={() =>
+          {
+            deleteContact('599a99a8482a590826eae8ff', navigation);
+          }
+          }
+          title="delete"
+        />
+
+
+        <Button
+          onPress={() =>
+          {
+            DeleteTokenFromBDD();
+          }
+          }
+          title="logout"
         />
 
 

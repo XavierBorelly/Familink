@@ -12,7 +12,7 @@ export async function saveTokenToBDD(token)
     const structureToken = `Bearer ${token}`;
     AsyncStorage.setItem(keyStorageToken, structureToken);
     console.log('token sauvegarder');
-    return true;
+    return '';
   }
   catch (error)
   {
@@ -32,7 +32,7 @@ export async function getTokenFromBDD()
       return token;
     }
     console.log('token inexistant');
-    return false;
+    return '';
   }
   catch (error)
   {
