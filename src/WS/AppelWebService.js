@@ -32,11 +32,6 @@ export async function appelGet(lien, token, propsNavigation)
 
 export async function appelPost(lien, data, token, propsNavigation)
 {
-  console.log(lien);
-    console.log(data);
-      console.log(token);
-        console.log(propsNavigation);
-              console.log('----------------');
   const response = await fetch(`${urlWs}${lien}`, {
     method: 'POST',
     headers: {
@@ -46,9 +41,6 @@ export async function appelPost(lien, data, token, propsNavigation)
     body: `${data}`,
   });
 
-    console.log(response);
-      console.log(token);
-        console.log(propsNavigation);
   return verifToken(response, token, propsNavigation);
 }
 
