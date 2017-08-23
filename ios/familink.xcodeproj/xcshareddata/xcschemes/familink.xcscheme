@@ -65,6 +65,11 @@
                BlueprintName = "familinkTests"
                ReferencedContainer = "container:familink.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "familinkTests/testRendersWelcomeScreen">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
