@@ -4,17 +4,15 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React from 'react';
 import { AppRegistry } from 'react-native';
 
 import ApplicationNavigator from './src/AppNavigator';
 
-export default class familink extends Component
-{
-  render()
-  {
-    return <ApplicationNavigator />;
-  }
-}
+const familink = () => <ApplicationNavigator />;
+
+console.ignoredYellowBox = ['Warning:'];
 
 AppRegistry.registerComponent('familink', () => familink);
+
+export default familink;

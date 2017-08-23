@@ -3,12 +3,12 @@ import { DrawerNavigator } from 'react-navigation';
 
 import HomeScreen, { HOME_SCENE_NAME } from './screens/HomeScreen';
 import EmergencyConfigScreen, { EMERGENCY_CONFIG_SCENE_NAME } from './screens/EmergencyConfigScreen';
-import PhonebookScreen, { PHONEBOOK_SCENE_NAME } from './screens/PhonebookScreen';
+import PhonebookApp, { PHONEBOOK_SCENE_NAME } from './apps/PhonebookApp';
 import ProfileScreen, { PROFILE_SCENE_NAME } from './screens/ProfileScreen';
 import LoginScreen, { LOGIN_SCENE_NAME } from './screens/LoginScreen';
 import SignUpScreen, { SIGNUP_SCENE_NAME } from './screens/SignUpScreen';
 import PasswordResetScreen, { PASSWORD_RESET_SCENE_NAME } from './screens/PasswordResetScreen';
-import ContactScreen, { CONTACT_SCENE_NAME } from './screens/ContactScreen';
+import ContactApp, { CONTACT_SCENE_NAME } from './apps/ContactApp';
 import Hidden from './components/Hidden';
 
 const stackNavigatorConfig = {};
@@ -22,7 +22,7 @@ stackNavigatorConfig[EMERGENCY_CONFIG_SCENE_NAME] = {
 };
 
 stackNavigatorConfig[PHONEBOOK_SCENE_NAME] = {
-  screen: PhonebookScreen,
+  screen: PhonebookApp,
 };
 
 stackNavigatorConfig[PROFILE_SCENE_NAME] = {
@@ -48,7 +48,7 @@ stackNavigatorConfig[PASSWORD_RESET_SCENE_NAME] = {
 };
 
 stackNavigatorConfig[CONTACT_SCENE_NAME] = {
-  screen: ContactScreen,
+  screen: ContactApp,
   navigationOptions: {
     drawerLabel: <Hidden />,
   },
