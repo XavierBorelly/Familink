@@ -28,7 +28,7 @@ export async function saveContact(phoneNumber, firstName, lastName, email, grava
     if (tokenVide(token, propsNavigation))
     {
       const body = JSON.stringify({
-        phone : phoneNumber,
+        phone: phoneNumber,
         firstName,
         lastName,
         email,
@@ -51,7 +51,7 @@ export async function updateContact(phoneNumber, firstName, lastName, email, gra
     if (tokenVide(token, propsNavigation))
     {
       const body = JSON.stringify({
-        phone : phoneNumber,
+        phone: phoneNumber,
         firstName,
         lastName,
         email,
