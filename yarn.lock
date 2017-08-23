@@ -3811,11 +3811,9 @@ react-native-drawer-layout@1.2.0:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
-<<<<<<< HEAD
-=======
-"react-native-drawer@git+https://github.com/GeekyAnts/react-native-drawer.git":
+"react-native-drawer@https://github.com/GeekyAnts/react-native-drawer":
   version "2.3.0"
-  resolved "git+https://github.com/GeekyAnts/react-native-drawer.git#8d9078516d177c9cb02d2579a6860706d2370d25"
+  resolved "https://github.com/GeekyAnts/react-native-drawer#8d9078516d177c9cb02d2579a6860706d2370d25"
   dependencies:
     prop-types "^15.5.8"
     tween-functions "^1.0.1"
@@ -3826,23 +3824,20 @@ react-native-easy-grid@0.1.15:
   dependencies:
     lodash "^4.11.1"
 
-"react-native-keyboard-aware-scroll-view@git+https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view.git":
+"react-native-keyboard-aware-scroll-view@https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view":
   version "0.2.9"
-  resolved "git+https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view.git#f4805f254d6cc8e3329f5fb224944401f66655db"
+  resolved "https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view#f4805f254d6cc8e3329f5fb224944401f66655db"
   dependencies:
     create-react-class "^15.6.0"
     prop-types "^15.5.10"
     react-timer-mixin "^0.13.3"
 
->>>>>>> master
 react-native-tab-view@^0.0.61:
   version "0.0.61"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-0.0.61.tgz#9f5446c9ad33158b87f0bccf5004fbff79ca1f92"
   dependencies:
     prop-types "^15.5.8"
 
-<<<<<<< HEAD
-=======
 react-native-vector-icons@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-4.3.0.tgz#49eab845fbcde6354cb3dbcb62c1abd1f6abc866"
@@ -3858,8 +3853,7 @@ react-native-vector-icons@~4.1.1:
     lodash "^4.0.0"
     prop-types "^15.5.8"
     yargs "^6.3.0"
-
->>>>>>> master
+    
 react-native@0.47.1:
   version "0.47.1"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.47.1.tgz#b4a1f1e92a57ff5868de2bfa9d8ece3192635242"
