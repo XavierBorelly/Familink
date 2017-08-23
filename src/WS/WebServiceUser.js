@@ -1,6 +1,5 @@
 import { appelGet, appelPost, appelPut } from './AppelWebService';
 import { saveTokenToBDD, getTokenFromBDD } from '../BDD/Token';
-import { tokenVide } from '../errors/Token';
 
 /** permet d'obtenir les différents profil d'utilisateur
  *
@@ -8,7 +7,7 @@ import { tokenVide } from '../errors/Token';
  */
 export async function getProfil()
 {
-  return appelGet('/public/profiles', null, null);
+  return appelGet('/public/profiles', null);
 }
 
 /** permet d'obtenir le token d'authentification (et l'enregistre dans la base de donnée)
@@ -20,7 +19,7 @@ export async function login(phone, password)
     password,
   });
 
-  appelPost('/public/login', body, null, null).then((response) =>
+  appelPost('/public/login', body, null).then((response) =>
   {
     saveTokenToBDD(response.token);
   });
@@ -39,7 +38,7 @@ export async function saveUser(phone, password, name, firstName, email, profile)
     profile,
   });
 
-  appelPost('/public/sign-in', body, null, null);
+  appelPost('/public/sign-in', body, null);
 }
 
 /** permet de faire une demande pour retrouver son password
@@ -50,25 +49,23 @@ export async function forgotPassword(phone)
     phone,
   });
 
-  appelPost('/public/forgot-password', body, null, null);
+  appelPost('/public/forgot-password', body, null);
 }
 
 /** permet de modifier un utilisateur
  */
-export async function editUser(name, firstName, email, profile, propsNavigation)
+export async function editUser(name, firstName, email, profile)
 {
   getTokenFromBDD().then((token) =>
   {
-    if (tokenVide(token, propsNavigation))
-    {
-      const body = JSON.stringify({
-        lastName: name,
-        firstName,
-        email,
-        profile,
-      });
+    const body = JSON.stringify({
+      lastName: name,
+      firstName,
+      email,
+      profile,
+    });
 
-      appelPut('/secured/users', body, token, propsNavigation);
-    }
+    const structureToken = `Bearer ${token}`;
+    appelPut('/secured/users', body, structureToken);
   });
 }
