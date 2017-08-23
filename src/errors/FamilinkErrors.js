@@ -61,3 +61,24 @@ export function checkMail(mail)
 
   return '';
 }
+
+export function checkLogin(message)
+{
+  if (message === 'User not found')
+  {
+    return errStrings.wrongUser;
+  }
+  else if (message === 'Password is not valid')
+  {
+    return errStrings.wrongPassword;
+  }
+  else if (message === 'data and hash arguments required')
+  {
+    return errStrings.missPassword;
+  }
+  else if (message !== undefined && message !== '' && message !== null)
+  {
+    return message;
+  }
+  return '';
+}

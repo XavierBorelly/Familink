@@ -9,7 +9,7 @@ export async function saveTokenToBDD(token)
   try
   {
     AsyncStorage.setItem('@TokenAuthentification:key', token);
-    console.log('token sauvegarder');
+    console.log('token sauvegardé');
     return true;
   }
   catch (error)
@@ -26,7 +26,7 @@ export async function getTokenFromBDD()
     const token = await AsyncStorage.getItem('@TokenAuthentification:key');
     if (token !== null)
     {
-      console.log('token renvoyer');
+      console.log('token renvoyé');
       return token;
     }
     console.log('token inexistant');
@@ -44,7 +44,7 @@ export async function DeleteTokenFromBDD()
   try
   {
     await AsyncStorage.removeItem('@TokenAuthentification:key');
-    console.log('token supprimer');
+    console.log('token supprimé');
   }
   catch (error)
   {

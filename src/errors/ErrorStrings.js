@@ -8,3 +8,7 @@ export const phoneError = 'Numéro de téléphone doit être sous le format 0XXX
 export const surnameRequired = 'Prénom requis';
 export const mailRequired = 'Le mail est requis';
 export const mailError = 'Le mail doit être au format exemple@exemple.fr';
+
+export const wrongUser = 'Numéro de téléphone incorrect';
+export const wrongPassword = 'Numéro de téléphone ou mot de passe incorrect';
+export const missPassword = 'Mot de passe manquant';

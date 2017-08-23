@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 export default class PhonebookApp extends Component
 {
   static navigationOptions = {
-    drawerLabel: 'Phonebook',
+    drawerLabel: 'Contacts',
     drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
 
