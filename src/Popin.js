@@ -7,16 +7,15 @@ import { labelPopInSignIn,
   button1LabelPopInUpdateProfile,
   labelPopInDeleteContact,
   button1LabelPopInDeleteContact,
-  labelInformativePopinTitle,
   labelActionPopinTitle,
   buttonLabelCancel,
 } from './Util';
 
 // Fonction privée qui construit une popin d'information, (pas d'actions a prendre)
-function buildInformativePopin(infoString, okString)
+function buildInformativePopin(titleString, infoString, okString)
 {
   Alert.alert(
-    labelInformativePopinTitle, infoString,
+    titleString, infoString,
     [
       { text: okString },
     ],
@@ -57,6 +56,11 @@ function buildActionPopin(infoString, declineString, okString, action)
 export function showSignInPopIn()
 {
   buildInformativePopin(labelPopInSignIn, button1LabelPopInSignIn);
+}
+
+export function showInformativePopin(titleString, infoString)
+{
+  buildInformativePopin(titleString, infoString);
 }
 
 export function showForgotPasswordPopIn(action)

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 export default class ProfileScreen extends Component
 {
   static navigationOptions = {
-    drawerLabel: 'Profile',
+    drawerLabel: 'Mon Profil',
     drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
 
@@ -43,5 +43,5 @@ export default class ProfileScreen extends Component
 }
 
 ProfileScreen.propTypes = {
-  navigation: React.PropTypes.func.isRequired,
+  navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };

@@ -1,9 +1,3 @@
-import { Component } from 'react';
+const Hidden = () => null;
 
-export default class Hidden extends Component
-{
-  render()
-  {
-    return null;
-  }
-}
+export default Hidden;

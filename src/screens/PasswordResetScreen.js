@@ -38,5 +38,5 @@ export default class PasswordResetScreen extends Component
 }
 
 PasswordResetScreen.propTypes = {
-  navigation: React.PropTypes.func.isRequired,
+  navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };
