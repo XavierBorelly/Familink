@@ -22,7 +22,6 @@ const nameInput = 'name';
 const surnameInput = 'surname';
 const mailInput = 'email';
 
-
 export default class SignUpScreen extends Component
 {
   static navigationOptions = {
@@ -45,6 +44,7 @@ export default class SignUpScreen extends Component
       errors: ['', '', '', ''],
     };
   }
+
 
   setFocus(focusedItemName)
   {
@@ -126,7 +126,6 @@ export default class SignUpScreen extends Component
                 maxLength={4}
               />
             </View>
-
             <View style={this.state.focused === nameInput
               ? familinkStyles.itemFocused : familinkStyles.item}
             >
@@ -223,7 +222,6 @@ export default class SignUpScreen extends Component
                 <Text style={familinkStyles.buttonText}>{buttonLabelValidation}</Text>
               </TouchableHighlight>
             </View>
-
           </View>
         </View>
       </TouchableWithoutFeedback>
