@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, TextInput, Dimensions } from 'react-native';
 import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
 
 const $inputBorderColor = '#E0E4CC';
 const $lightgrayColor = '#EEEEEE';
 const $whiteColor = '#FFFFFF';
+const $labelColor = '#FF0000';
 
 let errors = [];
 
@@ -17,12 +18,19 @@ const styles = StyleSheet.create({
   },
   cell: {
     flex: 1,
+    width: Dimensions.get('window').width,
   },
-  text: {
+  textinput: {
     paddingLeft: 10,
     borderColor: $inputBorderColor,
     flex: 1,
     backgroundColor: $whiteColor,
+    width: '80%',
+  },
+  label: {
+    color: $labelColor,
+    flex: 1,
+    width: '80%',
   },
 });
 
@@ -40,37 +48,43 @@ export default class ProfilePicker extends Component
     return (
       <View style={styles.content}>
         <View style={styles.cell}>
-          <Text
-            style={styles.text}
-            onChangeText={text => this.setState({ name: text })}
-            placeholder="Nom"
-            maxLength={15}
+          <Text style={styles.label}>
+            {'Nom'}
+          </Text>
+          <TextInput
+            style={styles.textinput}
+            defaultValue={'Durand'}
+            editable
           />
         </View>
         <View style={styles.cell}>
-          <Text
-            style={styles.text}
-            onChangeText={text => this.setState({ firstName: text })}
-            placeholder="Prenom"
-            maxLength={15}
+          <Text style={styles.label}>
+            {'Prénom'}
+          </Text>
+          <TextInput
+            style={styles.textinput}
+            defaultValue={'Kévin'}
+            editable
           />
         </View>
         <View style={styles.cell}>
-          <Text
-            style={styles.text}
-            onChangeText={text => this.setState({ phone: text })}
-            keyboardType="numeric"
-            placeholder="Numéro de téléphone"
-            maxLength={10}
+          <Text style={styles.label}>
+            {'Téléphone'}
+          </Text>
+          <TextInput
+            style={styles.textinput}
+            defaultValue={'0655555555'}
+            editable
           />
         </View>
         <View style={styles.cell}>
-          <Text
-            style={styles.text}
-            onChangeText={text => this.setState({ email: text })}
-            placeholder="Email"
-            maxLength={50}
-            keyboardType="email-address"
+          <Text style={styles.label}>
+            {'Mail'}
+          </Text>
+          <TextInput
+            style={styles.textinput}
+            defaultValue={'kevin.durand@mail.com'}
+            editable
           />
         </View>
 
@@ -110,37 +124,43 @@ export default class ProfilePicker extends Component
     return (
       <View style={styles.content}>
         <View style={styles.cell}>
-          <Text
-            style={styles.text}
-            onChangeText={text => this.setState({ name: text })}
-            placeholder="Nom"
-            maxLength={15}
+          <Text style={styles.label}>
+            {'Nom'}
+          </Text>
+          <TextInput
+            style={styles.textinput}
+            defaultValue={'Durand'}
+            editable={false}
           />
         </View>
         <View style={styles.cell}>
-          <Text
-            style={styles.text}
-            onChangeText={text => this.setState({ firstName: text })}
-            placeholder="Prenom"
-            maxLength={15}
+          <Text style={styles.label}>
+            {'Prénom'}
+          </Text>
+          <TextInput
+            style={styles.textinput}
+            defaultValue={'Kévin'}
+            editable={false}
           />
         </View>
         <View style={styles.cell}>
-          <Text
-            style={styles.text}
-            onChangeText={text => this.setState({ phone: text })}
-            keyboardType="numeric"
-            placeholder="Numéro de téléphone"
-            maxLength={10}
+          <Text style={styles.label}>
+            {'Téléphone'}
+          </Text>
+          <TextInput
+            style={styles.textinput}
+            defaultValue={'0655555555'}
+            editable={false}
           />
         </View>
         <View style={styles.cell}>
-          <Text
-            style={styles.text}
-            onChangeText={text => this.setState({ email: text })}
-            placeholder="Email"
-            maxLength={50}
-            keyboardType="email-address"
+          <Text style={styles.label}>
+            {'Mail'}
+          </Text>
+          <TextInput
+            style={styles.textinput}
+            defaultValue={'kevin.durand@mail.com'}
+            editable={false}
           />
         </View>
 
