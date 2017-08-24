@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-const key = '@MyContacts:key';
+import { keyStorageContact } from '../Util';
 
 /**
 * permet de récupérer tous les contacts
@@ -11,7 +11,7 @@ export async function getAllContactsFromBDD()
 {
   try
   {
-    const contacts = await AsyncStorage.getItem(key);
+    const contacts = await AsyncStorage.getItem(keyStorageContact);
     if (contacts !== null)
     {
       console.log('value de la BDD : ');
@@ -34,7 +34,7 @@ export async function saveAllContactsToBDD(contacts)
 {
   try
   {
-    await AsyncStorage.setItem(key, JSON.stringify(contacts));
+    await AsyncStorage.setItem(keyStorageContact, JSON.stringify(contacts));
     console.log('BDD save');
     getAllContactsFromBDD();
     return true;
@@ -66,7 +66,7 @@ export async function deleteAllContactsToBDD()
 {
   try
   {
-    await AsyncStorage.removeItem(key);
+    await AsyncStorage.removeItem(keyStorageContact);
     console.log('BDD clean');
     return true;
   }

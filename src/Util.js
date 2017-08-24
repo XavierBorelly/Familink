@@ -40,6 +40,8 @@ export const button1LabelPopInUpdateProfile = 'OK';
 export const labelPopInDeleteContact = 'Voulez-vous supprimer ce contact ?';
 export const button1LabelPopInDeleteContact = 'Supprimer';
 
+const keyStorageContact = '@MyContacts:key';
+
 // const labelEmergency = 'URGENCE';
 // const tagFamilink = 'Familink';
 // const tagEmergency = 'Urgence';
