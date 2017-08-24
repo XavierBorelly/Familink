@@ -3,7 +3,7 @@ import { tokenInvalide } from '../errors/Token';
 
 async function verifToken(response, token, propsNavigation)
 {
-  if (token !== '' || token !== undefined || token !== null)
+  if (token !== '' && token !== undefined && token !== null)
   {
     if (tokenInvalide(response.status, propsNavigation))
     {
@@ -13,6 +13,7 @@ async function verifToken(response, token, propsNavigation)
     return '';
   }
   const responseJson = await response.json();
+  console.log(responseJson);
   return responseJson;
 }
 
@@ -41,8 +42,6 @@ export async function appelPost(lien, data, token, propsNavigation)
     body: `${data}`,
   });
 
-  console.log(response.message);
-  console.log(response);
   return verifToken(response, token, propsNavigation);
 }
 
