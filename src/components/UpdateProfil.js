@@ -2,17 +2,24 @@ import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View, TextInput, Dimensions } from 'react-native';
 import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
+import ProfilePicker from './ProfilePicker';
 
 const $inputBorderColor = '#E0E4CC';
 const $lightgrayColor = '#EEEEEE';
 const $whiteColor = '#FFFFFF';
 const $labelColor = '#FF0000';
+const $validateColor = '#E37A08';
 
 let errors = [];
 
 const styles = StyleSheet.create({
-  content: {
+  contentUpdate: {
     backgroundColor: $lightgrayColor,
+    flex: 0.8,
+    width: '80%',
+  },
+  contentValidate: {
+    backgroundColor: $validateColor,
     flex: 0.8,
     width: '80%',
   },
@@ -34,7 +41,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class ProfilePicker extends Component
+export default class UpdateProfil extends Component
 {
   constructor(props)
   {
@@ -46,7 +53,7 @@ export default class ProfilePicker extends Component
   ValidateProfile()
   {
     return (
-      <View style={styles.content}>
+      <View style={styles.contentValidate}>
         <View style={styles.cell}>
           <Text style={styles.label}>
             {'Nom'}
@@ -69,16 +76,6 @@ export default class ProfilePicker extends Component
         </View>
         <View style={styles.cell}>
           <Text style={styles.label}>
-            {'Téléphone'}
-          </Text>
-          <TextInput
-            style={styles.textinput}
-            defaultValue={'0655555555'}
-            editable
-          />
-        </View>
-        <View style={styles.cell}>
-          <Text style={styles.label}>
             {'Mail'}
           </Text>
           <TextInput
@@ -87,6 +84,13 @@ export default class ProfilePicker extends Component
             editable
           />
         </View>
+        <ProfilePicker
+          ref={(profilePickerComponent) =>
+          {
+            this.profilePickerComponent = profilePickerComponent;
+          }
+          }
+        />
 
         <View style={styles.cell}>
           <Button
@@ -111,7 +115,7 @@ export default class ProfilePicker extends Component
             }
             }
             title="Valider"
-            color="#D35400"
+            color="#FF0000"
             accessibilityLabel="Valider"
           />
         </View>
@@ -122,7 +126,7 @@ export default class ProfilePicker extends Component
   EditeProfile()
   {
     return (
-      <View style={styles.content}>
+      <View style={styles.contentUpdate}>
         <View style={styles.cell}>
           <Text style={styles.label}>
             {'Nom'}
@@ -145,16 +149,6 @@ export default class ProfilePicker extends Component
         </View>
         <View style={styles.cell}>
           <Text style={styles.label}>
-            {'Téléphone'}
-          </Text>
-          <TextInput
-            style={styles.textinput}
-            defaultValue={'0655555555'}
-            editable={false}
-          />
-        </View>
-        <View style={styles.cell}>
-          <Text style={styles.label}>
             {'Mail'}
           </Text>
           <TextInput
@@ -163,6 +157,13 @@ export default class ProfilePicker extends Component
             editable={false}
           />
         </View>
+        <ProfilePicker
+          ref={(profilePickerComponent) =>
+          {
+            this.profilePickerComponent = profilePickerComponent;
+          }
+          }
+        />
 
         <View style={styles.cell}>
           <Button
@@ -187,7 +188,7 @@ export default class ProfilePicker extends Component
             }
             }
             title="Modifier"
-            color="#D35400"
+            color="#FF0000"
             accessibilityLabel="Modifier"
           />
         </View>
