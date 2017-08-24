@@ -37,7 +37,6 @@ export async function saveContact(
         email,
         gravatar,
       });
-
       appelPost('/secured/users/contacts', body, token, propsNavigation);
     }
   });

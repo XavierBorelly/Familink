@@ -13,7 +13,7 @@ export function tokenVide(token, props)
   if (token === '' || token === undefined || token === null)
   {
     console.log('----------------');
-    console.log('logout vide');
+    console.log('logout : vide');
     console.log('----------------');
     logout(props);
     return false;
@@ -23,10 +23,10 @@ export function tokenVide(token, props)
 
 export function tokenInvalide(codeRetour, props)
 {
-  if (codeRetour !== 200)
+  if (codeRetour !== 200 && codeRetour !== 204)
   {
     console.log('----------------');
-    console.log('logout invalide');
+    console.log('logout : invalide');
     console.log('----------------');
     logout(props);
     return false;

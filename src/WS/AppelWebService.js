@@ -41,6 +41,8 @@ export async function appelPost(lien, data, token, propsNavigation)
     body: `${data}`,
   });
 
+  console.log(response.message);
+  console.log(response);
   return verifToken(response, token, propsNavigation);
 }
 
