@@ -8,7 +8,7 @@ import UpdateProfil from '../components/UpdateProfil';
 
 export const PROFILE_SCENE_NAME = 'PROFILE_SCENE';
 
-const $bgColor = '#F5FCFF';
+const $bgColor = '#C9E5F1';
 
 const styles = StyleSheet.create({
   container: {
