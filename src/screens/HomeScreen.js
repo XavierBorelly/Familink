@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import { PROFILE_SCENE_NAME } from './ProfileScreen';
 import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
 import MenuIcon from '../../assets/icon_home.jpg';
-
 export const HOME_SCENE_NAME = 'HOME_SCENE';
 
 const $bgColor = '#F5FCFF';
