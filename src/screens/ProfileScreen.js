@@ -33,7 +33,7 @@ export default class ProfileScreen extends Component
     const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Header has Menu navigation={navigation} title="Mon Profil" />
+        <Header hasMenu navigation={navigation} title="Mon Profil" />
         <BackButton navigation={navigation} param={HOME_SCENE_NAME} />
         <UpdateProfil />
       </View>
