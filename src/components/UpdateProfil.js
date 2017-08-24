@@ -49,6 +49,17 @@ export default class UpdateProfil extends Component
     this.state = { canUpdate: false };
   }
 
+  componentWillMount()
+  {
+    this.getMyProfile();
+  }
+
+  getMyProfile()
+  {
+    // get user du backOffice
+    this.setState({});
+  }
+
   /* eslint-disable no-lone-blocks */
   ValidateProfile()
   {
@@ -109,8 +120,8 @@ export default class UpdateProfil extends Component
               }
               if (!thereIsErrors)
               {
-                // afficher les champs modifiables
                 this.setState({ canUpdate: false });
+                // updateUser du backOffice
               }
             }
             }
@@ -182,7 +193,6 @@ export default class UpdateProfil extends Component
               }
               if (!thereIsErrors)
               {
-                // afficher les champs modifiables
                 this.setState({ canUpdate: true });
               }
             }
