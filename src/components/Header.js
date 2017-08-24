@@ -3,17 +3,16 @@ import { Dimensions, Platform, Text, Image, View, StyleSheet, TouchableHighlight
 
 import MenuIcon from '../../assets/icon_menu.jpg';
 
-const $bgHeaderColor = '#0E9A01';
+const $bgHeaderColor = '#FF5722';
 
 const styles = StyleSheet.create({
   header_container: {
     position: 'absolute',
     flexDirection: 'row',
+    justifyContent:'center',
     top: (Platform.OS === 'ios') ? 20 : 0,
-    height: 38,
+    height: 36,
     width: Dimensions.get('window').width,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
     backgroundColor: $bgHeaderColor,
   },
   icon: {
@@ -26,6 +25,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
     paddingLeft: 10,
     fontSize: 26,
+    color:'white',
   },
 });
 

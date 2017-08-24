@@ -38,6 +38,7 @@ export default class ProfilePicker extends Component
       }
       return (
         <Picker
+          style={{backgroundColor:'white', borderColor:'#DDDDDD', borderWidth: 1, borderRadius: 6}}
           selectedValue={this.state.profil}
           onValueChange={itemValue => this.changeProfil(itemValue)}
         >

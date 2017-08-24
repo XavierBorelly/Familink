@@ -27,6 +27,7 @@ export const buttonLabelCancel = 'Annuler';
 
 export const labelInformativePopinTitle = 'Information';
 export const labelActionPopinTitle = 'Êtes-vous sûr ?';
+export const labelUserCreated = 'Enregistrement réussi !';
 
 export const labelPopInSignIn = 'Rappel: votre identifiant est votre numéro de téléphone.';
 export const button1LabelPopInSignIn = "OK, j'ai compris.";
