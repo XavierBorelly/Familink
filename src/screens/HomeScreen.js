@@ -52,6 +52,31 @@ export default class HomeScreen extends Component
           }
           title="Répertoire"
         />
+        
+        <Button
+          onPress={() =>
+          {
+            navigation.navigate(PHONEBOOK_SCENE_NAME);
+          }
+          }
+          title="Répertoire"
+        />
+        <Button
+          onPress={() =>
+          {
+            navigation.navigate(PHONEBOOK_SCENE_NAME);
+          }
+          }
+          title="Répertoire"
+        />
+        <Button
+          onPress={() =>
+          {
+            navigation.navigate(PHONEBOOK_SCENE_NAME);
+          }
+          }
+          title="Répertoire"
+        />
       </View>
     );
   }
