@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Platform, View, TextInput, AsyncStorage, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { View, TextInput, AsyncStorage, TouchableHighlight, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { ListItem, CheckBox, Text, Body } from 'native-base';
 import PropTypes from 'prop-types';
 
@@ -11,47 +11,13 @@ import { login, setWebServiceNavigationUser } from '../WS/WebServiceUser';
 import { checkLogin } from '../errors/FamilinkErrors';
 import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
-import { keyRememberMeCheckBox, keyUserOnLogin } from '../Util';
 import { setWebServiceNavigationContact } from '../WS/WebServiceContact';
+import { familinkStyles } from '../Style';
+import { buttonLabelConnection, buttonLabelForgotPassword, buttonLabelSignIn, keyRememberMeCheckBox, keyUserOnLogin } from '../Util';
 
 export const LOGIN_SCENE_NAME = 'LOGIN_SCENE';
 
-const $bgColor = 'blue';
-const $inputBorderColor = '#E0E4CC';
-const $inputErrorColor = 'red';
-const $whiteColor = '#FFFFFF';
-
 let errors = [];
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  content: {
-    flex: 1,
-    width: '100%',
-    top: (Platform.OS === 'ios') ? 38 + 20 : 38,
-  },
-  cell: {
-    flex: 1,
-    borderWidth: 1,
-    justifyContent: 'center',
-  },
-  textInput: {
-    paddingLeft: 10,
-    borderColor: $inputBorderColor,
-    flex: 1,
-    backgroundColor: $whiteColor,
-  },
-  button: {
-    flex: 1,
-    backgroundColor: $inputErrorColor,
-    color: $bgColor,
-    justifyContent: 'center',
-  },
-});
 
 export default class LoginScreen extends Component
 {
@@ -160,12 +126,13 @@ export default class LoginScreen extends Component
     const navigation = this.props.navigation;
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
+        <View style={familinkStyles.container}>
           <Header navigation={navigation} title="Connexion" />
-          <View style={styles.content}>
-            <View style={styles.cell}>
+          <View style={familinkStyles.content}>
+
+            <View style={familinkStyles.item}>
               <TextInput
-                style={styles.textInput}
+                style={familinkStyles.textInput}
                 onChangeText={user => this.setState({ user })}
                 keyboardType="numeric"
                 placeholder="Numéro de téléphone"
@@ -176,8 +143,11 @@ export default class LoginScreen extends Component
                 }}
                 maxLength={10}
               />
+
+            </View>
+            <View style={familinkStyles.item}>
               <TextInput
-                style={styles.textInput}
+                style={familinkStyles.textInput}
                 onChangeText={password => this.setState({ password })}
                 keyboardType="numeric"
                 placeholder="Mot de passe"
@@ -185,42 +155,55 @@ export default class LoginScreen extends Component
                 maxLength={4}
               />
             </View>
-            <View style={styles.cell}>
+
+            <View style={familinkStyles.item}>
               <ListItem onPress={() => this.checkboxCheck()}>
                 <CheckBox checked={this.state.checked} />
                 <Body>
                   <Text>Se souvenir de Moi</Text>
                 </Body>
               </ListItem>
-              <Button
-                style={styles.button}
+            </View>
+            <View style={familinkStyles.item}>
+              <TouchableHighlight
+                style={familinkStyles.button}
                 onPress={() =>
                 {
                   this.doConnection();
                 }
                 }
-                title="Se connecter"
-              />
+              >
+                <Text style={familinkStyles.buttonText}>{buttonLabelConnection}</Text>
+              </TouchableHighlight>
             </View>
-            <View style={styles.cell}>
-              <Button
-                style={styles.button}
+
+            <View style={familinkStyles.item}>
+              <TouchableHighlight
+                style={familinkStyles.button}
                 onPress={() =>
                 {
                   navigation.navigate(SIGNUP_SCENE_NAME);
                 }
                 }
-                title="S'inscrire"
-              />
-              <Button
-                style={styles.button}
+              >
+                <Text style={familinkStyles.buttonText}>{buttonLabelSignIn}</Text>
+
+              </TouchableHighlight>
+            </View>
+
+            <View style={familinkStyles.item} />
+
+            <View style={familinkStyles.item}>
+              <TouchableHighlight
+                style={familinkStyles.button}
                 onPress={() =>
                 {
                   navigation.navigate(PASSWORD_RESET_SCENE_NAME);
                 }
                 }
-                title="Mot de passe oublié ?"
-              />
+              >
+                <Text style={familinkStyles.buttonText}>{buttonLabelForgotPassword}</Text>
+              </TouchableHighlight>
             </View>
           </View>
         </View>

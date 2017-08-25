@@ -1,34 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { Dimensions, Platform, Text, Image, View, StyleSheet, TouchableHighlight } from 'react-native';
-
+import { Text, Image, View, TouchableHighlight } from 'react-native';
+import { familinkStyles } from '../Style';
 import MenuIcon from '../../assets/icon_menu.jpg';
-
-const $bgHeaderColor = '#FF5722';
-
-const styles = StyleSheet.create({
-  header_container: {
-    position: 'absolute',
-    flexDirection: 'row',
-    justifyContent:'center',
-    top: (Platform.OS === 'ios') ? 20 : 0,
-    height: 36,
-    width: Dimensions.get('window').width,
-    backgroundColor: $bgHeaderColor,
-  },
-  icon: {
-    width: 36,
-    height: 36,
-  },
-  title: {
-    position: 'absolute',
-    left: 38,
-    borderLeftWidth: 1,
-    paddingLeft: 10,
-    fontSize: 26,
-    color:'white',
-  },
-});
-
 
 export default class Header extends Component
 {
@@ -41,7 +14,7 @@ export default class Header extends Component
         props.navigation.navigate('DrawerOpen');
       }}
       >
-        <Image style={styles.icon} source={MenuIcon} />
+        <Image style={familinkStyles.headerIcon} source={MenuIcon} />
       </TouchableHighlight>
     );
   }
@@ -52,9 +25,9 @@ export default class Header extends Component
     const menuButton = (props.hasMenu) ? this.getMenuButton() : null;
 
     return (
-      <View style={styles.header_container} >
+      <View style={familinkStyles.headerContainer} >
         {menuButton}
-        <Text style={styles.title}>{props.title}</Text>
+        <Text style={familinkStyles.headerTitle}>{props.title}</Text>
       </View>
     );
   }

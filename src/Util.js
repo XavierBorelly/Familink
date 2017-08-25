@@ -4,7 +4,7 @@ export const labelRememberMe = 'Se souvenir de Moi';
 export const labelConfirm = 'Confirmer Mot de passe';
 export const labelInfoPassword = 'Mot de passe en 4 chiffres.';
 export const labelName = 'Nom';
-export const labelFirstname = 'Prenom';
+export const labelSurname = 'Prenom';
 export const labelMail = 'Email';
 export const labelInfoMail = 'Adresse mail du type: example@example.com';
 export const labelProfile = 'Profil';
@@ -17,7 +17,7 @@ export const regexPassword = /^[0-9]{4}$/;
 export const regexMail = /^(([^<>()\[\]\\.,;:\s@“]+(\.[^<>()\[\]\\.,;:\s@“]+)*)|(“.+“))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 /* eslint-enable */
 export const buttonLabelConnection = 'Se connecter';
-export const buttonLabelForgotPassword = 'Mot de passe oublié';
+export const buttonLabelForgotPassword = 'Mot de passe oublié ?';
 export const buttonLabelSignIn = "S'enregistrer";
 export const buttonLabelSend = 'Envoyer';
 export const buttonLabelValidation = 'Valider';
