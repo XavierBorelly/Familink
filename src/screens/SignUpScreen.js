@@ -45,7 +45,6 @@ export default class SignUpScreen extends Component
     };
   }
 
-
   setFocus(focusedItemName)
   {
     this.setState({
@@ -88,6 +87,7 @@ export default class SignUpScreen extends Component
                 maxLength={10}
               />
             </View>
+
             <View style={this.state.focused === passwordInput ?
               familinkStyles.itemFocused : familinkStyles.item}
             >
@@ -125,6 +125,7 @@ export default class SignUpScreen extends Component
                 maxLength={4}
               />
             </View>
+
             <View style={this.state.focused === nameInput
               ? familinkStyles.itemFocused : familinkStyles.item}
             >
@@ -141,6 +142,7 @@ export default class SignUpScreen extends Component
                 maxLength={15}
               />
             </View>
+
             <View style={this.state.focused === surnameInput ?
               familinkStyles.itemFocused : familinkStyles.item}
             >
@@ -157,6 +159,7 @@ export default class SignUpScreen extends Component
                 maxLength={15}
               />
             </View>
+
             <View style={this.state.focused === mailInput ?
               familinkStyles.itemFocused : familinkStyles.item}
             >
@@ -182,6 +185,7 @@ export default class SignUpScreen extends Component
               }
               }
             />
+
             <View style={familinkStyles.item}>
               <TouchableHighlight
                 style={familinkStyles.button}

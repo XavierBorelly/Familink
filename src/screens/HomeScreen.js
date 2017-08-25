@@ -58,8 +58,7 @@ export default class HomeScreen extends Component
               <Text style={familinkStyles.buttonText}>Répertoire</Text>
             </TouchableHighlight>
           </View>
-        </View>
-        
+        </View>      
         <Button
           onPress={() =>
           {
