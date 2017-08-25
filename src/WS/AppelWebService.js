@@ -6,10 +6,10 @@ export async function appelGet(lien, token)
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `${token},`,
+      Authorization: `${token}`,
     },
   });
-  const responseJson = await response.json();
+  const responseJson = await response.json(lien);
   return responseJson;
 }
 
@@ -19,7 +19,7 @@ export async function appelPost(lien, data, token)
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `${token},`,
+      Authorization: `${token}`,
     },
     body: `${data}`,
   });
@@ -33,7 +33,7 @@ export async function appelDelete(lien, data, token)
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `${token},`,
+      Authorization: `${token}`,
     },
     body: `${data}`,
   });
