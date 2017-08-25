@@ -7,6 +7,9 @@ import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
 import MenuIcon from '../../assets/icon_home.jpg';
 
 
+import { getAllContacts } from '../WS/WebServiceContact';
+import { DeleteTokenFromBDD } from '../BDD/Token';
+
 export const HOME_SCENE_NAME = 'HOME_SCENE';
 
 const $bgColor = '#F5FCFF';
@@ -52,6 +55,27 @@ export default class HomeScreen extends Component
           }
           }
           title="Répertoire"
+        />
+
+        <Button
+          onPress={() =>
+          {
+            getAllContacts().then((contacts)=>
+          {
+            console.log(contacts);
+          });
+          }
+          }
+          title="getContact"
+        />
+
+        <Button
+          onPress={() =>
+          {
+            DeleteTokenFromBDD();
+          }
+          }
+          title="logout"
         />
       </View>
     );

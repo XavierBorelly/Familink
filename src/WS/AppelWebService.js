@@ -1,11 +1,11 @@
 import { urlWs } from '../Util';
-import { tokenInvalide } from '../errors/Token';
+import { tokenIsValid } from '../errors/Token';
 
 async function verifToken(response, token, propsNavigation)
 {
   if (token !== '' && token !== undefined && token !== null)
   {
-    if (tokenInvalide(response.status, propsNavigation))
+    if (tokenIsValid(response.status, propsNavigation))
     {
       const responseJson = await response.json();
       return responseJson;

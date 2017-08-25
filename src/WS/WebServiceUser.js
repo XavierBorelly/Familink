@@ -1,6 +1,12 @@
 import { appelGet, appelPost, appelPut } from './AppelWebService';
 import { saveTokenToBDD, getTokenFromBDD } from '../BDD/Token';
-import { tokenVide } from '../errors/Token';
+import { tokenIsFull } from '../errors/Token';
+
+let propsNavigation = null;
+
+export function setWebServiceNavigationUser(objNavigation) {
+  propsNavigation = objNavigation;
+}
 
 /** permet d'obtenir les différents profil d'utilisateur
  *
@@ -60,11 +66,11 @@ export async function forgotPassword(phone)
 
 /** permet de modifier un utilisateur
  */
-export async function editUser(name, firstName, email, profile, propsNavigation)
+export async function editUser(name, firstName, email, profile)
 {
   getTokenFromBDD().then((token) =>
   {
-    if (tokenVide(token, propsNavigation))
+    if (tokenIsFull(token, propsNavigation))
     {
       const body = JSON.stringify({
         lastName: name,

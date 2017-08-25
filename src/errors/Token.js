@@ -8,7 +8,7 @@ function logout(props)
   DeleteTokenFromBDD();
 }
 
-export function tokenVide(token, props)
+export function tokenIsFull(token, props)
 {
   if (token === '' || token === undefined || token === null)
   {
@@ -18,7 +18,7 @@ export function tokenVide(token, props)
   return true;
 }
 
-export function tokenInvalide(codeRetour, props)
+export function tokenIsValid(codeRetour, props)
 {
   if (codeRetour !== 200 && codeRetour !== 204)
   {

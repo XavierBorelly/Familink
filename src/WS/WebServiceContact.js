@@ -1,16 +1,23 @@
 import { appelGet, appelPost, appelPut, appelDelete } from './AppelWebService';
 import { getTokenFromBDD } from '../BDD/Token';
-import { tokenVide } from '../errors/Token';
+import { tokenIsFull } from '../errors/Token';
+
+let propsNavigation = null;
+
+export function setWebServiceNavigationContact(objNavigation) {
+  propsNavigation = objNavigation;
+}
+
 
 /** permet de recupérer la liste de tous les contacts
  *
  * return : un tabeau d'object avec la liste des conctacts trié par ordre alphabétique
  */
-export async function getAllContacts(propsNavigation)
+export async function getAllContacts()
 {
   return getTokenFromBDD().then((token) =>
   {
-    if (tokenVide(token, propsNavigation))
+    if (tokenIsFull(token, propsNavigation))
     {
       return appelGet('/secured/users/contacts', token, propsNavigation);
     }
@@ -23,12 +30,11 @@ export async function getAllContacts(propsNavigation)
  *
  * return : l'object contact pour pouvoir l'utiliser immédiatement ou une erreur 401
  */
-export async function saveContact(
-  phoneNumber, firstName, lastName, email, gravatar, propsNavigation)
+export async function saveContact(phoneNumber, firstName, lastName, email, gravatar)
 {
   getTokenFromBDD().then((token) =>
   {
-    if (tokenVide(token, propsNavigation))
+    if (tokenIsFull(token, propsNavigation))
     {
       const body = JSON.stringify({
         phone: phoneNumber,
@@ -47,11 +53,11 @@ export async function saveContact(
  * return : l'object contact pour pouvoir l'utiliser immédiatement ou une erreur 401
  */
 export async function updateContact(
-  phoneNumber, firstName, lastName, email, gravatar, idContact, propsNavigation)
+  phoneNumber, firstName, lastName, email, gravatar, idContact)
 {
   getTokenFromBDD().then((token) =>
   {
-    if (tokenVide(token, propsNavigation))
+    if (tokenIsFull(token, propsNavigation))
     {
       const body = JSON.stringify({
         phone: phoneNumber,
@@ -68,11 +74,11 @@ export async function updateContact(
 
 /** permet de supprimer un contact
  */
-export async function deleteContact(idContact, propsNavigation)
+export async function deleteContact(idContact)
 {
   getTokenFromBDD().then((token) =>
   {
-    if (tokenVide(token, propsNavigation))
+    if (tokenIsFull(token, propsNavigation))
     {
       appelDelete(`/secured/users/contacts/${idContact}`, token, propsNavigation);
     }
