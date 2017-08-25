@@ -11,7 +11,6 @@ export async function saveTokenToBDD(token)
   {
     const structureToken = `Bearer ${token}`;
     AsyncStorage.setItem(keyStorageToken, structureToken);
-    console.log('token sauvegarder');
     return '';
   }
   catch (error)
@@ -28,10 +27,8 @@ export async function getTokenFromBDD()
     const token = await AsyncStorage.getItem(keyStorageToken);
     if (token !== null)
     {
-      console.log('token renvoyé');
       return token;
     }
-    console.log('token inexistant');
     return '';
   }
   catch (error)
@@ -46,7 +43,6 @@ export async function DeleteTokenFromBDD()
   try
   {
     await AsyncStorage.removeItem(keyStorageToken);
-    console.log('token supprimé');
   }
   catch (error)
   {

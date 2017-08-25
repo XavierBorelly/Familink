@@ -13,7 +13,6 @@ async function verifToken(response, token, propsNavigation)
     return '';
   }
   const responseJson = await response.json();
-  console.log(responseJson);
   return responseJson;
 }
 

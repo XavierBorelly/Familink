@@ -7,10 +7,6 @@ import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
 import MenuIcon from '../../assets/icon_home.jpg';
 
 
-import { DeleteTokenFromBDD } from '../BDD/Token';
-import { getAllContacts, saveContact, updateContact, deleteContact } from '../WS/WebServiceContact';
-import { login } from '../WS/WebServiceUser';
-
 export const HOME_SCENE_NAME = 'HOME_SCENE';
 
 const $bgColor = '#F5FCFF';
@@ -56,58 +52,6 @@ export default class HomeScreen extends Component
           }
           }
           title="Répertoire"
-        />
-
-        <Button
-          onPress={() =>
-          {
-            login('9966332255', '8741');
-          }
-          }
-          title="log-in"
-        />
-        <Button
-          onPress={() =>
-          {
-            getAllContacts(navigation).then((contacts) =>
-            {
-              console.log(contacts);
-            });
-          }
-          }
-          title="get"
-        />
-        <Button
-          onPress={() =>
-          {
-            saveContact('9955113377', 'ContactEditer', 'ContactEditer', 'email@email.com', 'https://www.gravatar.com/avatar/78b1c0e2dd92f3fba4e2e0ed8bb2f913', navigation);
-          }
-          }
-          title="save"
-        />
-        <Button
-          onPress={() =>
-          {
-            updateContact('0708091011', 'test54', 'tr', 'email@email.com', 'https://www.gravatar.com/avatar/78b1c0e2dd92f3fba4e2e0ed8bb2f913', '599e9637601b310844ce0d56', navigation);
-          }
-          }
-          title="update"
-        />
-        <Button
-          onPress={() =>
-          {
-            deleteContact('599ea9f4d32e7008358df58e', navigation);
-          }
-          }
-          title="delete"
-        />
-        <Button
-          onPress={() =>
-          {
-            DeleteTokenFromBDD();
-          }
-          }
-          title="log-out"
         />
       </View>
     );
