@@ -50,17 +50,24 @@ export default class UpdateProfil extends Component
     this.state = { canUpdate: false };
   }
 
-  componentWillMount()
+  componentDidMount()
   {
-    // this.getMyProfile();
-    console.log(getUser());
+    this.getMyProfile();
   }
 
-  // getMyProfile()
-  // {
-    // get user du backOffice
-    // this.setState({});
-  // }
+  async getMyProfile()
+  {
+    const currentUser = getUser().then((response) =>
+    {
+      this.setState({ body: response,
+        name: response.lastName,
+        firstName: response.firstName,
+        email: response.email,
+        profil: response.profile,
+      });
+    });
+    return currentUser;
+  }
 
   /* eslint-disable no-lone-blocks */
   ValidateProfile()
@@ -73,7 +80,8 @@ export default class UpdateProfil extends Component
           </Text>
           <TextInput
             style={styles.textinput}
-            onChangeText={text => this.setState({ name: text })}
+            onChangeText={name => this.setState({ name })}
+            value={this.state.name}
             editable
           />
         </View>
@@ -83,7 +91,8 @@ export default class UpdateProfil extends Component
           </Text>
           <TextInput
             style={styles.textinput}
-            onChangeText={text => this.setState({ firstName: text })}
+            onChangeText={firstName => this.setState({ firstName })}
+            value={this.state.firstName}
             editable
           />
         </View>
@@ -93,7 +102,8 @@ export default class UpdateProfil extends Component
           </Text>
           <TextInput
             style={styles.textinput}
-            onChangeText={text => this.setState({ email: text })}
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
             editable
           />
         </View>
@@ -124,7 +134,7 @@ export default class UpdateProfil extends Component
               {
                 this.setState({ canUpdate: false });
                 editUser(this.state.name, this.state.firstName,
-                  this.state.email, this.profilePickerComponent.state.profil);
+                  this.state.email, this.state.profil);
               }
             }
             }
@@ -147,7 +157,7 @@ export default class UpdateProfil extends Component
           </Text>
           <TextInput
             style={styles.textinput}
-            defaultValue={'Durand'}
+            value={this.state.name}
             editable={false}
           />
         </View>
@@ -157,7 +167,7 @@ export default class UpdateProfil extends Component
           </Text>
           <TextInput
             style={styles.textinput}
-            defaultValue={'Kévin'}
+            value={this.state.firstName}
             editable={false}
           />
         </View>
@@ -167,7 +177,7 @@ export default class UpdateProfil extends Component
           </Text>
           <TextInput
             style={styles.textinput}
-            defaultValue={'kevin.durand@mail.com'}
+            value={this.state.email}
             editable={false}
           />
         </View>
