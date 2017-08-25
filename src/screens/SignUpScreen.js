@@ -45,7 +45,6 @@ export default class SignUpScreen extends Component
     };
   }
 
-
   setFocus(focusedItemName)
   {
     this.setState({
@@ -88,6 +87,7 @@ export default class SignUpScreen extends Component
                 maxLength={10}
               />
             </View>
+
             <View style={this.state.focused === passwordInput ?
               familinkStyles.itemFocused : familinkStyles.item}
             >
