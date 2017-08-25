@@ -74,3 +74,15 @@ export async function editUser(name, firstName, email, profile)
     appelPut('/secured/users', body, structureToken);
   });
 }
+
+export async function getUser()
+{
+  getTokenFromBDD().then((token) =>
+  {
+    const structureToken = `Bearer ${token}`;
+    console.log(appelGet('/public/sign-in', structureToken));
+    console.log(structureToken);
+    return appelGet('/public/sign-in', structureToken);
+  });
+  return appelGet('/public/sign-in', null);
+}
