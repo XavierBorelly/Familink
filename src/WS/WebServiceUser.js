@@ -85,14 +85,19 @@ export async function editUser(name, firstName, email, profile)
   });
 }
 
-export async function getUser()
+export function getUser()
 {
-  getTokenFromBDD().then((token) =>
+  const pickToken = getTokenFromBDD().then((token) =>
   {
     const structureToken = `Bearer ${token}`;
-    console.log(appelGet('/public/sign-in', structureToken));
-    console.log(structureToken);
-    return appelGet('/public/sign-in', structureToken);
+    const bodyUser = appelGet('/secured/users/current', structureToken)
+      .then((response) =>
+      {
+        const message = response;
+        return message;
+      });
+    console.log(bodyUser);
+    return bodyUser;
   });
-  return appelGet('/public/sign-in', null);
+  return pickToken;
 }
