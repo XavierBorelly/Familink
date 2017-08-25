@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { Image, Text, TouchableHighlight, StyleSheet, View, Button } from 'react-native';
-
 import Header from '../components/Header';
 import { PROFILE_SCENE_NAME } from './ProfileScreen';
 import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
 import MenuIcon from '../../assets/icon_home.jpg';
 import { familinkStyles } from '../Style';
-
-
 import { getAllContacts } from '../WS/WebServiceContact';
 import { DeleteTokenFromBDD } from '../BDD/Token';
 
@@ -33,7 +30,6 @@ export default class HomeScreen extends Component
     return (
       <View style={familinkStyles.container}>
         <Header hasMenu navigation={navigation} title="Menu connecté" />
-
         <View style={familinkStyles.content}>
           <View style={familinkStyles.item}>
             <TouchableHighlight
@@ -63,7 +59,7 @@ export default class HomeScreen extends Component
             </TouchableHighlight>
           </View>
         </View>
-
+        
         <Button
           onPress={() =>
           {
