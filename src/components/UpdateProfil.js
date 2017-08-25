@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, View, TextInput, Dimensions } from 'react-nat
 import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
 import ProfilePicker from './ProfilePicker';
+import { getUser, editUser } from '../WS/WebServiceUser';
 
 const $inputBorderColor = '#E0E4CC';
 const $lightgrayColor = '#EEEEEE';
@@ -51,14 +52,15 @@ export default class UpdateProfil extends Component
 
   componentWillMount()
   {
-    this.getMyProfile();
+    // this.getMyProfile();
+    console.log(getUser());
   }
 
-  getMyProfile()
-  {
+  // getMyProfile()
+  // {
     // get user du backOffice
-    this.setState({});
-  }
+    // this.setState({});
+  // }
 
   /* eslint-disable no-lone-blocks */
   ValidateProfile()
@@ -71,7 +73,7 @@ export default class UpdateProfil extends Component
           </Text>
           <TextInput
             style={styles.textinput}
-            defaultValue={'Durand'}
+            onChangeText={text => this.setState({ name: text })}
             editable
           />
         </View>
@@ -81,7 +83,7 @@ export default class UpdateProfil extends Component
           </Text>
           <TextInput
             style={styles.textinput}
-            defaultValue={'Kévin'}
+            onChangeText={text => this.setState({ firstName: text })}
             editable
           />
         </View>
@@ -91,7 +93,7 @@ export default class UpdateProfil extends Component
           </Text>
           <TextInput
             style={styles.textinput}
-            defaultValue={'kevin.durand@mail.com'}
+            onChangeText={text => this.setState({ email: text })}
             editable
           />
         </View>
@@ -121,7 +123,8 @@ export default class UpdateProfil extends Component
               if (!thereIsErrors)
               {
                 this.setState({ canUpdate: false });
-                // updateUser du backOffice
+                editUser(this.state.name, this.state.firstName,
+                  this.state.email, this.profilePickerComponent.state.profil);
               }
             }
             }
