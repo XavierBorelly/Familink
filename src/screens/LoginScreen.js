@@ -11,6 +11,7 @@ import { login } from '../WS/WebServiceUser';
 import { checkLogin } from '../errors/FamilinkErrors';
 import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
+import { keyStateCheckBox, keyUser } from '../Util';
 
 export const LOGIN_SCENE_NAME = 'LOGIN_SCENE';
 
@@ -65,7 +66,7 @@ export default class LoginScreen extends Component
     this.state = { checked: false, user: '', password: null, messageInfo: '' };
   }
 
-  componentWillMount()
+  componentDidMount()
   {
     this.getRemember();
   }
@@ -75,13 +76,13 @@ export default class LoginScreen extends Component
   {
     try
     {
-      await AsyncStorage.getItem('@MonEtat:key').then((etat) =>
+      await AsyncStorage.getItem(keyStateCheckBox).then((etat) =>
       {
         this.setState({ checked: JSON.parse(etat) });
       });
       if (this.state.checked === true)
       {
-        await AsyncStorage.getItem('@MonIdentifiant:key').then((identifiant) =>
+        await AsyncStorage.getItem(keyUser).then((identifiant) =>
         {
           this.setState({ user: identifiant });
         });
@@ -89,8 +90,9 @@ export default class LoginScreen extends Component
     }
     catch (error)
     {
-      // Error retrieving data
+      return Promise.reject(error);
     }
+    return true;
   }
 
   // Modifier l'état de la checkbox
@@ -108,21 +110,21 @@ export default class LoginScreen extends Component
     const checked = this.state.checked;
     try
     {
-      await AsyncStorage.setItem('@MonEtat:key', JSON.stringify(checked)).bind(this);
+      await AsyncStorage.setItem(keyStateCheckBox, JSON.stringify(checked));
     }
     catch (e)
     {
-      // Error saving data
+      return Promise.reject(e);
     }
     if (checked === true)
     {
       try
       {
-        await AsyncStorage.setItem('@MonIdentifiant:key', user).bind(this);
+        await AsyncStorage.setItem(keyUser, user);
       }
       catch (error)
       {
-        // Error saving data
+        return Promise.reject(error);
       }
     }
 
@@ -147,6 +149,7 @@ export default class LoginScreen extends Component
         this.props.navigation.navigate(HOME_SCENE_NAME);
       }
     });
+    return true;
   }
 
   render()
