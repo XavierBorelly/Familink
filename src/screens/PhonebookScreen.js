@@ -8,18 +8,10 @@ import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import iconCall from '../../assets/icon_phone.jpg';
 import defaultGravatar from '../../assets/icon_defaultGravatar.jpg';
-import Contact from '../models/Contact';
 
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
 
 const $bgColor = '#F5FCFF';
-
-const contact1 = new Contact(null, '0606060606', 'granny', 'lastName', 'email@email.com', 'SENIOR', 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50', 'true', 'true');
-const contact2 = new Contact(null, '0606060606', 'granny', 'lastName', 'email@email.com', 'SENIOR', null, 'true', 'true');
-const contact3 = new Contact(null, '0606060606', 'granny', 'lastName', 'email@email.com', 'SENIOR', 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50', null, null);
-const contact4 = new Contact(null, '0606060606', 'granny', 'lastName', 'email@email.com', 'SENIOR', null, null, null);
-
-const contact = [contact1, contact2, contact3, contact4, contact1, contact2, contact3, contact4];
 
 const styles = StyleSheet.create({
   container: {
