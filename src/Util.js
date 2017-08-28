@@ -21,6 +21,7 @@ export const buttonLabelForgotPassword = 'Mot de passe oublié ?';
 export const buttonLabelSignIn = "S'enregistrer";
 export const buttonLabelSend = 'Envoyer';
 export const buttonLabelValidation = 'Valider';
+export const buttonLabelModification = 'Modifier';
 export const buttonLabelDelete = 'Supprimer Contact';
 export const buttonLabelUpdate = 'Modifier Contact';
 export const buttonLabelCancel = 'Annuler';
@@ -28,6 +29,7 @@ export const buttonLabelCancel = 'Annuler';
 export const labelInformativePopinTitle = 'Information';
 export const labelActionPopinTitle = 'Êtes-vous sûr ?';
 export const labelUserCreated = 'Enregistrement réussi !';
+export const labelUserModified = 'Profil modifié !';
 
 export const labelPopInSignIn = 'Rappel: votre identifiant est votre numéro de téléphone.';
 export const button1LabelPopInSignIn = "OK, j'ai compris.";

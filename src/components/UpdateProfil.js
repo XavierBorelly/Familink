@@ -1,40 +1,18 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View, TextInput, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableHighlight } from 'react-native';
 import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
 import ProfilePicker from './ProfilePicker';
 import { getUser, editUser } from '../WS/WebServiceUser';
-
-const $inputBorderColor = '#E0E4CC';
-const $lightgrayColor = '#EEEEEE';
-const $whiteColor = '#FFFFFF';
-const $labelColor = '#FF0000';
-const $validateColor = '#E37A08';
+import { familinkStyles } from '../Style';
+import { labelInformativePopinTitle, labelUserModified, buttonLabelModification, buttonLabelValidation } from '../Util';
+import { checkSurname, checkMail } from '../errors/FamilinkErrors';
 
 let errors = [];
 
+const $labelColor = '#FF0000';
+
 const styles = StyleSheet.create({
-  contentUpdate: {
-    backgroundColor: $lightgrayColor,
-    flex: 0.8,
-    width: '80%',
-  },
-  contentValidate: {
-    backgroundColor: $validateColor,
-    flex: 0.8,
-    width: '80%',
-  },
-  cell: {
-    flex: 1,
-    width: Dimensions.get('window').width,
-  },
-  textinput: {
-    paddingLeft: 10,
-    borderColor: $inputBorderColor,
-    flex: 1,
-    backgroundColor: $whiteColor,
-    width: '80%',
-  },
   label: {
     color: $labelColor,
     flex: 1,
@@ -47,7 +25,9 @@ export default class UpdateProfil extends Component
   constructor(props)
   {
     super(props);
-    this.state = { canUpdate: false };
+    this.state = { canUpdate: false,
+      errors: ['', '', ''],
+    };
   }
 
   componentDidMount()
@@ -71,38 +51,53 @@ export default class UpdateProfil extends Component
   ValidateProfile()
   {
     return (
-      <View style={styles.contentValidate}>
-        <View style={styles.cell}>
+      <View style={familinkStyles.content}>
+        <View style={familinkStyles.item}>
           <Text style={styles.label}>
             {'Nom'}
           </Text>
           <TextInput
-            style={styles.textinput}
+            selectTextOnFocus
+            autoCorrect={false}
+            underlineColorAndroid="transparent"
+            placeholderTextColor="#909090"
             onChangeText={name => this.setState({ name })}
             value={this.state.name}
             editable
+            maxLength={15}
           />
         </View>
-        <View style={styles.cell}>
+        <View style={familinkStyles.item}>
           <Text style={styles.label}>
             {'Prénom'}
           </Text>
           <TextInput
-            style={styles.textinput}
+            style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
             onChangeText={firstName => this.setState({ firstName })}
+            selectTextOnFocus
+            placeholderTextColor="#909090"
+            autoCorrect={false}
+            underlineColorAndroid="transparent"
             value={this.state.firstName}
             editable
+            maxLength={15}
           />
         </View>
-        <View style={styles.cell}>
+        <View style={familinkStyles.item}>
           <Text style={styles.label}>
             {'Mail'}
           </Text>
           <TextInput
-            style={styles.textinput}
+            style={this.state.errors[1] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
             onChangeText={email => this.setState({ email })}
+            selectTextOnFocus
+            autoCorrect={false}
+            underlineColorAndroid="transparent"
+            placeholderTextColor="#909090"
+            maxLength={50}
             value={this.state.email}
             editable
+            keyboardType="email-address"
           />
         </View>
         <ProfilePicker
@@ -114,11 +109,14 @@ export default class UpdateProfil extends Component
           }
         />
 
-        <View style={styles.cell}>
-          <Button
+        <View style={familinkStyles.item}>
+          <TouchableHighlight
+            style={familinkStyles.button}
             onPress={() =>
             {
               errors = [];
+              errors.push(checkSurname(this.state.firstName));
+              errors.push(checkMail(this.state.email));
               let thereIsErrors = false;
               for (let i = 0; i < errors.length; i += 1)
               {
@@ -141,13 +139,13 @@ export default class UpdateProfil extends Component
                     profil: response.profile,
                   });
                 });
+                showInformativePopin(labelInformativePopinTitle, labelUserModified);
               }
             }
             }
-            title="Valider"
-            color="#FF0000"
-            accessibilityLabel="Valider"
-          />
+          >
+            <Text style={familinkStyles.buttonText}>{buttonLabelValidation}</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -156,68 +154,57 @@ export default class UpdateProfil extends Component
   EditeProfile()
   {
     return (
-      <View style={styles.contentUpdate}>
-        <View style={styles.cell}>
+      <View style={familinkStyles.content}>
+        <View style={familinkStyles.item}>
           <Text style={styles.label}>
             {'Nom'}
           </Text>
           <TextInput
-            style={styles.textinput}
+            style={familinkStyles.textInput}
             value={this.state.name}
+            underlineColorAndroid="transparent"
             editable={false}
           />
         </View>
-        <View style={styles.cell}>
+        <View style={familinkStyles.item}>
           <Text style={styles.label}>
             {'Prénom'}
           </Text>
           <TextInput
-            style={styles.textinput}
+            style={familinkStyles.textInput}
             value={this.state.firstName}
+            underlineColorAndroid="transparent"
             editable={false}
           />
         </View>
-        <View style={styles.cell}>
+        <View style={familinkStyles.item}>
           <Text style={styles.label}>
             {'Mail'}
           </Text>
           <TextInput
-            style={styles.textinput}
+            style={familinkStyles.textInput}
             value={this.state.email}
+            underlineColorAndroid="transparent"
             editable={false}
           />
         </View>
-        <View style={styles.cell}>
+        <View style={familinkStyles.item}>
           <Text style={styles.label}>
             {this.state.profil}
           </Text>
         </View>
 
-        <View style={styles.cell}>
-          <Button
+        <View style={familinkStyles.item}>
+          <TouchableHighlight
+            style={familinkStyles.button}
             onPress={() =>
             {
-              errors = [];
-              let thereIsErrors = false;
-              for (let i = 0; i < errors.length; i += 1)
-              {
-                if (errors[i] !== '')
-                {
-                  showInformativePopin(errorPopinTitle, errors[i]);
-                  thereIsErrors = true;
-                  break;
-                }
-              }
-              if (!thereIsErrors)
-              {
-                this.setState({ canUpdate: true });
-              }
+              this.setState({ canUpdate: true });
             }
             }
-            title="Modifier"
-            color="#FF0000"
-            accessibilityLabel="Modifier"
-          />
+          >
+            <Text style={familinkStyles.buttonText}>{buttonLabelModification}</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
