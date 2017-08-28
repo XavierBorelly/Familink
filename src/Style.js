@@ -34,6 +34,11 @@ export default StyleSheet.create({
     width: Dimensions.get('window').width,
     backgroundColor: headerBackgroundColor,
   },
+
+  headerIcon: {
+    width: 40,
+    height: 36,
+  },
   headerBurgerMenu: {
     width: 38,
     backgroundColor: headerBorderColor,
@@ -154,7 +159,10 @@ export default StyleSheet.create({
     fontSize: 16,
     color: textColor,
   },
-  backButtonContainer: {
+
+  backButtonContainer:
+  {
+
     position: 'absolute',
     bottom: 0,
     width: Dimensions.get('window').width,
