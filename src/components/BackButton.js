@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Platform, AppRegistry, Image, TouchableHighlight, StyleSheet, Dimensions, View } from 'react-native';
+import { Platform, AppRegistry, Image, TouchableHighlight, StyleSheet, Dimensions, View, Text } from 'react-native';
 
 import BackIcon from '../../assets/back-button.png';
 
@@ -10,12 +10,20 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: Dimensions.get('window').width,
     height: 36,
+    backgroundColor: "#80B8FF",
+    borderTopWidth: 1.2,
+    borderColor: "#5088CF",
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  back:
+
+  text:
   {
     width: Dimensions.get('window').width,
-    height: 36,
-  },
+    textAlign: 'center',
+    fontSize:26,
+  }
 });
 
 export default class BackButton extends Component
@@ -31,10 +39,7 @@ export default class BackButton extends Component
           navigation.navigate(this.props.param);
         }}
       >
-        <Image
-          style={styles.back}
-          source={BackIcon}
-        />
+        <Text style={styles.text}>◄</Text>
       </TouchableHighlight>
     );
   }
