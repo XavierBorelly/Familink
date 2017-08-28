@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View, FlatList, TouchableHighlight, Image } from 'react-native';
-import { connect } from 'react-redux';
-
+import { StyleSheet, Text, ScrollView, View, FlatList, TouchableHighlight, Image } from 'react-native';
 import { CONTACT_SCENE_NAME } from '../apps/ContactApp';
 import { HOME_SCENE_NAME } from './HomeScreen';
 import BackButton from '../components/BackButton';
 import Header from '../components/Header';
+import { showInformativePopin } from '../Popin';
 import iconCall from '../../assets/icon_phone.jpg';
 import defaultGravatar from '../../assets/icon_defaultGravatar.jpg';
+import ContactService from '../service/contactService';
+import { labelNoContact, labelLoading } from '../Util';
 
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
 
 const $bgColor = '#F5FCFF';
+
+let lastLetter = '';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,56 +37,108 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  image: {
+    width: 70,
+    height: 70,
+  },
 });
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class PhonebookScreen extends Component
 {
+  // fonction pour pouvoir mettre une lettre e header par groupe d'utilisateur
+  // /dont le nom commence par cette lettre
+  static indicateur(letter)
+  {
+    const letterUpper = letter.toUpperCase();
+
+    if (lastLetter !== letterUpper)
+    {
+      lastLetter = letterUpper;
+      return letterUpper;
+    }
+    return '';
+  }
+
   constructor(props)
   {
     super(props);
 
-    this.state = { };
+    this.state = { contacts: null };
   }
 
   componentDidMount()
   {
-    console.log(contact);
+    ContactService.getAllContacts().then((contacts) =>
+    {
+      this.setState({ contacts });
+    });
   }
 
-  navigateToInfo(trailer) {
-    this.navigate(INFO_SCENE_NAME, {contact : contact});
-  };
+  navigateToInfo(contact)
+  {
+    const navigation = this.props.navigation;
+    navigation.navigate(CONTACT_SCENE_NAME, { contact });
+  }
+
+  // fonction appeller en fonction du rendu voulu (écrant de chargement ou annuaire)
+  chargement()
+  {
+    if (this.state.contacts === null)
+    {
+      return (
+        <View style={styles.textItemContactContainer}>
+          <Text>{labelLoading}</Text>
+        </View>
+      );
+    }
+    if (this.state.contacts.length === 0)
+    {
+      return (
+        <View style={styles.textItemContactContainer}>
+          <Text>{labelNoContact}</Text>
+        </View>
+      );
+    }
+    return (
+      <FlatList
+        data={this.state.contacts}
+        renderItem={({ item }) => (
+          <View>
+            <Text>{PhonebookScreen.indicateur(item.firstName.slice(0, 1))}</Text>
+            <TouchableHighlight onPress={() => this.navigateToInfo(item)}>
+              <View style={styles.itemContactContainer}>
+                <Image source={item.gravatar === null || item.gravatar === '' ? defaultGravatar : { uri: item.gravatar }} style={styles.image} />
+                <View style={styles.textItemContactContainer}>
+                  <ScrollView horizontal="true">
+                    <Text>{item.firstName} {item.lastName}</Text>
+                  </ScrollView>
+                  <View />
+                </View>
+                <TouchableHighlight onPress={() => showInformativePopin('call en cours', item.phone)}>
+                  <Image style={styles.image} source={iconCall} />
+                </TouchableHighlight>
+              </View>
+            </TouchableHighlight>
+          </View>)}
+        keyExtractor={item => item.phone}
+      />
+    );
+  }
 
   render()
   {
+    lastLetter = '';
     const navigation = this.props.navigation;
+    const listContacts = this.chargement();
     return (
       <View >
         <View style={styles.container}>
           <Header hasMenu navigation={navigation} title="Répertoire" />
         </View>
-        <FlatList
-          data={contact}
-          renderItem={({ item }) =>
-            (<TouchableHighlight onPress={() => this.navigateToInfo(item)}>
-            <View style={styles.itemContactContainer}>
-              <Image source={item.gravatar === null || item.gravatar === '' ? defaultGravatar : {uri: item.gravatar} } style={{width: 70, height: 70}}  />
-              <View style={styles.textItemContactContainer}>
-                <View>
-                  <Text>{item.firstName} {item.lastName}</Text>
-                </View>
-                <View>
-                  <Text>{item.isFamilinkUser} {item.isEmergencyUser}</Text>
-                </View>
-              </View>
-                <TouchableHighlight onPress={() => alert('call en cours')}>
-                  <Image style={{width: 70, height: 70}} source={iconCall} />
-                </TouchableHighlight>
-            </View>
 
-            </TouchableHighlight>)}
-        />
+
+        {listContacts}
 
         <BackButton navigation={navigation} param={HOME_SCENE_NAME} />
       </View>
