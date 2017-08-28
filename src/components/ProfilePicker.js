@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
-import { Picker, Platform, TabBarIOS, View } from 'react-native';
+import { Text, AppRegistry, TouchableHighlight, StyleSheet, View } from 'react-native';
 import { getProfil } from '../WS/WebServiceUser';
+import { familinkStyles } from '../Style';
 
 const profils = [];
+
+const styles = StyleSheet.create({
+  leftRounded: {
+    borderBottomLeftRadius: 6,
+    borderTopLeftRadius: 6,
+  },
+
+  rightRounded: {
+    borderBottomRightRadius: 6,
+    borderTopRightRadius: 6,
+  },
+});
 
 export default class ProfilePicker extends Component
 {
   constructor(props)
   {
     super(props);
-    this.state = { profil: 'SENIOR' };
+    this.state = { profil: 'SENIOR', isLoaded: false };
   }
 
   componentDidMount()
@@ -24,66 +37,80 @@ export default class ProfilePicker extends Component
       {
         profils.push(p[i]);
       }
+      this.setState({ isLoaded: true });
     });
-  }
-
-  getPicker()
-  {
-    const items = [];
-    if (Platform.OS === 'android')
-    {
-      for (let i = 0; i < profils.length; i += 1)
-      {
-        items.push(<Picker.Item label={profils[i]} value={profils[i]} />);
-      }
-      return (
-        <Picker
-          selectedValue={this.state.profil}
-          onValueChange={itemValue => this.changeProfil(itemValue)}
-        >
-          {items}
-        </Picker>
-      );
-    }
-    if (Platform.OS === 'ios')
-    {
-      if (items.length === 0)
-      {
-        for (let i = 0; i < profils.length; i += 1)
-        {
-          items.push(
-            <TabBarIOS.Item
-              title={profils[i]}
-              selected={this.state.profil === profils[i]}
-              onPress={() =>
-              {
-                this.setState({
-                  profil: profils[i],
-                });
-              }}
-            >
-              <View />
-            </TabBarIOS.Item>);
-        }
-      }
-      return (
-        <TabBarIOS
-          profil={this.state.profil}
-        >
-          {items}
-        </TabBarIOS>
-      );
-    }
-    return (<View />);
-  }
-
-  changeProfil(profilValue)
-  {
-    this.setState({ profil: profilValue });
   }
 
   render()
   {
-    return this.getPicker();
+    const items = [];
+    for (let i = 0; i < profils.length; i += 1)
+    {
+      if (i === 0)
+      {
+        items.push(
+          <TouchableHighlight
+            style={[(this.state.profil === profils[i] ?
+              familinkStyles.pickerItemFocused : familinkStyles.pickerItem), styles.leftRounded]}
+            onPress={() =>
+            {
+              this.setState({ profil: profils[i] });
+            }}
+          >
+            <Text style={styles.text}>{profils[i]}</Text>
+          </TouchableHighlight>,
+        );
+      }
+      else if (i === profils.length - 1)
+      {
+        items.push(
+          <TouchableHighlight
+            style={[(this.state.profil === profils[i] ?
+              familinkStyles.pickerItemFocused : familinkStyles.pickerItem), styles.rightRounded]}
+            onPress={() =>
+            {
+              this.setState({ profil: profils[i] });
+            }}
+          >
+            <Text style={styles.text}>{profils[i]}</Text>
+          </TouchableHighlight>,
+        );
+      }
+      else
+      {
+        items.push(
+          <TouchableHighlight
+            style={this.state.profil === profils[i] ?
+              familinkStyles.pickerItemFocused : familinkStyles.pickerItem}
+            onPress={() =>
+            {
+              this.setState({ profil: profils[i] });
+            }}
+          >
+            <Text style={styles.text}>{profils[i]}</Text>
+          </TouchableHighlight>,
+        );
+      }
+    }
+    if (items.length === 0)
+    {
+      return (
+        <View style={familinkStyles.pickerRow}>
+          <TouchableHighlight
+            style={familinkStyles.pickerItem}
+          >
+            <Text style={familinkStyles.text}>Chargement des profils ...</Text>
+          </TouchableHighlight>
+        </View>
+      );
+    }
+
+    return (
+      <View style={familinkStyles.pickerRow}>
+        {items}
+      </View>
+    );
   }
 }
+
+AppRegistry.registerComponent('ProfilePicker', () => ProfilePicker);
