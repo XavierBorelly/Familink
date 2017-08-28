@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import { HOME_SCENE_NAME } from './HomeScreen';
-import MenuIcon from '../../assets/icon_profile.jpg';
 import UpdateProfil from '../components/UpdateProfil';
 
 export const PROFILE_SCENE_NAME = 'PROFILE_SCENE';
@@ -17,16 +16,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: $bgColor,
   },
-  icon: {
-    width: 48,
-    height: 48,
-  },
 });
 export default class ProfileScreen extends Component
 {
   static navigationOptions = {
     drawerLabel: 'Mon Profil',
-    drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
   render()
   {
