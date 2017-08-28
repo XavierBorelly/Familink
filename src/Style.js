@@ -32,10 +32,6 @@ export const familinkStyles = StyleSheet.create({
     width: Dimensions.get('window').width,
     backgroundColor: headerBackgroundColor,
   },
-  headerIcon: {
-    width: 40,
-    height: 36,
-  },
   headerBurgerMenu: {
     width: 38,
     backgroundColor: headerBorderColor,
