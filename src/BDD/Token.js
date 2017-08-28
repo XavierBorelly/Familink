@@ -2,15 +2,16 @@ import
 {
   AsyncStorage,
 } from 'react-native';
+import { keyStorageToken } from '../Util';
 
 // permet d'enregistrer le token en local
 export async function saveTokenToBDD(token)
 {
   try
   {
-    AsyncStorage.setItem('@TokenAuthentification:key', token);
-    console.log('token sauvegardé');
-    return true;
+    const structureToken = `Bearer ${token}`;
+    AsyncStorage.setItem(keyStorageToken, structureToken);
+    return '';
   }
   catch (error)
   {
@@ -23,14 +24,12 @@ export async function getTokenFromBDD()
 {
   try
   {
-    const token = await AsyncStorage.getItem('@TokenAuthentification:key');
+    const token = await AsyncStorage.getItem(keyStorageToken);
     if (token !== null)
     {
-      console.log('token renvoyé');
       return token;
     }
-    console.log('token inexistant');
-    return false;
+    return '';
   }
   catch (error)
   {
@@ -43,8 +42,7 @@ export async function DeleteTokenFromBDD()
 {
   try
   {
-    await AsyncStorage.removeItem('@TokenAuthentification:key');
-    console.log('token supprimé');
+    await AsyncStorage.removeItem(keyStorageToken);
   }
   catch (error)
   {

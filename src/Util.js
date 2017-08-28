@@ -43,6 +43,9 @@ export const button1LabelPopInDeleteContact = 'Supprimer';
 export const keyStorageContact = '@MyContacts:key';
 export const keyRememberMeCheckBox = '@MonEtat:key';
 export const keyUserOnLogin = '@MonIdentifiant:key';
+export const urlWs = 'https://familink.cleverapps.io';
+
+export const keyStorageToken = '@TokenAuthentification:key';
 
 // const labelEmergency = 'URGENCE';
 // const tagFamilink = 'Familink';

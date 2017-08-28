@@ -7,11 +7,12 @@ import Header from '../components/Header';
 import { HOME_SCENE_NAME } from './HomeScreen';
 import { SIGNUP_SCENE_NAME } from './SignUpScreen';
 import { PASSWORD_RESET_SCENE_NAME } from './PasswordResetScreen';
-import { login } from '../WS/WebServiceUser';
+import { login, setWebServiceNavigationUser } from '../WS/WebServiceUser';
 import { checkLogin } from '../errors/FamilinkErrors';
 import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
-import { keyStateCheckBox, keyUser } from '../Util';
+import { keyRememberMeCheckBox, keyUserOnLogin } from '../Util';
+import { setWebServiceNavigationContact } from '../WS/WebServiceContact';
 
 export const LOGIN_SCENE_NAME = 'LOGIN_SCENE';
 
@@ -74,6 +75,8 @@ export default class LoginScreen extends Component
   // Rappeler l'identifiant si on avait coché Se souvenir de moi
   async getRemember()
   {
+    setWebServiceNavigationUser(this.props.navigation);
+    setWebServiceNavigationContact(this.props.navigation);
     try
     {
       await AsyncStorage.getItem(keyRememberMeCheckBox).then((etat) =>

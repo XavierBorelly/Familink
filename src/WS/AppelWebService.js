@@ -1,52 +1,65 @@
-const url = 'https://familink.cleverapps.io';
+import { urlWs } from '../Util';
+import { tokenIsValid } from '../errors/Token';
 
-export async function appelGet(lien, token)
+async function verifToken(response, token, propsNavigation)
 {
-  const response = await fetch(`${url}${lien}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `${token},`,
-    },
-  });
+  if (token !== '' && token !== undefined && token !== null)
+  {
+    if (tokenIsValid(response.status, propsNavigation))
+    {
+      const responseJson = await response.json();
+      return responseJson;
+    }
+    return '';
+  }
   const responseJson = await response.json();
   return responseJson;
 }
 
-export async function appelPost(lien, data, token)
+
+export async function appelGet(lien, token, propsNavigation)
 {
-  const response = await fetch(`${url}${lien}`, {
+  const response = await fetch(`${urlWs}${lien}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `${token}`,
+    },
+  });
+
+  return verifToken(response, token, propsNavigation);
+}
+
+export async function appelPost(lien, data, token, propsNavigation)
+{
+  const response = await fetch(`${urlWs}${lien}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `${token},`,
+      Authorization: `${token}`,
     },
     body: `${data}`,
   });
-  const responseJson = await response.json(lien, data);
-  return responseJson;
+
+  return verifToken(response, token, propsNavigation);
 }
 
-export async function appelDelete(lien, data, token)
+export async function appelDelete(lien, token, propsNavigation)
 {
-  const response = await fetch(`${url}${lien}`, {
+  const response = await fetch(`${urlWs}${lien}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `${token},`,
+      Authorization: `${token}`,
     },
-    body: `${data}`,
   });
-  const responseJson = await response.json(lien, data, token);
-  return responseJson;
+
+  return verifToken(response, token, propsNavigation);
 }
 
-export async function appelPut(lien, data, token)
+export async function appelPut(lien, data, token, propsNavigation)
 {
-  console.log(lien);
-  console.log(data);
-  console.log(token);
-  const response = await fetch(`${url}${lien}`, {
+  const response = await fetch(`${urlWs}${lien}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -54,6 +67,6 @@ export async function appelPut(lien, data, token)
     },
     body: `${data}`,
   });
-  const responseJson = await response.json();
-  return responseJson;
+
+  return verifToken(response, token, propsNavigation);
 }
