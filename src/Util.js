@@ -41,8 +41,8 @@ export const labelPopInDeleteContact = 'Voulez-vous supprimer ce contact ?';
 export const button1LabelPopInDeleteContact = 'Supprimer';
 
 export const keyStorageContact = '@MyContacts:key';
-export const keyStateCheckBox = '@MonEtat:key';
-export const keyUser = '@MonIdentifiant:key';
+export const keyRememberMeCheckBox = '@MonEtat:key';
+export const keyUserOnLogin = '@MonIdentifiant:key';
 
 // const labelEmergency = 'URGENCE';
 // const tagFamilink = 'Familink';

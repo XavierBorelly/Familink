@@ -76,13 +76,13 @@ export default class LoginScreen extends Component
   {
     try
     {
-      await AsyncStorage.getItem(keyStateCheckBox).then((etat) =>
+      await AsyncStorage.getItem(keyRememberMeCheckBox).then((etat) =>
       {
         this.setState({ checked: JSON.parse(etat) });
       });
       if (this.state.checked === true)
       {
-        await AsyncStorage.getItem(keyUser).then((identifiant) =>
+        await AsyncStorage.getItem(keyUserOnLogin).then((identifiant) =>
         {
           this.setState({ user: identifiant });
         });
@@ -110,7 +110,7 @@ export default class LoginScreen extends Component
     const checked = this.state.checked;
     try
     {
-      await AsyncStorage.setItem(keyStateCheckBox, JSON.stringify(checked));
+      await AsyncStorage.setItem(keyRememberMeCheckBox, JSON.stringify(checked));
     }
     catch (e)
     {
@@ -120,7 +120,7 @@ export default class LoginScreen extends Component
     {
       try
       {
-        await AsyncStorage.setItem(keyUser, user);
+        await AsyncStorage.setItem(keyUserOnLogin, user);
       }
       catch (error)
       {
