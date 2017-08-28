@@ -114,7 +114,11 @@ export default class ProfilePicker extends Component
 }
 
 ProfilePicker.propTypes = {
-  selected: PropTypes.objectOf(PropTypes.any).isRequired,
+  selected: PropTypes.objectOf(PropTypes.any),
+};
+
+ProfilePicker.defaultProps = {
+  selected: 'SENIOR',
 };
 
 AppRegistry.registerComponent('ProfilePicker', () => ProfilePicker);
