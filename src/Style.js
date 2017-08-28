@@ -33,8 +33,15 @@ export const familinkStyles = StyleSheet.create({
     backgroundColor: headerBackgroundColor,
   },
   headerIcon: {
-    width: 36,
+    width: 40,
     height: 36,
+  },
+  headerBurgerMenu: {
+    width: 38,
+    backgroundColor: headerBorderColor,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   headerTitle: {
     position: 'absolute',
@@ -43,6 +50,16 @@ export const familinkStyles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: 26,
     color: headerTitleColor,
+  },
+  headerText: {
+    fontSize: 26,
+    color: buttonTextColor,
+    fontWeight: 'bold',
+  },
+
+  burgerMenuIcon: {
+    width: (Platform.OS === 'ios') ? 48 : 24,
+    height: (Platform.OS === 'ios') ? 48 : 24,
   },
 
   content: {
@@ -82,7 +99,7 @@ export const familinkStyles = StyleSheet.create({
   },
 
   button: {
-    borderRadius: 8,
+    borderRadius: 6,
     backgroundColor: buttonColor,
     flex: 1,
     borderColor: buttonBorderColor,
@@ -125,5 +142,25 @@ export const familinkStyles = StyleSheet.create({
   pickerItemText: {
     fontSize: 16,
     color: textColor,
+  },
+
+  backButtonContainer:
+  {
+    position: 'absolute',
+    bottom: 0,
+    width: Dimensions.get('window').width,
+    height: 36,
+    backgroundColor: headerBackgroundColor,
+    borderTopWidth: 1.2,
+    borderColor: headerBorderColor,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backButtonText:
+  {
+    width: Dimensions.get('window').width,
+    textAlign: 'center',
+    fontSize: 26,
   },
 });

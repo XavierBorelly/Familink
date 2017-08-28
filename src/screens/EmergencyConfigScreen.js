@@ -1,40 +1,26 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, View } from 'react-native';
 
 import Header from '../components/Header';
-import MenuIcon from '../../assets/icon_emergency_config.jpg';
+import MenuIcon from '../../assets/icon_emergency_config.png';
 import BackButton from '../components/BackButton';
 import { PROFILE_SCENE_NAME } from './ProfileScreen';
+import { familinkStyles } from '../Style';
 
 export const EMERGENCY_CONFIG_SCENE_NAME = 'EMERGENCY_CONFIG_SCENE';
-
-const $bgColor = '#F5FCFF';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: $bgColor,
-  },
-  icon: {
-    width: 48,
-    height: 48,
-  },
-});
 
 export default class EmergencyConfigScreen extends Component
 {
   static navigationOptions = {
     drawerLabel: 'Config Urgence',
-    drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
+    drawerIcon: (<Image source={MenuIcon} style={[familinkStyles.burgerMenuIcon]} />),
   };
 
   render()
   {
     const navigation = this.props.navigation;
     return (
-      <View style={styles.container}>
+      <View style={familinkStyles.container}>
         <Header hasMenu navigation={navigation} title="Configuration d'urgence" />
         <BackButton navigation={navigation} param={PROFILE_SCENE_NAME} />
       </View>
