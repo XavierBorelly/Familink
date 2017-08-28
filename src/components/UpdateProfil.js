@@ -59,8 +59,7 @@ export default class UpdateProfil extends Component
   {
     const currentUser = getUser().then((response) =>
     {
-      this.setState({ body: response,
-        name: response.lastName,
+      this.setState({ name: response.lastName,
         firstName: response.firstName,
         email: response.email,
         profil: response.profile,
@@ -68,7 +67,6 @@ export default class UpdateProfil extends Component
     });
     return currentUser;
   }
-
   /* eslint-disable no-lone-blocks */
   ValidateProfile()
   {
@@ -108,6 +106,7 @@ export default class UpdateProfil extends Component
           />
         </View>
         <ProfilePicker
+          selected={this.state.profil}
           ref={(profilePickerComponent) =>
           {
             this.profilePickerComponent = profilePickerComponent;
@@ -134,7 +133,14 @@ export default class UpdateProfil extends Component
               {
                 this.setState({ canUpdate: false });
                 editUser(this.state.name, this.state.firstName,
-                  this.state.email, this.state.profil);
+                  this.state.email, this.profilePickerComponent.state.profil).then((response) =>
+                {
+                  this.setState({ name: response.lastName,
+                    firstName: response.firstName,
+                    email: response.email,
+                    profil: response.profile,
+                  });
+                });
               }
             }
             }
@@ -181,13 +187,11 @@ export default class UpdateProfil extends Component
             editable={false}
           />
         </View>
-        <ProfilePicker
-          ref={(profilePickerComponent) =>
-          {
-            this.profilePickerComponent = profilePickerComponent;
-          }
-          }
-        />
+        <View style={styles.cell}>
+          <Text style={styles.label}>
+            {this.state.profil}
+          </Text>
+        </View>
 
         <View style={styles.cell}>
           <Button
