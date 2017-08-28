@@ -87,7 +87,7 @@ export default class PhonebookScreen extends Component
     if (this.state.contacts === null)
     {
       return (
-        <View style={styles.textItemContactContainer}>
+        <View>
           <Text>{labelLoading}</Text>
         </View>
       );
@@ -95,7 +95,7 @@ export default class PhonebookScreen extends Component
     if (this.state.contacts.length === 0)
     {
       return (
-        <View style={styles.textItemContactContainer}>
+        <View>
           <Text>{labelNoContact}</Text>
         </View>
       );
