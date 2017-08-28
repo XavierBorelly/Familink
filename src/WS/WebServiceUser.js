@@ -4,7 +4,8 @@ import { tokenIsFull } from '../errors/Token';
 
 let propsNavigation = null;
 
-export function setWebServiceNavigationUser(objNavigation) {
+export function setWebServiceNavigationUser(objNavigation)
+{
   propsNavigation = objNavigation;
 }
 
@@ -68,7 +69,7 @@ export async function forgotPassword(phone)
  */
 export async function editUser(name, firstName, email, profile)
 {
-  getTokenFromBDD().then((token) =>
+  const pickToken = getTokenFromBDD().then((token) =>
   {
     if (tokenIsFull(token, propsNavigation))
     {
@@ -79,7 +80,25 @@ export async function editUser(name, firstName, email, profile)
         profile,
       });
 
-      appelPut('/secured/users', body, token, propsNavigation);
+      const newBodyUser = appelPut('/secured/users', body, token, propsNavigation);
+      return newBodyUser;
     }
+    return '';
   });
+  return pickToken;
+}
+
+export function getUser()
+{
+  const pickToken = getTokenFromBDD().then((token) =>
+  {
+    const bodyUser = appelGet('/secured/users/current', token, propsNavigation)
+      .then((response) =>
+      {
+        const message = response;
+        return message;
+      });
+    return bodyUser;
+  });
+  return pickToken;
 }

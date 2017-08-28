@@ -109,3 +109,89 @@ export async function editContactToBDD(phoneNumber, contactEdit)
     }
   });
 }
+
+/**
+* permet de supprimer un contact précis
+*/
+export async function deleteContactToDBB(phoneNumber)
+{
+  let i = 0;
+  getAllContactsFromBDD().then((contacts) =>
+  {
+    for (i = 0; i < contacts.length; i += 1)
+    {
+      if (contacts[i].phoneNumber.indexOf(phoneNumber) > -1)
+      {
+        console.log(`contact ${contacts[i].phoneNumber} supprimer`);
+        contacts.splice(i, 1);
+        saveAllContactsToBDD(contacts);
+        break;
+      }
+    }
+  });
+}
+
+/**
+* permet de modifier un concact
+*/
+export async function editContactToBDD(phoneNumber, contactEdit)
+{
+  let i = 0;
+  getAllContactsFromBDD().then((contacts) =>
+  {
+    const contact = contacts;
+    for (i = 0; i < contact.length; i += 1)
+    {
+      if (contact[i].phoneNumber.indexOf(phoneNumber) > -1)
+      {
+        console.log(`contact ${phoneNumber} modifier`);
+        contact[i] = contactEdit;
+        saveAllContactsToBDD(contact);
+        break;
+      }
+    }
+  });
+}
+
+/**
+* permet de supprimer un contact précis
+*/
+export async function deleteContactToDBB(phoneNumber)
+{
+  let i = 0;
+  getAllContactsFromBDD().then((contacts) =>
+  {
+    for (i = 0; i < contacts.length; i += 1)
+    {
+      if (contacts[i].phoneNumber.indexOf(phoneNumber) > -1)
+      {
+        console.log(`contact ${contacts[i].phoneNumber} supprimer`);
+        contacts.splice(i, 1);
+        saveAllContactsToBDD(contacts);
+        break;
+      }
+    }
+  });
+}
+
+/**
+* permet de modifier un concact
+*/
+export async function editContactToBDD(phoneNumber, contactEdit)
+{
+  let i = 0;
+  getAllContactsFromBDD().then((contacts) =>
+  {
+    const contact = contacts;
+    for (i = 0; i < contact.length; i += 1)
+    {
+      if (contact[i].phoneNumber.indexOf(phoneNumber) > -1)
+      {
+        console.log(`contact ${phoneNumber} modifier`);
+        contact[i] = contactEdit;
+        saveAllContactsToBDD(contact);
+        break;
+      }
+    }
+  });
+}

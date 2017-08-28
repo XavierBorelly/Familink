@@ -24,6 +24,15 @@ export default class HomeScreen extends Component
     drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
 
+  constructor(props)
+  {
+    super(props);
+
+    this.state = {
+      contact: null,
+    };
+  }
+
   render()
   {
     const navigation = this.props.navigation;
@@ -58,14 +67,14 @@ export default class HomeScreen extends Component
               <Text style={familinkStyles.buttonText}>Répertoire</Text>
             </TouchableHighlight>
           </View>
-        </View>      
+        </View>
         <Button
           onPress={() =>
           {
             getAllContacts().then((contacts) =>
-          {
-            console.log(contacts);
-          });
+            {
+              console.log(contacts);
+            });
           }
           }
           title="getContact"
