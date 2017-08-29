@@ -12,6 +12,8 @@ import defaultGravatar from '../../assets/icon_defaultGravatar.jpg';
 import ContactService from '../service/contactService';
 import { labelNoContact, labelLoading } from '../Util';
 
+import _ from 'lodash';
+
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
 
 let currentLandmarkLetter = '';
@@ -70,9 +72,10 @@ export default class PhonebookScreen extends Component
         <Text style={familinkStyles.textContact}>{labelNoContact}</Text>
       );
     }
+    const contactsFiltre = _.filter(this.state.contacts, this.state.filterList);
     return (
       <FlatList
-        data={this.state.contacts}
+        data={contactsFiltre}
         renderItem={({ item }) => (
           <View>
             <Text style={familinkStyles.abecedaire} >
@@ -114,7 +117,15 @@ export default class PhonebookScreen extends Component
 
         <View style={familinkStyles.contentList}>
           <View style={familinkStyles.contentButtonAddContact}>
-            <SearchBar />
+            <SearchBar
+              arrayContacts={this.state.contacts}
+              ref={(searchBarComponent) =>
+              {
+                this.searchBarComponent = searchBarComponent;
+              }
+              }
+              onChange={myFilterFn => this.setState({ filterList: myFilterFn })}
+            />
             <TouchableHighlight
               style={familinkStyles.buttonAddContact}
               onPress={() =>
