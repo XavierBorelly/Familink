@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import Header from '../components/Header';
 import { LOGIN_SCENE_NAME } from './LoginScreen';
 import BackButton from '../components/BackButton';
-import { familinkStyles } from '../Style';
+import familinkStyles from '../Style';
 
 export const PASSWORD_RESET_SCENE_NAME = 'PASSWORD_RESET_SCENE';
 

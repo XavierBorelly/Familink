@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Platform, AppRegistry, TouchableHighlight, View, Text } from 'react-native';
-import { familinkStyles } from '../Style';
+import familinkStyles from '../Style';
 
 export default class BackButton extends Component
 {

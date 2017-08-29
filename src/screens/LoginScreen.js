@@ -13,7 +13,7 @@ import { checkLogin } from '../errors/FamilinkErrors';
 import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
 import { setWebServiceNavigationContact } from '../WS/WebServiceContact';
-import { familinkStyles } from '../Style';
+import familinkStyles from '../Style';
 import { buttonLabelConnection, buttonLabelForgotPassword, buttonLabelSignIn, keyRememberMeCheckBox, keyUserOnLogin } from '../Util';
 
 export const LOGIN_SCENE_NAME = 'LOGIN_SCENE';

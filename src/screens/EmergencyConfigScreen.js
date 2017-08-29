@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import MenuIcon from '../../assets/icon_emergency_config.png';
 import BackButton from '../components/BackButton';
 import { PROFILE_SCENE_NAME } from './ProfileScreen';
-import { familinkStyles } from '../Style';
+import familinkStyles from '../Style';
 
 export const EMERGENCY_CONFIG_SCENE_NAME = 'EMERGENCY_CONFIG_SCENE';
 

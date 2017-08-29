@@ -48,6 +48,9 @@ export const keyRememberMeCheckBox = '@MonEtat:key';
 export const keyUserOnLogin = '@MonIdentifiant:key';
 export const urlWs = 'https://familink.cleverapps.io';
 
+export const labelNoContact = 'Vous n\'avez aucun contact enregistré.';
+export const labelLoading = 'Chargement des données...';
+
 export const keyStorageToken = '@TokenAuthentification:key';
 
 // const labelEmergency = 'URGENCE';

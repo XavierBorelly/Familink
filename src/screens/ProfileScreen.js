@@ -5,7 +5,7 @@ import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import { HOME_SCENE_NAME } from './HomeScreen';
 import UpdateProfil from '../components/UpdateProfil';
-import { familinkStyles } from '../Style';
+import familinkStyles from '../Style';
 
 export const PROFILE_SCENE_NAME = 'PROFILE_SCENE';
 
