@@ -1,47 +1,32 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-
+import { View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import { HOME_SCENE_NAME } from './HomeScreen';
-import MenuIcon from '../../assets/icon_profile.jpg';
-import BackButton from '../components/BackButton';
+import UpdateProfil from '../components/UpdateProfil';
+import { familinkStyles } from '../Style';
 
 export const PROFILE_SCENE_NAME = 'PROFILE_SCENE';
-
-const $bgColor = '#F5FCFF';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: $bgColor,
-  },
-  icon: {
-    width: 48,
-    height: 48,
-  },
-});
 
 export default class ProfileScreen extends Component
 {
   static navigationOptions = {
     drawerLabel: 'Mon Profil',
-    drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
   };
-
   render()
   {
     const navigation = this.props.navigation;
     return (
-      <View style={styles.container}>
-        <Header hasMenu navigation={navigation} title="Mon profil" />
-        <BackButton navigation={navigation} param={HOME_SCENE_NAME} />
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={familinkStyles.container}>
+          <Header hasMenu navigation={navigation} title="Mon Profil" />
+          <BackButton navigation={navigation} param={HOME_SCENE_NAME} />
+          <UpdateProfil />
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
-
 ProfileScreen.propTypes = {
   navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };
