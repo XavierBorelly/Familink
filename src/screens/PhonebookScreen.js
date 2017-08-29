@@ -7,7 +7,7 @@ import BackButton from '../components/BackButton';
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 import { showInformativePopin } from '../Popin';
-import iconCall from '../../assets/icon_phone.jpg';
+import iconCall from '../../assets/icon_phone.png';
 import defaultGravatar from '../../assets/icon_defaultGravatar.jpg';
 import ContactService from '../service/contactService';
 import { labelNoContact, labelLoading } from '../Util';
