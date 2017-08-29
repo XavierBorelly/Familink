@@ -18,6 +18,7 @@ export const regexMail = /^(([^<>()\[\]\\.,;:\s@“]+(\.[^<>()\[\]\\.,;:\s@“]+
 /* eslint-enable */
 export const buttonLabelConnection = 'Se connecter';
 export const buttonLabelForgotPassword = 'Mot de passe oublié ?';
+export const buttonLabelValidateForgotPassword = 'Envoyer une demande de mot de passe';
 export const buttonLabelSignIn = "S'enregistrer";
 export const buttonLabelSend = 'Envoyer';
 export const buttonLabelValidation = 'Valider';
@@ -52,6 +53,8 @@ export const labelNoContact = 'Vous n\'avez aucun contact enregistré.';
 export const labelLoading = 'Chargement des données...';
 
 export const keyStorageToken = '@TokenAuthentification:key';
+
+export const LabelConfirmForgotPassword = 'Un E-mail vous à été envoyé pour changer votre mot de passe.';
 
 // const labelEmergency = 'URGENCE';
 // const tagFamilink = 'Familink';
