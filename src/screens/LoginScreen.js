@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, TextInput, AsyncStorage, TouchableHighlight, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { Image, View, TextInput, AsyncStorage, TouchableHighlight, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { ListItem, CheckBox, Text, Body } from 'native-base';
-import PropTypes from 'prop-types';
 
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import MenuIcon from '../../assets/icon_logout.png';
 import { HOME_SCENE_NAME } from './HomeScreen';
 import { SIGNUP_SCENE_NAME } from './SignUpScreen';
 import { PASSWORD_RESET_SCENE_NAME } from './PasswordResetScreen';
@@ -24,6 +25,7 @@ export default class LoginScreen extends Component
   static navigationOptions = {
     drawerLabel: 'Déconnexion',
     drawerLockMode: 'locked-closed',
+    drawerIcon: (<Image source={MenuIcon} style={[familinkStyles.burgerMenuIcon]} />),
   };
 
   constructor(props)
@@ -136,6 +138,7 @@ export default class LoginScreen extends Component
                 onChangeText={user => this.setState({ user })}
                 keyboardType="numeric"
                 placeholder="Numéro de téléphone"
+                underlineColorAndroid="transparent"
                 defaultValue={this.state.user}
                 ref={(input) =>
                 {
@@ -151,6 +154,7 @@ export default class LoginScreen extends Component
                 onChangeText={password => this.setState({ password })}
                 keyboardType="numeric"
                 placeholder="Mot de passe"
+                underlineColorAndroid="transparent"
                 secureTextEntry
                 maxLength={4}
               />

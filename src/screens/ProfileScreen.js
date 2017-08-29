@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
+import MenuIcon from '../../assets/icon_profile.png';
 import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import { HOME_SCENE_NAME } from './HomeScreen';
@@ -12,6 +13,7 @@ export default class ProfileScreen extends Component
 {
   static navigationOptions = {
     drawerLabel: 'Mon Profil',
+    drawerIcon: (<Image source={MenuIcon} style={[familinkStyles.burgerMenuIcon]} />),
   };
   render()
   {

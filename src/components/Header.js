@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Text, Image, View, TouchableHighlight } from 'react-native';
+import { Text, View, TouchableHighlight } from 'react-native';
 import { familinkStyles } from '../Style';
-import MenuIcon from '../../assets/icon_menu.jpg';
 
 export default class Header extends Component
 {
@@ -9,12 +8,14 @@ export default class Header extends Component
   {
     const props = this.props;
     return (
-      <TouchableHighlight onPress={() =>
-      {
-        props.navigation.navigate('DrawerOpen');
-      }}
+      <TouchableHighlight
+        style={familinkStyles.headerBurgerMenu}
+        onPress={() =>
+        {
+          props.navigation.navigate('DrawerOpen');
+        }}
       >
-        <Image style={familinkStyles.headerIcon} source={MenuIcon} />
+        <Text style={familinkStyles.headerText}>☰</Text>
       </TouchableHighlight>
     );
   }

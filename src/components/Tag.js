@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Platform, AppRegistry, TouchableHighlight, View, Text } from 'react-native';
 import { familinkStyles } from '../Style';
 
-export default class BackButton extends Component
+export default class Tag extends Component
 {
   getButton()
   {
@@ -22,14 +22,17 @@ export default class BackButton extends Component
 
   render()
   {
-    const button = (Platform.OS === 'ios') ? this.getButton() : (<View style={familinkStyles.backButtonContainer} />);
-    return button;
+    return (
+      <View style={familinkStyles.pickerRow}>
+        {items}
+      </View>
+    );
   }
 }
 
-BackButton.propTypes = {
+Tag.propTypes = {
   navigation: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
   param: PropTypes.string.isRequired,
 };
 
-AppRegistry.registerComponent('BackButton', () => BackButton);
+AppRegistry.registerComponent('Tag', () => Tag);

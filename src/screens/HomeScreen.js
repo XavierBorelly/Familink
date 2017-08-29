@@ -1,27 +1,18 @@
 import React, { Component } from 'react';
-import { Image, Text, TouchableHighlight, StyleSheet, View, Button } from 'react-native';
+import { Image, Text, TouchableHighlight, View } from 'react-native';
 import Header from '../components/Header';
 import { PROFILE_SCENE_NAME } from './ProfileScreen';
 import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
-import MenuIcon from '../../assets/icon_home.jpg';
+import MenuIcon from '../../assets/icon_home.png';
 import { familinkStyles } from '../Style';
-import { getAllContacts } from '../WS/WebServiceContact';
-import { DeleteTokenFromBDD } from '../BDD/Token';
 
 export const HOME_SCENE_NAME = 'HOME_SCENE';
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 48,
-    height: 48,
-  },
-});
 
 export default class HomeScreen extends Component
 {
   static navigationOptions = {
     drawerLabel: 'Accueil',
-    drawerIcon: (<Image source={MenuIcon} style={[styles.icon]} />),
+    drawerIcon: (<Image source={MenuIcon} style={[familinkStyles.burgerMenuIcon]} />),
   };
 
   render()
@@ -44,8 +35,6 @@ export default class HomeScreen extends Component
             </TouchableHighlight>
           </View>
 
-          <View style={familinkStyles.item} />
-
           <View style={familinkStyles.item}>
             <TouchableHighlight
               style={familinkStyles.button}
@@ -58,27 +47,7 @@ export default class HomeScreen extends Component
               <Text style={familinkStyles.buttonText}>Répertoire</Text>
             </TouchableHighlight>
           </View>
-        </View>      
-        <Button
-          onPress={() =>
-          {
-            getAllContacts().then((contacts) =>
-          {
-            console.log(contacts);
-          });
-          }
-          }
-          title="getContact"
-        />
-
-        <Button
-          onPress={() =>
-          {
-            DeleteTokenFromBDD();
-          }
-          }
-          title="logout"
-        />
+        </View>
       </View>
     );
   }
