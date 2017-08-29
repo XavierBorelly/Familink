@@ -71,7 +71,6 @@ export const familinkStyles = StyleSheet.create({
     paddingBottom: 2,
   },
   itemFocused: {
-
     flex: 2.4,
     paddingTop: 4,
     paddingBottom: 4,

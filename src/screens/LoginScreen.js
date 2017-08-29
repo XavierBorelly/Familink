@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Image, View, TextInput, AsyncStorage, TouchableHighlight, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { ListItem, CheckBox, Text, Body } from 'native-base';
-import PropTypes from 'prop-types';
 
-import MenuIcon from '../../assets/icon_logout.png';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import MenuIcon from '../../assets/icon_logout.png';
 import { HOME_SCENE_NAME } from './HomeScreen';
 import { SIGNUP_SCENE_NAME } from './SignUpScreen';
 import { PASSWORD_RESET_SCENE_NAME } from './PasswordResetScreen';
