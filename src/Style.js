@@ -87,6 +87,7 @@ export default StyleSheet.create({
     paddingBottom: 2,
   },
   itemFocused: {
+
     flex: 2.4,
     paddingTop: 4,
     paddingBottom: 4,
@@ -110,7 +111,7 @@ export default StyleSheet.create({
   },
 
   button: {
-    borderRadius: 6,
+    borderRadius: 8,
     backgroundColor: buttonColor,
     flex: 1,
     borderColor: buttonBorderColor,
@@ -238,5 +239,8 @@ export default StyleSheet.create({
     fontSize: 28,
     color: buttonAddContactTextColor,
     fontWeight: 'bold',
+  gravatarContainer: {
+    borderRadius: 6,
+    margin: 4,
   },
 });
