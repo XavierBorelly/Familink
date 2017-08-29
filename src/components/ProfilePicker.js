@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Text, AppRegistry, TouchableHighlight, StyleSheet, View } from 'react-native';
 import { getProfil } from '../WS/WebServiceUser';
 import { familinkStyles } from '../Style';
@@ -22,7 +22,7 @@ export default class ProfilePicker extends Component
   constructor(props)
   {
     super(props);
-    this.state = { profil: 'SENIOR', isLoaded: false };
+    this.state = { profil: props.selected || 'SENIOR', isLoaded: false };
   }
 
   componentDidMount()
@@ -112,5 +112,13 @@ export default class ProfilePicker extends Component
     );
   }
 }
+
+ProfilePicker.propTypes = {
+  selected: PropTypes.objectOf(PropTypes.any),
+};
+
+ProfilePicker.defaultProps = {
+  selected: 'SENIOR',
+};
 
 AppRegistry.registerComponent('ProfilePicker', () => ProfilePicker);

@@ -4,7 +4,8 @@ import { tokenIsFull } from '../errors/Token';
 
 let propsNavigation = null;
 
-export function setWebServiceNavigationContact(objNavigation) {
+export function setWebServiceNavigationContact(objNavigation)
+{
   propsNavigation = objNavigation;
 }
 
