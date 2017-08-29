@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, Button } from 'react-native';
+import { StyleSheet, View, Keyboard, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 
+import { familinkStyles } from '../Style';
 import { addContact } from '../actions/contacts.action';
 import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
 import BackButton from '../components/BackButton';
 import Gravatar from '../components/Gravatar';
 import Header from '../components/Header';
+import { checkRequiredStringValue, checkPhoneNumber, checkMail } from '../errors/FamilinkErrors';
+import { errorPopinTitle, lastnameRequired, surnameRequired } from '../errors/ErrorStrings';
+import Contact from '../models/Contact';
+import ContactService from '../service/ContactService';
+
+import { showInformativePopin } from '../Popin';
+import { labelInformativePopinTitle, labelContactCreatedSuccess, buttonLabelValidation } from '../Util';
+
 
 export const CONTACT_SCENE_NAME = 'CONTACT_SCENE';
-
-const $bgColor = '#F5FCFF';
-const $focusedColor = '#DDFFEE';
-const $inputBorderColor = '#E0E4CC';
-const $whiteColor = '#FFFFFF';
 
 // Chaines de caractères utilisés pour savoir quel élément est focus
 const phoneNumberInput = 'phone';
@@ -22,45 +26,20 @@ const firstNameInput = 'firstName';
 const mailInput = 'email';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  content: {
-    backgroundColor: $bgColor,
-    flex: 0.8,
-    width: '80%',
-  },
   cell: {
     flex: 1,
-  },
-  cellFocused: {
-    flex: 3,
-  },
-  textInput: {
-    paddingLeft: 10,
-    borderColor: $inputBorderColor,
-    flex: 1,
-    backgroundColor: $whiteColor,
-  },
-  textInputFocused: {
-    paddingLeft: 10,
-    borderColor: $inputBorderColor,
-    flex: 1,
-    backgroundColor: $focusedColor,
   },
   identityContainer: {
     flexDirection: 'row',
     alignContent: 'flex-start',
   },
   buttonsContainer: {
-    backgroundColor: $whiteColor,
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
   buttonContainer: {
-    backgroundColor: $inputBorderColor,
+    marginLeft: 5,
+    marginRight: 5,
   },
   flexColumn: {
     flex: 1,
@@ -68,24 +47,49 @@ const styles = StyleSheet.create({
   },
 });
 
+const Mode = Object.freeze({
+  CREATE: Symbol('create'),
+  UPDATE: Symbol('update'),
+});
+
+const defaultContact = new Contact(0);
 
 export class ContactScreen extends Component
 {
+  static hasErrors(errorArray)
+  {
+    let index = 0;
+    let findError = false;
+
+    while (index < errorArray.length && !findError)
+    {
+      if (errorArray[index] !== '')
+      {
+        showInformativePopin(errorPopinTitle, errorArray[index]);
+        findError = true;
+      }
+      index += 1;
+    }
+
+    return findError;
+  }
+
   constructor(props)
   {
     super(props);
 
-    const { params } = this.props.navigation.state;
+    const params = this.props.navigation.state.params;
+    const contact = (params && params.item) ? params.item : defaultContact;
 
     this.state = {
-      editMode: (params.id !== 0),
-      errors: null,
+      mode: (contact.id === 0) ? Mode.CREATE : Mode.UPDATE,
       focused: 'null',
-
-      lastName: params.lastName || '',
-      firstName: params.firstName || '',
-      phone: params.phone || '',
-      email: params.email || '',
+      gravatar: contact.gravatar || '',
+      lastName: contact.lastName || '',
+      firstName: contact.firstName || '',
+      phoneNumber: contact.phoneNumber || '',
+      email: contact.email || '',
+      errors: ['', '', '', ''],
     };
 
     this.add = this.add.bind(this);
@@ -98,25 +102,42 @@ export class ContactScreen extends Component
     });
   }
 
-  getActionButtons()
+  getTagView()
   {
-    if (this.state.editMode)
+    if (this.state.mode === Mode.UPDATE)
     {
+      // Vue à coder lors de la modification
       return (
-        <View />
+        <View style={[familinkStyles.item]}>
+          <Text>Affichage des tags non implémenté</Text>
+        </View>
       );
     }
+
+    // Creation mode (pas de vue spécifique)
+    return (<View />);
+  }
+
+  getActionButtons()
+  {
+    if (this.state.mode === Mode.UPDATE)
+    {
+      return (
+        <View style={[familinkStyles.item]}>
+          <Text>Modification/suppression non implémenté</Text>
+        </View>
+      );
+    }
+
     // Creation mode
     return (
-      <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={this.add}
-            title="Valider"
-            color="#D35400"
-            accessibilityLabel="Créer le contact"
-          />
-        </View>
+      <View style={[familinkStyles.item, styles.buttonsContainer]}>
+        <TouchableHighlight
+          style={[familinkStyles.button, styles.buttonContainer]}
+          onPress={this.add}
+        >
+          <Text style={familinkStyles.buttonText}>{buttonLabelValidation}</Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -126,17 +147,31 @@ export class ContactScreen extends Component
     const props = this.props;
     const state = this.state;
 
-    const response = props.addContact({
-      phone: state.phone,
-      firstName: state.firstName,
-      lastName: state.lastName,
-      email: state.email,
-      isEmergencyUser: false,
-    });
+    const errorArray = [];
 
-    if (response.saved)
+    errorArray.push(checkRequiredStringValue(state.lastName, lastnameRequired));
+    errorArray.push(checkRequiredStringValue(state.firstName, surnameRequired));
+    errorArray.push(checkPhoneNumber(state.phoneNumber));
+    errorArray.push(checkMail(state.email));
+
+    if (!ContactScreen.hasErrors(errorArray))
     {
-      props.navigation.navigate(PHONEBOOK_SCENE_NAME);
+      const newContact = new Contact(0, state.phoneNumber, state.firstName,
+        state.lastName, state.email, null, false, false);
+
+      ContactService.addContact(newContact).then((saveResponse) =>
+      {
+        // Seul le succès est gére (le webservice renvoie vers la page login en cas d'échec)
+        if (saveResponse.saved)
+        {
+          showInformativePopin(labelInformativePopinTitle, labelContactCreatedSuccess);
+          props.navigation.navigate(PHONEBOOK_SCENE_NAME);
+        }
+      });
+    }
+    else
+    {
+      this.setState({ errors: errorArray });
     }
   }
 
@@ -151,90 +186,113 @@ export class ContactScreen extends Component
   render()
   {
     const navigation = this.props.navigation;
+
+    const tagView = this.getTagView();
     const actionButtons = this.getActionButtons();
 
     return (
-      <View style={styles.container}>
-        <Header
-          hasMenu
-          navigation={navigation}
-          title={
-            this.state.editMode ? 'Modification contact' : 'Création contact'
-          }
-        />
-        <View style={styles.content}>
-          <View style={styles.identityContainer}>
-            <View>
-              <Gravatar size={100} />
-            </View>
-            <View style={[styles.cell, styles.flexColumn]}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={familinkStyles.container}>
+          <Header
+            hasMenu
+            navigation={navigation}
+            title={
+              (this.state.mode === Mode.UPDATE ? 'Modification contact' : 'Création contact')
+            }
+          />
+          <View style={familinkStyles.content}>
 
-              <View style={this.state.focused === lastNameInput ? styles.cellFocused : styles.cell}>
-                <TextInput
-                  style={this.state.focused === lastNameInput
-                    ? styles.textInputFocused : styles.textInput}
-                  onChangeText={text => this.setState({ lastName: text })}
-                  placeholder="Nom"
-                  selectTextOnFocus
-                  onBlur={() => this.resetFocus()}
-                  onFocus={() => this.setFocus(lastNameInput)}
-                  maxLength={15}
-                />
+            <View style={styles.identityContainer}>
+              <View>
+                <Gravatar gravatarUrl={this.state.gravatar} email={this.state.email} size={100} />
               </View>
+              <View style={[styles.cell, styles.flexColumn]}>
+                <View style={this.state.focused === lastNameInput ?
+                  familinkStyles.itemFocused : familinkStyles.item}
+                >
+                  <TextInput
+                    style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
+                    onChangeText={text => this.setState({ lastName: text })}
+                    placeholder="Nom *"
+                    selectTextOnFocus
+                    autoCorrect={false}
+                    underlineColorAndroid="transparent"
+                    placeholderTextColor="#909090"
+                    onBlur={() => this.resetFocus()}
+                    onFocus={() => this.setFocus(lastNameInput)}
+                    maxLength={15}
+                    value={this.state.firstName}
+                  />
+                </View>
 
-              <View style={this.state.focused === firstNameInput
-                ? styles.cellFocused : styles.cell}
-              >
-                <TextInput
-                  style={this.state.focused === firstNameInput ?
-                    styles.textInputFocused : styles.textInput}
-                  onChangeText={text => this.setState({ firstName: text })}
-                  placeholder="Prenom"
-                  selectTextOnFocus
-                  onBlur={() => this.resetFocus()}
-                  onFocus={() => this.setFocus(firstNameInput)}
-                  maxLength={15}
-                />
+                <View style={this.state.focused === firstNameInput
+                  ? familinkStyles.itemFocused : familinkStyles.item}
+                >
+                  <TextInput
+                    style={this.state.errors[1] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
+                    onChangeText={text => this.setState({ firstName: text })}
+                    placeholder="Prenom *"
+                    selectTextOnFocus
+                    autoCorrect={false}
+                    underlineColorAndroid="transparent"
+                    placeholderTextColor="#909090"
+                    onBlur={() => this.resetFocus()}
+                    onFocus={() => this.setFocus(firstNameInput)}
+                    maxLength={15}
+                    value={this.state.lastName}
+                  />
+                </View>
+
               </View>
-
             </View>
+
+            {tagView}
+
+            <View style={this.state.focused === phoneNumberInput
+              ? familinkStyles.itemFocused : familinkStyles.item}
+            >
+              <TextInput
+                style={this.state.errors[2] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
+                onChangeText={text => this.setState({ phone: text })}
+                keyboardType="numeric"
+                placeholder="Numéro de téléphone *"
+                selectTextOnFocus
+                autoCorrect={false}
+                underlineColorAndroid="transparent"
+                placeholderTextColor="#909090"
+                onBlur={() => this.resetFocus()}
+                onFocus={() => this.setFocus(phoneNumberInput)}
+                maxLength={10}
+                value={this.state.phoneNumber}
+              />
+            </View>
+
+            <View style={this.state.focused === mailInput
+              ? familinkStyles.itemFocused : familinkStyles.item}
+            >
+              <TextInput
+                style={this.state.errors[3] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
+                onChangeText={text => this.setState({ email: text })}
+                placeholder="Email *"
+                selectTextOnFocus
+                autoCorrect={false}
+                underlineColorAndroid="transparent"
+                placeholderTextColor="#909090"
+                maxLength={50}
+                onBlur={() => this.resetFocus()}
+                onFocus={() => this.setFocus(mailInput)}
+                keyboardType="email-address"
+                value={this.state.email}
+              />
+            </View>
+
+            {actionButtons}
+
           </View>
 
-
-          <View style={this.state.focused === phoneNumberInput ? styles.cellFocused : styles.cell}>
-            <TextInput
-              style={this.state.focused === phoneNumberInput ?
-                styles.textInputFocused : styles.textInput}
-              onChangeText={text => this.setState({ phone: text })}
-              keyboardType="numeric"
-              placeholder="Numéro de téléphone"
-              selectTextOnFocus
-              onBlur={() => this.resetFocus()}
-              onFocus={() => this.setFocus(phoneNumberInput)}
-              maxLength={10}
-            />
-          </View>
-
-
-          <View style={this.state.focused === mailInput ? styles.cellFocused : styles.cell}>
-            <TextInput
-              style={this.state.focused === mailInput ? styles.textInputFocused : styles.textInput}
-              onChangeText={text => this.setState({ email: text })}
-              placeholder="Email"
-              selectTextOnFocus
-              maxLength={50}
-              onBlur={() => this.resetFocus()}
-              onFocus={() => this.setFocus(mailInput)}
-              keyboardType="email-address"
-            />
-          </View>
-
-          {actionButtons}
-
+          <BackButton navigation={navigation} param={PHONEBOOK_SCENE_NAME} />
         </View>
-
-        <BackButton navigation={navigation} param={PHONEBOOK_SCENE_NAME} />
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
 }

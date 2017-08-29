@@ -33,7 +33,7 @@ export async function getAllContacts()
  */
 export async function saveContact(phoneNumber, firstName, lastName, email, gravatar)
 {
-  getTokenFromBDD().then((token) =>
+  return getTokenFromBDD().then((token) =>
   {
     if (tokenIsFull(token, propsNavigation))
     {
@@ -44,8 +44,11 @@ export async function saveContact(phoneNumber, firstName, lastName, email, grava
         email,
         gravatar,
       });
-      appelPost('/secured/users/contacts', body, token, propsNavigation);
+
+      return appelPost('/secured/users/contacts', body, token, propsNavigation);
     }
+
+    return null;
   });
 }
 

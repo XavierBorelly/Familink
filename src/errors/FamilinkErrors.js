@@ -91,3 +91,14 @@ export function checkForgotPassword(message)
   }
   return '';
 }
+
+export function checkRequiredStringValue(value, errorMessage)
+{
+  if (value === null || value === '')
+  {
+    return errorMessage;
+  }
+
+  return '';
+}
+
