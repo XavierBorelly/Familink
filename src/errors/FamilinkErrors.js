@@ -82,3 +82,12 @@ export function checkLogin(message)
   }
   return '';
 }
+
+export function checkForgotPassword(message)
+{
+  if (message === 400)
+  {
+    return errStrings.wrongUser;
+  }
+  return '';
+}

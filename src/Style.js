@@ -67,6 +67,20 @@ export default StyleSheet.create({
     borderRadius: 6,
   },
 
+  contentForgotPassword: {
+    backgroundColor: appBackgroundColor,
+    flex: 0.8,
+    justifyContent: 'center',
+    width: '80%',
+    borderRadius: 6,
+  },
+
+  itemForgotPassword: {
+    height: 50,
+    paddingTop: 2,
+    paddingBottom: 2,
+  },
+
   item: {
     flex: 1,
     paddingTop: 2,
