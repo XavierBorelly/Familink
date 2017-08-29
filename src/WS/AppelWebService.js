@@ -44,6 +44,19 @@ export async function appelPost(lien, data, token, propsNavigation)
   return verifToken(response, token, propsNavigation);
 }
 
+export async function appelPostStatus(lien, data)
+{
+  const response = await fetch(`${urlWs}${lien}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: `${data}`,
+  });
+
+  return response;
+}
+
 export async function appelDelete(lien, token, propsNavigation)
 {
   const response = await fetch(`${urlWs}${lien}`, {
