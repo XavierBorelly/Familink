@@ -12,3 +12,6 @@ export const mailError = 'Le mail doit être au format exemple@exemple.fr';
 export const wrongUser = 'Numéro de téléphone incorrect';
 export const wrongPassword = 'Numéro de téléphone ou mot de passe incorrect';
 export const missPassword = 'Mot de passe manquant';
+
+export const tokenEmpty = 'session invalide, veillez-vous reconnecter!';
+export const tokenInvalid = 'session expiré, veillez-vous reonnecter!';
