@@ -13,13 +13,14 @@ export default class SearchBar extends Component
 
   onCurrentSearchChange(text)
   {
-    this.props.onChange(item =>
-      (item.firstName.contains(text) || item.lastName.contains(text)));
-
-
-    const filterList = _.filter(this.state.listContacts, item =>
-      (item.firstName.contains(text) || item.lastName.contains(text)));
-    return filterList;
+    this.props.onChange((item) =>
+    {
+      const Surname = item.firstName.toLowerCase();
+      const Name = item.lastName.toLowerCase();
+      return ((Surname.indexOf(text.toLowerCase()) > -1)
+      || (Name.indexOf(text.toLowerCase()) > -1)
+      || (item.phone.indexOf(text) > -1));
+    });
   }
 
   render()
