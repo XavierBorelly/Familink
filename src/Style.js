@@ -1,18 +1,21 @@
 import { StyleSheet, Platform, Dimensions } from 'react-native';
 
-export const appBackgroundColor = '#C0D8FF';
-export const headerBackgroundColor = '#80B8FF';
-export const headerBorderColor = '#5088CF';
-export const headerTitleColor = '#01579B';
-export const buttonColor = '#FB8C00';
-export const buttonBorderColor = '#EF6C00';
-export const buttonTextColor = 'white';
-export const textInputFocusedBackgroundColor = '#DDFFEE';
-export const textInputBorderColor = '#BBBBBB';
-export const textInputBackgroundColor = '#FFFFFF';
-export const textInputErrorBackgroundColor = '#FFDDEE';
-export const textInputErrorBorderColor = '#e53935';
-export const textColor = '#000000';
+const appBackgroundColor = '#C0D8FF';
+const headerBackgroundColor = '#80B8FF';
+const headerBorderColor = '#5088CF';
+const headerTitleColor = '#01579B';
+const buttonColor = '#FB8C00';
+const buttonBorderColor = '#EF6C00';
+const buttonTextColor = 'white';
+const buttonAddContactTextColor = '#45FF45';
+const textInputFocusedBackgroundColor = '#DDFFEE';
+const textInputBorderColor = '#BBBBBB';
+const textInputBackgroundColor = '#FFFFFF';
+const textInputErrorBackgroundColor = '#FFDDEE';
+const textInputErrorBorderColor = '#e53935';
+const textColor = '#000000';
+const textFamilink = '#2ECC71';
+const textEmergency = '#E74C3C';
 
 export const familinkStyles = StyleSheet.create({
   container: {
@@ -138,9 +141,7 @@ export const familinkStyles = StyleSheet.create({
     fontSize: 16,
     color: textColor,
   },
-
-  backButtonContainer:
-  {
+  backButtonContainer{
     position: 'absolute',
     bottom: 0,
     width: Dimensions.get('window').width,
@@ -156,6 +157,73 @@ export const familinkStyles = StyleSheet.create({
   {
     width: Dimensions.get('window').width,
     textAlign: 'center',
-    fontSize: 26,
+    fontSize: 26
+  },
+  contentList: {
+    backgroundColor: appBackgroundColor,
+    flex: 0.8,
+    width: '95%',
+    borderRadius: 6,
+  },
+  textFamilink: {
+    backgroundColor: textFamilink,
+    borderRadius: 20,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    flex: 1,
+  },
+  textUrgency: {
+    backgroundColor: textEmergency,
+    borderRadius: 20,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    flex: 1,
+  },
+  textItemContactContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  itemContactContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    height: 70,
+    alignItems: 'center',
+    marginLeft: 10,
+    margin: 2,
+    borderWidth: 1,
+    backgroundColor: textInputBackgroundColor,
+  },
+  imageContact: {
+    width: 70,
+    height: 70,
+  },
+  textContact: {
+    textAlign: 'center',
+    color: textColor,
+  },
+  abecedaire: {
+    fontWeight: 'bold',
+    fontSize: 25,
+  },
+
+  contentButtonAddContact: {
+    flex: 0.15,
+    flexDirection: 'row',
+  },
+  buttonAddContact: {
+    marginLeft: 10,
+    justifyContent: 'center',
+    borderRadius: 50,
+    backgroundColor: buttonColor,
+    borderColor: buttonBorderColor,
+    borderWidth: 1.5,
+  },
+  buttonAddContactText: {
+    fontSize: 28,
+    color: buttonAddContactTextColor,
+    fontWeight: 'bold',
   },
 });
