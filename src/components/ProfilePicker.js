@@ -22,8 +22,7 @@ export default class ProfilePicker extends Component
   constructor(props)
   {
     super(props);
-    // Dans le cas de page profil, on récupère ; sinon on désigne par défault SENIOR
-    this.state = { profil: props.selected || 'SENIOR', isLoaded: false };
+    this.state = { profil: props.selected, isLoaded: false };
   }
 
   componentDidMount()
@@ -93,12 +92,25 @@ export default class ProfilePicker extends Component
         );
       }
     }
+    if (!this.props.editable)
+    {
+      return (
+        <View style={familinkStyles.pickerRow}>
+          <TouchableHighlight
+            style={[familinkStyles.pickerItem, styles.leftRounded, styles.rightRounded]}
+          >
+            <Text style={familinkStyles.text}>{this.state.profil}</Text>
+          </TouchableHighlight>
+        </View>
+      );
+    }
+
     if (items.length === 0)
     {
       return (
         <View style={familinkStyles.pickerRow}>
           <TouchableHighlight
-            style={familinkStyles.pickerItem}
+            style={[familinkStyles.pickerItem, styles.leftRounded, styles.rightRounded]}
           >
             <Text style={familinkStyles.text}>Chargement des profils ...</Text>
           </TouchableHighlight>
@@ -116,10 +128,12 @@ export default class ProfilePicker extends Component
 
 ProfilePicker.propTypes = {
   selected: PropTypes.objectOf(PropTypes.any),
+  editable: PropTypes.objectOf(PropTypes.boolean),
 };
 
 ProfilePicker.defaultProps = {
   selected: 'SENIOR',
+  editable: true,
 };
 
 AppRegistry.registerComponent('ProfilePicker', () => ProfilePicker);
