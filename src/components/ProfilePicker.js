@@ -22,6 +22,7 @@ export default class ProfilePicker extends Component
   constructor(props)
   {
     super(props);
+    // Dans le cas de page profil, on récupère ; sinon on désigne par défault SENIOR
     this.state = { profil: props.selected || 'SENIOR', isLoaded: false };
   }
 

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Container, Header, Item, Input, Icon } from 'native-base';
-import _ from 'lodash';
 
 export default class SearchBar extends Component
 {
@@ -11,6 +10,7 @@ export default class SearchBar extends Component
     this.state = { listContacts: props.arrayContacts };
   }
 
+  // Recherche selon nom prénom ou téléphone
   onCurrentSearchChange(text)
   {
     this.props.onChange((item) =>
