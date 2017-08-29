@@ -4,7 +4,7 @@ import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
 import ProfilePicker from './ProfilePicker';
 import { getUser, editUser } from '../WS/WebServiceUser';
-import { familinkStyles } from '../Style';
+import familinkStyles from '../Style';
 import { labelInformativePopinTitle, labelUserModified, buttonLabelModification, buttonLabelValidation } from '../Util';
 import { checkSurname, checkMail } from '../errors/FamilinkErrors';
 

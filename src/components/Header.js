@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Text, View, TouchableHighlight } from 'react-native';
-import { familinkStyles } from '../Style';
+import familinkStyles from '../Style';
 
 export default class Header extends Component
 {

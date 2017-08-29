@@ -1,7 +1,7 @@
 export default class Contact
 {
-  constructor(
-    id, phone, firstName, lastName, email, profile, isFamilinkUser, isEmergencyUser)
+  constructor(id, phone, firstName, lastName, email,
+    profile, gravatar, isFamilinkUser, isEmergencyUser)
   {
     this.id = id;
     this.phoneNumber = phone;
@@ -9,6 +9,7 @@ export default class Contact
     this.lastName = lastName;
     this.email = email;
     this.profile = profile;
+    this.gravatar = gravatar;
     this.isFamilinkUser = isFamilinkUser;
     this.isEmergencyUser = isEmergencyUser;
   }
