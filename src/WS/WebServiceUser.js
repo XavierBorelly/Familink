@@ -1,7 +1,6 @@
-import { appelGet, appelPost, appelPut } from './AppelWebService';
+import { appelGet, appelPost, appelPut, appelPostStatus } from './AppelWebService';
 import { saveTokenToBDD, getTokenFromBDD } from '../BDD/Token';
 import { tokenIsFull } from '../errors/Token';
-import { urlWs } from '../Util';
 
 let propsNavigation = null;
 
@@ -28,12 +27,13 @@ export async function login(phone, password)
     password,
   });
 
-  const messageAppelPost = appelPost('/public/login', body, null, null).then((response) =>
+  const messageAppelPost = appelPost('/public/login', body).then((response) =>
   {
     if (response.token !== undefined && response.token !== '' && response.token !== null)
     {
       saveTokenToBDD(response.token);
     }
+
     return (response.message);
   });
   return messageAppelPost;
@@ -59,21 +59,15 @@ export async function saveUser(phone, password, name, firstName, email, profile)
  */
 export async function forgotPassword(phone)
 {
-  const data = JSON.stringify({
+  const body = JSON.stringify({
     phone,
   });
 
-  const lien = '/public/forgot-password';
 
-  const response = await fetch(`${urlWs}${lien}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: `${data}`,
+  return appelPostStatus('/public/forgot-password', body, null, null).then((response) =>
+  {
+    return response.status
   });
-
-  return response.status;
 }
 
 /** permet de modifier un utilisateur
