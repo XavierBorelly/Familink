@@ -99,7 +99,7 @@ export default class ProfilePicker extends Component
           <TouchableHighlight
             style={[familinkStyles.pickerItem, styles.leftRounded, styles.rightRounded]}
           >
-            <Text style={familinkStyles.text}>{this.state.profil}</Text>
+            <Text style={familinkStyles.text}>{this.props.selected}</Text>
           </TouchableHighlight>
         </View>
       );
@@ -127,7 +127,7 @@ export default class ProfilePicker extends Component
 }
 
 ProfilePicker.propTypes = {
-  selected: PropTypes.objectOf(PropTypes.any),
+  selected: PropTypes.objectOf(PropTypes.string),
   editable: PropTypes.objectOf(PropTypes.boolean),
 };
 

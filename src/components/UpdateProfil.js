@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableHighlight } from 'react-native';
+import { Text, View, TextInput, TouchableHighlight } from 'react-native';
 import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
 import ProfilePicker from './ProfilePicker';
@@ -13,7 +13,8 @@ export default class UpdateProfil extends Component
   constructor(props)
   {
     super(props);
-    this.state = { editing: false,
+    this.state = {
+      editing: false,
       errors: ['', ''],
     };
   }
@@ -88,10 +89,9 @@ export default class UpdateProfil extends Component
           />
         </View>
 
-
         <View style={familinkStyles.item}>
           <Text style={familinkStyles.legend}>
-            {'Profil'}
+            {this.state.profil}
           </Text>
           <ProfilePicker
             selected={this.state.profil}
