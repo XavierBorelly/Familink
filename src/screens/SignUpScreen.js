@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TextInput, View, Text, TouchableHighlight, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import BackButton from '../components/BackButton';
 
-import { familinkStyles } from '../Style';
+import familinkStyles from '../Style';
 import Header from '../components/Header';
 import ProfilePicker from '../components/ProfilePicker';
 import { saveUser } from '../WS/WebServiceUser';

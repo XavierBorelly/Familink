@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
+
 const SearchBar = () =>
   (
     <Container>

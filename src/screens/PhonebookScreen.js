@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, View, FlatList, TouchableHighlight, Image } from 'react-native';
-import { familinkStyles } from '../Style';
+import { Text, View, FlatList, TouchableHighlight, Image } from 'react-native';
+import familinkStyles from '../Style';
 import { CONTACT_SCENE_NAME } from '../apps/ContactApp';
 import { HOME_SCENE_NAME } from './HomeScreen';
 import BackButton from '../components/BackButton';
@@ -13,8 +13,6 @@ import ContactService from '../service/contactService';
 import { labelNoContact, labelLoading } from '../Util';
 
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
-
-const $bgColor = '#F5FCFF';
 
 let currentLandmarkLetter = '';
 
@@ -76,29 +74,31 @@ export default class PhonebookScreen extends Component
       <FlatList
         data={this.state.contacts}
         renderItem={({ item }) => (
-        <View>
-          <Text style={familinkStyles.abecedaire} >{PhonebookScreen.getLandmarkLetter(item.firstName.slice(0, 1))}</Text>
-          <TouchableHighlight onPress={() => this.navigateToInfo(item)}>
+          <View>
+            <Text style={familinkStyles.abecedaire} >
+              {PhonebookScreen.getLandmarkLetter(item.firstName.slice(0, 1))}
+            </Text>
+            <TouchableHighlight onPress={() => this.navigateToInfo(item)}>
 
-            <View style={familinkStyles.itemContactContainer}>
-              <Image source={item.gravatar === null || item.gravatar === '' ? defaultGravatar : { uri: item.gravatar }} style={familinkStyles.imageContact} />
-              <View style={familinkStyles.item}>
-                <View style={familinkStyles.textItemContactContainer}>
-                  <Text style={familinkStyles.textContact}>{item.firstName} {item.lastName}</Text>
+              <View style={familinkStyles.itemContactContainer}>
+                <Image source={item.gravatar === null || item.gravatar === '' ? defaultGravatar : { uri: item.gravatar }} style={familinkStyles.imageContact} />
+                <View style={familinkStyles.item}>
+                  <View style={familinkStyles.textItemContactContainer}>
+                    <Text style={familinkStyles.textContact}>{item.firstName} {item.lastName}</Text>
+                  </View>
+                  <View style={familinkStyles.textItemContactContainer}>
+                    <Text style={item.isFamilinkUser ? familinkStyles.textFamilink : ''}>{item.isFamilinkUser ? 'Familink' : ''} </Text>
+                    <Text style={item.isEmergencyUser ? familinkStyles.textUrgency : ''}>{item.isEmergencyUser ? 'Urgence' : ''}</Text>
+                  </View>
                 </View>
-                <View style={familinkStyles.textItemContactContainer}>
-                  <Text style={item.isFamilinkUser ? familinkStyles.textFamilink : ''}>{item.isFamilinkUser ? 'Familink' : ''} </Text>
-                  <Text style={item.isEmergencyUser ? familinkStyles.textUrgency : ''}>{item.isEmergencyUser ? 'Urgence' : ''}</Text>
-                </View>
+                <TouchableHighlight onPress={() => showInformativePopin('call en cours', item.phone)}>
+                  <Image style={familinkStyles.imageContact} source={iconCall} />
+                </TouchableHighlight>
+
               </View>
-            <TouchableHighlight onPress={() => showInformativePopin('call en cours', item.phone)}>
-              <Image style={familinkStyles.imageContact} source={iconCall} />
             </TouchableHighlight>
-
-            </View>
-          </TouchableHighlight>
-        </View>)}
-      keyExtractor={item => item.phone}
+          </View>)}
+        keyExtractor={item => item.phone}
       />
     );
   }
@@ -109,28 +109,28 @@ export default class PhonebookScreen extends Component
     const navigation = this.props.navigation;
     const listContacts = this.renderListContacts();
     return (
-        <View style={familinkStyles.container}>
-          <Header hasMenu navigation={navigation} title="Répertoire" />
+      <View style={familinkStyles.container}>
+        <Header hasMenu navigation={navigation} title="Répertoire" />
 
-          <View style={familinkStyles.contentList}>
-            <View style={familinkStyles.contentButtonAddContact}>
-              <SearchBar/>
-              <TouchableHighlight
-                style={familinkStyles.buttonAddContact}
-                onPress={() =>
-                {
-                  navigation.navigate(CONTACT_SCENE_NAME, { id: 0 });
-                }
-                }
-              >
-                <Text style={familinkStyles.buttonAddContactText}> + </Text>
-              </TouchableHighlight>
-            </View>
-            {listContacts}
+        <View style={familinkStyles.contentList}>
+          <View style={familinkStyles.contentButtonAddContact}>
+            <SearchBar />
+            <TouchableHighlight
+              style={familinkStyles.buttonAddContact}
+              onPress={() =>
+              {
+                navigation.navigate(CONTACT_SCENE_NAME, { id: 0 });
+              }
+              }
+            >
+              <Text style={familinkStyles.buttonAddContactText}> + </Text>
+            </TouchableHighlight>
           </View>
-
-          <BackButton navigation={navigation} param={HOME_SCENE_NAME} />
+          {listContacts}
         </View>
+
+        <BackButton navigation={navigation} param={HOME_SCENE_NAME} />
+      </View>
     );
   }
 }

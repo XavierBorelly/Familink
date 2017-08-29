@@ -8,7 +8,6 @@ const buttonColor = '#FB8C00';
 const buttonBorderColor = '#EF6C00';
 const buttonTextColor = 'white';
 const buttonAddContactTextColor = '#45FF45';
-const textInputFocusedBackgroundColor = '#DDFFEE';
 const textInputBorderColor = '#BBBBBB';
 const textInputBackgroundColor = '#FFFFFF';
 const textInputErrorBackgroundColor = '#FFDDEE';
@@ -17,7 +16,7 @@ const textColor = '#000000';
 const textFamilink = '#2ECC71';
 const textEmergency = '#E74C3C';
 
-export const familinkStyles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -141,7 +140,7 @@ export const familinkStyles = StyleSheet.create({
     fontSize: 16,
     color: textColor,
   },
-  backButtonContainer{
+  backButtonContainer: {
     position: 'absolute',
     bottom: 0,
     width: Dimensions.get('window').width,
@@ -157,7 +156,7 @@ export const familinkStyles = StyleSheet.create({
   {
     width: Dimensions.get('window').width,
     textAlign: 'center',
-    fontSize: 26
+    fontSize: 26,
   },
   contentList: {
     backgroundColor: appBackgroundColor,

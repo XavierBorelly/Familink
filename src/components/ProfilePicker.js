@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Text, AppRegistry, TouchableHighlight, StyleSheet, View } from 'react-native';
 import { getProfil } from '../WS/WebServiceUser';
-import { familinkStyles } from '../Style';
+import familinkStyles from '../Style';
 
 const profils = [];
 

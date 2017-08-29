@@ -7,7 +7,7 @@ import { MainStore } from '../MainStore';
 
 import Screen from '../screens/PhonebookScreen';
 import MenuIcon from '../../assets/icon_phonebook.png';
-import { familinkStyles } from '../Style';
+import familinkStyles from '../Style';
 
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
 
