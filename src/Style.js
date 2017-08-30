@@ -15,6 +15,7 @@ const textInputErrorBorderColor = '#e53935';
 const textColor = '#000000';
 const textFamilink = '#2ECC71';
 const textEmergency = '#E74C3C';
+const legendColor = '#454545';
 
 export default StyleSheet.create({
   container: {
@@ -34,6 +35,11 @@ export default StyleSheet.create({
     width: Dimensions.get('window').width,
     backgroundColor: headerBackgroundColor,
   },
+  headerIcon: {
+    width: 40,
+    height: 36,
+  },
+
   headerBurgerMenu: {
     width: 38,
     backgroundColor: headerBorderColor,
@@ -158,7 +164,10 @@ export default StyleSheet.create({
     fontSize: 16,
     color: textColor,
   },
-  backButtonContainer: {
+
+  backButtonContainer:
+  {
+
     position: 'absolute',
     bottom: 0,
     width: Dimensions.get('window').width,
@@ -176,6 +185,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 26,
   },
+
   contentList: {
     backgroundColor: appBackgroundColor,
     flex: 0.8,
@@ -258,4 +268,8 @@ export default StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
   },
+  legend: {
+    color: legendColor,
+    paddingTop: 30,
+  }
 });

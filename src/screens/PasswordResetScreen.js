@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { TextInput, View, Text, TouchableHighlight, Keyboard, TouchableWithoutFeedback } from 'react-native';
-
 import { forgotPassword } from '../WS/WebServiceUser';
 import Header from '../components/Header';
 import { checkForgotPassword } from '../errors/FamilinkErrors';
@@ -10,6 +9,7 @@ import BackButton from '../components/BackButton';
 import familinkStyles from '../Style';
 import { showInformativePopin } from '../Popin';
 import { buttonLabelValidateForgotPassword, LabelConfirmForgotPassword } from '../Util';
+
 
 export const PASSWORD_RESET_SCENE_NAME = 'PASSWORD_RESET_SCENE';
 
