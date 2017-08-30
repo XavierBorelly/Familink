@@ -1,7 +1,7 @@
 import { LOGIN_SCENE_NAME } from '../screens/LoginScreen';
 import { DeleteTokenFromBDD } from '../BDD/Token';
 import { showInformativePopin } from '../Popin';
-import { errorPopinTitle, tokenInvalid, tokenEmpty } from '../errors/ErrorStrings';
+import { errorPopinTitle, tokenInvalid, tokenEmpty, noNetwork } from '../errors/ErrorStrings';
 
 function logout(props)
 {
@@ -30,4 +30,14 @@ export function tokenIsValid(codeRetour, props)
     return false;
   }
   return true;
+}
+
+export function handleFirstConnectivityChange(isConnected, props)
+{
+  console.log(`Then, is ${isConnected ? 'online' : 'offline'}`);
+  if (!isConnected)
+  {
+    showInformativePopin(errorPopinTitle, noNetwork);
+    logout(props);
+  }
 }
