@@ -43,14 +43,23 @@ export default class ProfilePicker extends Component
 
   render()
   {
+    let selectedValue = this.props.selected;
+
+    if (this.state.profil !== null)
+    {
+      selectedValue = this.state.profil;
+    }
+
     const items = [];
+
+    // Montre les profils séléctionnables
     for (let i = 0; i < profils.length; i += 1)
     {
       if (i === 0)
       {
         items.push(
           <TouchableHighlight
-            style={[(this.state.profil === profils[i] ?
+            style={[(selectedValue === profils[i] ?
               familinkStyles.pickerItemFocused : familinkStyles.pickerItem), styles.leftRounded]}
             onPress={() =>
             {
@@ -65,7 +74,7 @@ export default class ProfilePicker extends Component
       {
         items.push(
           <TouchableHighlight
-            style={[(this.state.profil === profils[i] ?
+            style={[(selectedValue === profils[i] ?
               familinkStyles.pickerItemFocused : familinkStyles.pickerItem), styles.rightRounded]}
             onPress={() =>
             {
@@ -80,7 +89,7 @@ export default class ProfilePicker extends Component
       {
         items.push(
           <TouchableHighlight
-            style={this.state.profil === profils[i] ?
+            style={selectedValue === profils[i] ?
               familinkStyles.pickerItemFocused : familinkStyles.pickerItem}
             onPress={() =>
             {
@@ -92,6 +101,8 @@ export default class ProfilePicker extends Component
         );
       }
     }
+
+    // Vue qui montre le profil séléctionné lorsque le picker n'est pas editable
     if (!this.props.editable)
     {
       return (
@@ -105,6 +116,7 @@ export default class ProfilePicker extends Component
       );
     }
 
+    // Vue qui montre le chargement des profils
     if (items.length === 0)
     {
       return (
@@ -132,7 +144,7 @@ ProfilePicker.propTypes = {
 };
 
 ProfilePicker.defaultProps = {
-  selected: 'SENIOR',
+  selected: null,
   editable: true,
 };
 

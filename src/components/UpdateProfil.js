@@ -91,7 +91,7 @@ export default class UpdateProfil extends Component
 
         <View style={familinkStyles.item}>
           <Text style={familinkStyles.legend}>
-            {this.state.profil}
+            {'Profil'}
           </Text>
           <ProfilePicker
             selected={this.state.profil}
