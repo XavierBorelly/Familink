@@ -69,6 +69,8 @@ export class ContactScreen extends Component
       firstName: contact.firstName || '',
       phoneNumber: contact.phone || '',
       email: contact.email || '',
+      isFamilinkUser: contact.isFamilinkUser || false,
+      isEmergencyUser: contact.isEmergencyUser || false,
       errors: ['', '', '', ''],
     };
 
@@ -88,8 +90,9 @@ export class ContactScreen extends Component
     {
       // Vue à coder lors de la modification
       return (
-        <View style={[familinkStyles.item]}>
-          <Text>Affichage des tags non implémenté</Text>
+        <View style={familinkStyles.textItemContactContainer}>
+          <Text style={this.state.isFamilinkUser ? familinkStyles.textFamilink : ''}>{this.state.isFamilinkUser ? 'Familink' : ''} </Text>
+          <Text style={this.state.isEmergencyUser ? familinkStyles.textUrgency : ''}>{this.state.isEmergencyUser ? 'Urgence' : ''}</Text>
         </View>
       );
     }
