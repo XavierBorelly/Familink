@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Keyboard, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
+import { View, Keyboard, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 
-import { familinkStyles } from '../Style';
+import familinkStyles from '../Style';
 import { addContact } from '../actions/contacts.action';
 import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
 import BackButton from '../components/BackButton';
@@ -11,7 +11,7 @@ import Header from '../components/Header';
 import { checkRequiredStringValue, checkPhoneNumber, checkMail } from '../errors/FamilinkErrors';
 import { errorPopinTitle, lastnameRequired, surnameRequired } from '../errors/ErrorStrings';
 import Contact from '../models/Contact';
-import ContactService from '../service/ContactService';
+import ContactService from '../service/contactService';
 
 import { showInformativePopin } from '../Popin';
 import { labelInformativePopinTitle, labelContactCreatedSuccess, buttonLabelValidation } from '../Util';
@@ -25,31 +25,9 @@ const lastNameInput = 'lastName';
 const firstNameInput = 'firstName';
 const mailInput = 'email';
 
-const styles = StyleSheet.create({
-  cell: {
-    flex: 1,
-  },
-  identityContainer: {
-    flexDirection: 'row',
-    alignContent: 'flex-start',
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  buttonContainer: {
-    marginLeft: 5,
-    marginRight: 5,
-  },
-  flexColumn: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-});
-
 const Mode = Object.freeze({
-  CREATE: Symbol('create'),
-  UPDATE: Symbol('update'),
+  CREATE: 'create',
+  UPDATE: 'update',
 });
 
 const defaultContact = new Contact(0);
@@ -79,15 +57,17 @@ export class ContactScreen extends Component
     super(props);
 
     const params = this.props.navigation.state.params;
-    const contact = (params && params.item) ? params.item : defaultContact;
+    const contact = (params && params.contact) ? params.contact : defaultContact;
+    // eslint-disable-next-line no-underscore-dangle
+    const currentId = contact._id;
 
     this.state = {
-      mode: (contact.id === 0) ? Mode.CREATE : Mode.UPDATE,
+      mode: (currentId != null && currentId !== '') ? Mode.UPDATE : Mode.CREATE,
       focused: 'null',
       gravatar: contact.gravatar || '',
       lastName: contact.lastName || '',
       firstName: contact.firstName || '',
-      phoneNumber: contact.phoneNumber || '',
+      phoneNumber: contact.phone || '',
       email: contact.email || '',
       errors: ['', '', '', ''],
     };
@@ -131,9 +111,9 @@ export class ContactScreen extends Component
 
     // Creation mode
     return (
-      <View style={[familinkStyles.item, styles.buttonsContainer]}>
+      <View style={[familinkStyles.item, familinkStyles.editContactButtonsContainer]}>
         <TouchableHighlight
-          style={[familinkStyles.button, styles.buttonContainer]}
+          style={[familinkStyles.button, familinkStyles.editContactButtonContainer]}
           onPress={this.add}
         >
           <Text style={familinkStyles.buttonText}>{buttonLabelValidation}</Text>
@@ -157,7 +137,7 @@ export class ContactScreen extends Component
     if (!ContactScreen.hasErrors(errorArray))
     {
       const newContact = new Contact(0, state.phoneNumber, state.firstName,
-        state.lastName, state.email, null, false, false);
+        state.lastName, state.email, null, null, false, false);
 
       ContactService.addContact(newContact).then((saveResponse) =>
       {
@@ -202,11 +182,11 @@ export class ContactScreen extends Component
           />
           <View style={familinkStyles.content}>
 
-            <View style={styles.identityContainer}>
-              <View>
+            <View style={familinkStyles.editContactIdentityContainer}>
+              <View style={familinkStyles.gravatarContainer}>
                 <Gravatar gravatarUrl={this.state.gravatar} email={this.state.email} size={100} />
               </View>
-              <View style={[styles.cell, styles.flexColumn]}>
+              <View style={[familinkStyles.item, familinkStyles.flexColumn]}>
                 <View style={this.state.focused === lastNameInput ?
                   familinkStyles.itemFocused : familinkStyles.item}
                 >
@@ -221,7 +201,7 @@ export class ContactScreen extends Component
                     onBlur={() => this.resetFocus()}
                     onFocus={() => this.setFocus(lastNameInput)}
                     maxLength={15}
-                    value={this.state.firstName}
+                    value={this.state.lastName}
                   />
                 </View>
 
@@ -239,7 +219,7 @@ export class ContactScreen extends Component
                     onBlur={() => this.resetFocus()}
                     onFocus={() => this.setFocus(firstNameInput)}
                     maxLength={15}
-                    value={this.state.lastName}
+                    value={this.state.firstName}
                   />
                 </View>
 
@@ -253,7 +233,7 @@ export class ContactScreen extends Component
             >
               <TextInput
                 style={this.state.errors[2] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
-                onChangeText={text => this.setState({ phone: text })}
+                onChangeText={text => this.setState({ phoneNumber: text })}
                 keyboardType="numeric"
                 placeholder="Numéro de téléphone *"
                 selectTextOnFocus

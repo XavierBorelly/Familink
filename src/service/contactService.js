@@ -14,7 +14,7 @@ export default class ContactService
     return getAllContacts().then(contacts =>
       _.sortBy(contacts, i => i.firstName.toLowerCase()));
   }
-  
+
   static generateGravatarUrl(email)
   {
     const urlEmail = (checkMail(email) === '' ? email : '');
@@ -23,7 +23,7 @@ export default class ContactService
 
   static async addContact(newContact)
   {
-    const gravatarUrl = self.generateGravatarUrl(newContact.gravatar);
+    const gravatarUrl = ContactService.generateGravatarUrl(newContact.email);
 
     const saveResponse = await saveContact(newContact.phoneNumber, newContact.firstName,
       newContact.lastName, newContact.email, gravatarUrl);

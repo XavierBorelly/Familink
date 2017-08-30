@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Image } from 'react-native';
-import { familinkStyles } from '../Style';
 
-import ContactService from '../service/ContactService';
+import ContactService from '../service/contactService';
 
 export default class Gravatar extends React.Component
 {
@@ -28,7 +27,7 @@ export default class Gravatar extends React.Component
     const style = this.getStyle();
 
     return (
-      <Image style={[familinkStyles.gravatarContainer, style]} source={{ uri: url }} />
+      <Image style={style} source={{ uri: url }} />
     );
   }
 }

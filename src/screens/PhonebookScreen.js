@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import React, { Component } from 'react';
 import { Text, View, FlatList, TouchableHighlight, Image } from 'react-native';
 import familinkStyles from '../Style';
@@ -8,11 +10,9 @@ import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 import { showInformativePopin } from '../Popin';
 import iconCall from '../../assets/icon_phone.png';
-import defaultGravatar from '../../assets/icon_defaultGravatar.jpg';
 import ContactService from '../service/contactService';
 import { labelNoContact, labelLoading } from '../Util';
-
-import _ from 'lodash';
+import Gravatar from '../components/Gravatar';
 
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
 
@@ -84,7 +84,7 @@ export default class PhonebookScreen extends Component
             <TouchableHighlight onPress={() => this.navigateToInfo(item)}>
 
               <View style={familinkStyles.itemContactContainer}>
-                <Image source={item.gravatar === null || item.gravatar === '' ? defaultGravatar : { uri: item.gravatar }} style={familinkStyles.imageContact} />
+                <Gravatar gravatarUrl={item.gravatar} email={item.email} size={68} />
                 <View style={familinkStyles.item}>
                   <View style={familinkStyles.textItemContactContainer}>
                     <Text style={familinkStyles.textContact}>{item.firstName} {item.lastName}</Text>
@@ -130,7 +130,7 @@ export default class PhonebookScreen extends Component
               style={familinkStyles.buttonAddContact}
               onPress={() =>
               {
-                navigation.navigate(CONTACT_SCENE_NAME, { id: 0 });
+                navigation.navigate(CONTACT_SCENE_NAME, { contact: {} });
               }
               }
             >
