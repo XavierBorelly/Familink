@@ -15,11 +15,13 @@ export const wrongUser = 'Numéro de téléphone incorrect';
 export const wrongPassword = 'Numéro de téléphone ou mot de passe incorrect';
 export const missPassword = 'Mot de passe manquant';
 
-export const tokenEmpty = 'session invalide, veuillez-vous reconnecter!';
-export const tokenInvalid = 'session expiré, veuillez-vous reconnecter!';
+export const tokenEmpty = 'Session invalide, veuillez-vous reconnecter!';
+export const tokenInvalid = 'Session expirée, veuillez-vous reconnecter!';
 
 export const phoneDuplicated = 'Le numéro de téléphone est déjà enregistré, veuillez en choisir un autre';
 
 export const wrongUserServer = 'User not found';
 export const wrongPasswordServer = 'Password is not valid';
 export const missPasswordServer = 'data and hash arguments required';
+
+export const noNetwork = 'Erreur de connexion réseau. Vérifiez votre connexion Wifi';
