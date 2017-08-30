@@ -22,8 +22,7 @@ export default class ProfilePicker extends Component
   constructor(props)
   {
     super(props);
-    // Dans le cas de page profil, on récupère ; sinon on désigne par défault SENIOR
-    this.state = { profil: props.selected || 'SENIOR', isLoaded: false };
+    this.state = { profil: props.selected, isLoaded: false };
   }
 
   componentDidMount()
@@ -44,14 +43,23 @@ export default class ProfilePicker extends Component
 
   render()
   {
+    let selectedValue = this.props.selected;
+
+    if (this.state.profil !== null)
+    {
+      selectedValue = this.state.profil;
+    }
+
     const items = [];
+
+    // Montre les profils séléctionnables
     for (let i = 0; i < profils.length; i += 1)
     {
       if (i === 0)
       {
         items.push(
           <TouchableHighlight
-            style={[(this.state.profil === profils[i] ?
+            style={[(selectedValue === profils[i] ?
               familinkStyles.pickerItemFocused : familinkStyles.pickerItem), styles.leftRounded]}
             onPress={() =>
             {
@@ -66,7 +74,7 @@ export default class ProfilePicker extends Component
       {
         items.push(
           <TouchableHighlight
-            style={[(this.state.profil === profils[i] ?
+            style={[(selectedValue === profils[i] ?
               familinkStyles.pickerItemFocused : familinkStyles.pickerItem), styles.rightRounded]}
             onPress={() =>
             {
@@ -81,7 +89,7 @@ export default class ProfilePicker extends Component
       {
         items.push(
           <TouchableHighlight
-            style={this.state.profil === profils[i] ?
+            style={selectedValue === profils[i] ?
               familinkStyles.pickerItemFocused : familinkStyles.pickerItem}
             onPress={() =>
             {
@@ -93,12 +101,28 @@ export default class ProfilePicker extends Component
         );
       }
     }
+
+    // Vue qui montre le profil séléctionné lorsque le picker n'est pas editable
+    if (!this.props.editable)
+    {
+      return (
+        <View style={familinkStyles.pickerRow}>
+          <TouchableHighlight
+            style={[familinkStyles.pickerItem, styles.leftRounded, styles.rightRounded]}
+          >
+            <Text style={familinkStyles.text}>{this.props.selected}</Text>
+          </TouchableHighlight>
+        </View>
+      );
+    }
+
+    // Vue qui montre le chargement des profils
     if (items.length === 0)
     {
       return (
         <View style={familinkStyles.pickerRow}>
           <TouchableHighlight
-            style={familinkStyles.pickerItem}
+            style={[familinkStyles.pickerItem, styles.leftRounded, styles.rightRounded]}
           >
             <Text style={familinkStyles.text}>Chargement des profils ...</Text>
           </TouchableHighlight>
@@ -115,11 +139,13 @@ export default class ProfilePicker extends Component
 }
 
 ProfilePicker.propTypes = {
-  selected: PropTypes.objectOf(PropTypes.any),
+  selected: PropTypes.objectOf(PropTypes.string),
+  editable: PropTypes.objectOf(PropTypes.boolean),
 };
 
 ProfilePicker.defaultProps = {
-  selected: 'SENIOR',
+  selected: null,
+  editable: true,
 };
 
 AppRegistry.registerComponent('ProfilePicker', () => ProfilePicker);
