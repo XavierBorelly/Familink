@@ -1,16 +1,3 @@
-export const labelUser = 'Numéro de téléphone';
-export const labelPassword = 'Mot de passe';
-export const labelRememberMe = 'Se souvenir de Moi';
-export const labelConfirm = 'Confirmer Mot de passe';
-export const labelInfoPassword = 'Mot de passe en 4 chiffres.';
-export const labelName = 'Nom';
-export const labelSurname = 'Prenom';
-export const labelMail = 'Email';
-export const labelInfoMail = 'Adresse mail du type: example@example.com';
-export const labelProfile = 'Profil';
-
-export const labelExplainForgotPassword = 'Indiquez votre numéro de téléphone et recevez par SMS votre Mot de passe.';
-
 export const regexPhone = /^(0|(\\+33)|(0033))[1-9][0-9]{8}$/;
 export const regexPassword = /^[0-9]{4}$/;
 /* eslint-disable */

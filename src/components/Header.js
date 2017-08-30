@@ -23,6 +23,7 @@ export default class Header extends Component
   render()
   {
     const props = this.props;
+    // Rajout d'une propriété pour afficher ou non le BurgerMenu
     const menuButton = (props.hasMenu) ? this.getMenuButton() : null;
 
     return (
