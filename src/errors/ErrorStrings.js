@@ -5,6 +5,7 @@ export const confirmPasswordRequired = 'Confirmation du mot de passe requis';
 export const passwordError = 'Le mot de passe doit contenir 4 chiffres';
 export const passwordConfirmError = 'Les mots de passes ne correspondent pas';
 export const phoneError = 'Numéro de téléphone doit être sous le format 0XXXXXXXXX';
+export const lastnameRequired = 'Nom requis';
 export const surnameRequired = 'Prénom requis';
 export const mailRequired = 'Le mail est requis';
 export const mailError = 'Le mail doit être au format exemple@exemple.fr';

@@ -31,6 +31,8 @@ export const button1LabelPopInUpdateProfile = 'OK';
 export const labelPopInDeleteContact = 'Voulez-vous supprimer ce contact ?';
 export const button1LabelPopInDeleteContact = 'Supprimer';
 
+export const labelContactCreatedSuccess = 'Contact crée avec succès !';
+
 export const keyStorageContact = '@MyContacts:key';
 export const keyRememberMeCheckBox = '@MonEtat:key';
 export const keyUserOnLogin = '@MonIdentifiant:key';

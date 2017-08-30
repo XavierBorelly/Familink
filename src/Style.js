@@ -93,9 +93,13 @@ export default StyleSheet.create({
     paddingBottom: 2,
   },
   itemFocused: {
+
     flex: 2.4,
     paddingTop: 4,
     paddingBottom: 4,
+  },
+  flexColumn: {
+    flexDirection: 'column',
   },
 
   textInput: {
@@ -116,7 +120,7 @@ export default StyleSheet.create({
   },
 
   button: {
-    borderRadius: 6,
+    borderRadius: 8,
     backgroundColor: buttonColor,
     flex: 1,
     borderColor: buttonBorderColor,
@@ -249,7 +253,21 @@ export default StyleSheet.create({
     color: buttonAddContactTextColor,
     fontWeight: 'bold',
   },
-
+  gravatarContainer: {
+    margin: 4,
+  },
+  editContactIdentityContainer: {
+    flexDirection: 'row',
+    alignContent: 'flex-start',
+  },
+  editContactButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  editContactButtonContainer: {
+    marginLeft: 5,
+    marginRight: 5,
+  },
   legend: {
     color: legendColor,
     paddingTop: 30,
