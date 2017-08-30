@@ -32,12 +32,11 @@ export function tokenIsValid(codeRetour, props)
   return true;
 }
 
-export function handleFirstConnectivityChange(isConnected, props)
+export function handleFirstConnectivityChange(isConnected)
 {
   console.log(`Then, is ${isConnected ? 'online' : 'offline'}`);
   if (!isConnected)
   {
     showInformativePopin(errorPopinTitle, noNetwork);
-    logout(props);
   }
 }
