@@ -8,7 +8,7 @@ import ProfilePicker from '../components/ProfilePicker';
 import { saveUser } from '../WS/WebServiceUser';
 import { LOGIN_SCENE_NAME } from './LoginScreen';
 import { checkPhoneNumber, checkPassword, checkSurname, checkMail } from '../errors/FamilinkErrors';
-import { errorPopinTitle } from '../errors/ErrorStrings';
+import { errorPopinTitle, phoneDuplicated } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
 import { labelInformativePopinTitle, labelUserCreated, buttonLabelValidation } from '../Util';
 
@@ -212,9 +212,20 @@ export default class SignUpScreen extends Component
                   {
                     saveUser(this.state.phone, this.state.password, this.state.name,
                       this.state.firstName, this.state.email,
-                      this.profilePickerComponent.state.profil);
-                    showInformativePopin(labelInformativePopinTitle, labelUserCreated);
-                    navigation.navigate(LOGIN_SCENE_NAME);
+                      this.profilePickerComponent.state.profil).then((response) =>
+                    {
+                      if (response.message === `user validation failed: phone: Error, expected \`phone\` to be unique. Value: \`${this.state.phone}\``)
+                      {
+                        errorArray.push(response.message);
+                        this.setState({ errors: errorArray });
+                        showInformativePopin(errorPopinTitle, phoneDuplicated);
+                      }
+                      else
+                      {
+                        showInformativePopin(labelInformativePopinTitle, labelUserCreated);
+                        navigation.navigate(LOGIN_SCENE_NAME);
+                      }
+                    });
                   }
                 }
                 }

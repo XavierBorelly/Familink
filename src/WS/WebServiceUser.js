@@ -52,7 +52,7 @@ export async function saveUser(phone, password, name, firstName, email, profile)
     profile,
   });
 
-  appelPost('/public/sign-in', body, null, null);
+  return appelPost('/public/sign-in', body, null, null);
 }
 
 /** permet de faire une demande pour retrouver son password

@@ -16,3 +16,5 @@ export const missPassword = 'Mot de passe manquant';
 
 export const tokenEmpty = 'session invalide, veillez-vous reconnecter!';
 export const tokenInvalid = 'session expiré, veillez-vous reonnecter!';
+
+export const phoneDuplicated = 'Le numéro de téléphone est déjà enregistré, veuillez en choisir un autre';
