@@ -13,8 +13,11 @@ import { errorPopinTitle, lastnameRequired, surnameRequired } from '../errors/Er
 import Contact from '../models/Contact';
 import ContactService from '../service/contactService';
 
-import { showInformativePopin } from '../Popin';
-import { labelInformativePopinTitle, labelContactCreatedSuccess, buttonLabelValidation } from '../Util';
+import { showInformativePopin, showDeleteContactPopIn } from '../Popin';
+import { labelInformativePopinTitle,
+  labelContactCreatedSuccess, labelContactUpdatedSuccess, labelContactDeletedSuccess,
+  labelContactCreatedFail, labelContactUpdatedFail, labelContactDeletedFail,
+  buttonLabelValidation, buttonLabelUpdate, buttonLabelDelete } from '../Util';
 
 
 export const CONTACT_SCENE_NAME = 'CONTACT_SCENE';
@@ -64,6 +67,7 @@ export class ContactScreen extends Component
     this.state = {
       mode: (currentId != null && currentId !== '') ? Mode.UPDATE : Mode.CREATE,
       focused: 'null',
+      id: currentId || 0,
       gravatar: contact.gravatar || '',
       lastName: contact.lastName || '',
       firstName: contact.firstName || '',
@@ -75,6 +79,8 @@ export class ContactScreen extends Component
     };
 
     this.add = this.add.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   setFocus(focusedItemName)
@@ -90,8 +96,8 @@ export class ContactScreen extends Component
     {
       // Vue à coder lors de la modification
       return (
-        <View style={familinkStyles.textItemContactContainer}>
-          <Text style={this.state.isFamilinkUser ? familinkStyles.textFamilink : ''}>{this.state.isFamilinkUser ? 'Familink' : ''} </Text>
+        <View style={[familinkStyles.item, familinkStyles.textItemContactContainer]}>
+          <Text style={this.state.isFamilinkUser ? familinkStyles.textFamilink : ''}>{this.state.isFamilinkUser ? 'Familink' : ''}</Text>
           <Text style={this.state.isEmergencyUser ? familinkStyles.textUrgency : ''}>{this.state.isEmergencyUser ? 'Urgence' : ''}</Text>
         </View>
       );
@@ -106,8 +112,19 @@ export class ContactScreen extends Component
     if (this.state.mode === Mode.UPDATE)
     {
       return (
-        <View style={[familinkStyles.item]}>
-          <Text>Modification/suppression non implémenté</Text>
+        <View style={[familinkStyles.item, familinkStyles.editContactButtonsContainer]}>
+          <TouchableHighlight
+            style={[familinkStyles.button, familinkStyles.editContactButtonContainer]}
+            onPress={this.update}
+          >
+            <Text style={familinkStyles.buttonText}>{buttonLabelUpdate}</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={[familinkStyles.button, familinkStyles.editContactButtonContainer]}
+            onPress={() => showDeleteContactPopIn(this.delete)}
+          >
+            <Text style={familinkStyles.buttonText}>{buttonLabelDelete}</Text>
+          </TouchableHighlight>
         </View>
       );
     }
@@ -139,16 +156,20 @@ export class ContactScreen extends Component
 
     if (!ContactScreen.hasErrors(errorArray))
     {
-      const newContact = new Contact(0, state.phoneNumber, state.firstName,
+      const newContact = new Contact(state.id, state.phoneNumber, state.firstName,
         state.lastName, state.email, null, null, false, false);
 
-      ContactService.addContact(newContact).then((saveResponse) =>
+      ContactService.addContact(newContact).then((createResponse) =>
       {
         // Seul le succès est gére (le webservice renvoie vers la page login en cas d'échec)
-        if (saveResponse.saved)
+        if (createResponse.ok)
         {
           showInformativePopin(labelInformativePopinTitle, labelContactCreatedSuccess);
           props.navigation.navigate(PHONEBOOK_SCENE_NAME);
+        }
+        else
+        {
+          showInformativePopin(labelInformativePopinTitle, labelContactCreatedFail);
         }
       });
     }
@@ -156,6 +177,60 @@ export class ContactScreen extends Component
     {
       this.setState({ errors: errorArray });
     }
+  }
+
+  update()
+  {
+    const props = this.props;
+    const state = this.state;
+
+    const errorArray = [];
+
+    errorArray.push(checkRequiredStringValue(state.lastName, lastnameRequired));
+    errorArray.push(checkRequiredStringValue(state.firstName, surnameRequired));
+    errorArray.push(checkPhoneNumber(state.phoneNumber));
+    errorArray.push(checkMail(state.email));
+
+    if (!ContactScreen.hasErrors(errorArray))
+    {
+      const updatedContact = new Contact(state.id, state.phoneNumber, state.firstName,
+        state.lastName, state.email, null, null, state.isFamilinkUser, state.isEmergencyUser);
+
+      ContactService.updateContact(updatedContact).then((updateResponse) =>
+      {
+        // Seul le succès est gére (le webservice renvoie vers la page login en cas d'échec)
+        if (updateResponse.ok)
+        {
+          showInformativePopin(labelInformativePopinTitle, labelContactUpdatedSuccess);
+          props.navigation.navigate(PHONEBOOK_SCENE_NAME);
+        }
+        else
+        {
+          showInformativePopin(labelInformativePopinTitle, labelContactUpdatedFail);
+        }
+      });
+    }
+    else
+    {
+      this.setState({ errors: errorArray });
+    }
+  }
+
+  delete()
+  {
+    const state = this.state;
+    ContactService.deleteContact(state.id).then((deleteResponse) =>
+    {
+      if (deleteResponse.ok)
+      {
+        showInformativePopin(labelInformativePopinTitle, labelContactDeletedSuccess);
+        this.props.navigation.navigate(PHONEBOOK_SCENE_NAME);
+      }
+      else
+      {
+        showInformativePopin(labelInformativePopinTitle, labelContactDeletedFail);
+      }
+    });
   }
 
 
@@ -190,23 +265,6 @@ export class ContactScreen extends Component
                 <Gravatar gravatarUrl={this.state.gravatar} email={this.state.email} size={100} />
               </View>
               <View style={[familinkStyles.item, familinkStyles.flexColumn]}>
-                <View style={this.state.focused === lastNameInput ?
-                  familinkStyles.itemFocused : familinkStyles.item}
-                >
-                  <TextInput
-                    style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
-                    onChangeText={text => this.setState({ lastName: text })}
-                    placeholder="Nom *"
-                    selectTextOnFocus
-                    autoCorrect={false}
-                    underlineColorAndroid="transparent"
-                    placeholderTextColor="#909090"
-                    onBlur={() => this.resetFocus()}
-                    onFocus={() => this.setFocus(lastNameInput)}
-                    maxLength={15}
-                    value={this.state.lastName}
-                  />
-                </View>
 
                 <View style={this.state.focused === firstNameInput
                   ? familinkStyles.itemFocused : familinkStyles.item}
@@ -225,6 +283,25 @@ export class ContactScreen extends Component
                     value={this.state.firstName}
                   />
                 </View>
+
+                <View style={this.state.focused === lastNameInput ?
+                  familinkStyles.itemFocused : familinkStyles.item}
+                >
+                  <TextInput
+                    style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
+                    onChangeText={text => this.setState({ lastName: text })}
+                    placeholder="Nom *"
+                    selectTextOnFocus
+                    autoCorrect={false}
+                    underlineColorAndroid="transparent"
+                    placeholderTextColor="#909090"
+                    onBlur={() => this.resetFocus()}
+                    onFocus={() => this.setFocus(lastNameInput)}
+                    maxLength={15}
+                    value={this.state.lastName}
+                  />
+                </View>
+
 
               </View>
             </View>

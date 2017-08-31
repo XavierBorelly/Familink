@@ -20,7 +20,7 @@ export async function getAllContacts()
   {
     if (tokenIsFull(token, propsNavigation))
     {
-      return appelGet('/secured/users/contacts', token, propsNavigation);
+      return appelGet('/secured/users/contacts', token, propsNavigation).then(response => response.data);
     }
 
     return '';
@@ -59,7 +59,7 @@ export async function saveContact(phoneNumber, firstName, lastName, email, grava
 export async function updateContact(
   phoneNumber, firstName, lastName, email, gravatar, idContact)
 {
-  getTokenFromBDD().then((token) =>
+  return getTokenFromBDD().then((token) =>
   {
     if (tokenIsFull(token, propsNavigation))
     {
@@ -71,8 +71,10 @@ export async function updateContact(
         gravatar,
       });
 
-      appelPut(`/secured/users/contacts/${idContact}`, body, token, propsNavigation);
+      return appelPut(`/secured/users/contacts/${idContact}`, body, token, propsNavigation);
     }
+
+    return null;
   });
 }
 
@@ -80,11 +82,13 @@ export async function updateContact(
  */
 export async function deleteContact(idContact)
 {
-  getTokenFromBDD().then((token) =>
+  return getTokenFromBDD().then((token) =>
   {
     if (tokenIsFull(token, propsNavigation))
     {
-      appelDelete(`/secured/users/contacts/${idContact}`, token, propsNavigation);
+      return appelDelete(`/secured/users/contacts/${idContact}`, token, propsNavigation);
     }
+
+    return null;
   });
 }
