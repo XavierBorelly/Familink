@@ -3,7 +3,6 @@ import { Image, View } from 'react-native';
 
 import Header from '../components/Header';
 import MenuIcon from '../../assets/icon_emergency_config.png';
-import BackButton from '../components/BackButton';
 import { PROFILE_SCENE_NAME } from './ProfileScreen';
 import familinkStyles from '../Style';
 
@@ -21,8 +20,10 @@ export default class EmergencyConfigScreen extends Component
     const navigation = this.props.navigation;
     return (
       <View style={familinkStyles.container}>
-        <Header hasMenu navigation={navigation} title="Configuration d'urgence" />
-        <BackButton navigation={navigation} param={PROFILE_SCENE_NAME} />
+        <Header
+          navigation={navigation}
+          title="Configuration d'urgence"
+        />
       </View>
     );
   }

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import familinkStyles from '../Style';
 import { addContact } from '../actions/contacts.action';
 import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
-import BackButton from '../components/BackButton';
 import Gravatar from '../components/Gravatar';
 import Header from '../components/Header';
 import { checkRequiredStringValue, checkPhoneNumber, checkMail } from '../errors/FamilinkErrors';
@@ -252,8 +251,8 @@ export class ContactScreen extends Component
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={familinkStyles.container}>
           <Header
-            hasMenu
             navigation={navigation}
+            goBackTo={PHONEBOOK_SCENE_NAME}
             title={
               (this.state.mode === Mode.UPDATE ? 'Modification contact' : 'Création contact')
             }
@@ -349,8 +348,7 @@ export class ContactScreen extends Component
             {actionButtons}
 
           </View>
-
-          <BackButton navigation={navigation} param={PHONEBOOK_SCENE_NAME} />
+          <View style={familinkStyles.bottomBar} />
         </View>
       </TouchableWithoutFeedback>
     );

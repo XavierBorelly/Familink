@@ -20,7 +20,11 @@ export default class HomeScreen extends Component
     const navigation = this.props.navigation;
     return (
       <View style={familinkStyles.container}>
-        <Header hasMenu navigation={navigation} title="Menu connecté" />
+        <Header
+          navigation={navigation}
+          title="Menu connecté"
+          homePage
+        />
         <View style={familinkStyles.content}>
           <View style={familinkStyles.item}>
             <TouchableHighlight

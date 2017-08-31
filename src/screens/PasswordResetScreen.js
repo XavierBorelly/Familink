@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import { checkForgotPassword } from '../errors/FamilinkErrors';
 import { LOGIN_SCENE_NAME } from './LoginScreen';
 import { errorPopinTitle } from '../errors/ErrorStrings';
-import BackButton from '../components/BackButton';
 import familinkStyles from '../Style';
 import { showInformativePopin } from '../Popin';
 import { buttonLabelValidateForgotPassword, LabelConfirmForgotPassword } from '../Util';
@@ -36,7 +35,11 @@ export default class PasswordResetScreen extends Component
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={familinkStyles.container}>
-          <Header navigation={navigation} title="Mot de passe oublié" />
+          <Header
+            navigation={navigation}
+            title="Mot de passe oublié"
+            goBackTo={LOGIN_SCENE_NAME}
+          />
 
           <View style={familinkStyles.contentForgotPassword}>
             <View style={familinkStyles.itemForgotPassword}>
@@ -86,7 +89,7 @@ export default class PasswordResetScreen extends Component
               </TouchableHighlight>
             </View>
           </View>
-          <BackButton navigation={navigation} param={LOGIN_SCENE_NAME} />
+          <View style={familinkStyles.bottomBar} />
         </View>
       </TouchableWithoutFeedback>
     );

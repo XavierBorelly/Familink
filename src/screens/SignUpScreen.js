@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { TextInput, View, Text, TouchableHighlight, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import BackButton from '../components/BackButton';
 
 import familinkStyles from '../Style';
 import Header from '../components/Header';
@@ -65,8 +64,11 @@ export default class SignUpScreen extends Component
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={familinkStyles.container}>
-          <Header navigation={navigation} title="S'enregistrer" />
-          <BackButton navigation={navigation} param={LOGIN_SCENE_NAME} />
+          <Header
+            navigation={navigation}
+            title="S'enregistrer"
+            goBackTo={LOGIN_SCENE_NAME}
+          />
           <View style={familinkStyles.content}>
 
             <View style={this.state.focused === phoneNumberInput ?
@@ -242,6 +244,7 @@ export default class SignUpScreen extends Component
               </TouchableHighlight>
             </View>
           </View>
+          <View style={familinkStyles.bottomBar} />
         </View>
       </TouchableWithoutFeedback>
     );
