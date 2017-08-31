@@ -45,7 +45,7 @@ export default class ProfilePicker extends Component
   {
     let selectedValue = this.props.selected;
 
-    let errorNoSelect = this.props.error
+    let errorNoSelect = this.props.error;
 
     if (this.state.profil !== null)
     {
@@ -65,7 +65,7 @@ export default class ProfilePicker extends Component
           <TouchableHighlight
             style={[(selectedValue === profils[i] ?
               familinkStyles.pickerItemFocused : familinkStyles.pickerItem),
-              (errorNoSelect === '' ?  '' : familinkStyles.pickerItemError),
+              (errorNoSelect === '' ? '' : familinkStyles.pickerItemError),
               styles.leftRounded]}
             onPress={() =>
             {
@@ -82,7 +82,7 @@ export default class ProfilePicker extends Component
           <TouchableHighlight
             style={[(selectedValue === profils[i] ?
               familinkStyles.pickerItemFocused : familinkStyles.pickerItem),
-              (errorNoSelect === '' ?  '' : familinkStyles.pickerItemError),
+              (errorNoSelect === '' ? '' : familinkStyles.pickerItemError),
               styles.rightRounded]}
             onPress={() =>
             {
@@ -99,7 +99,7 @@ export default class ProfilePicker extends Component
           <TouchableHighlight
             style={[(selectedValue === profils[i] ?
               familinkStyles.pickerItemFocused : familinkStyles.pickerItem),
-              (errorNoSelect === '' ?  '' : familinkStyles.pickerItemError)]}
+              (errorNoSelect === '' ? '' : familinkStyles.pickerItemError)]}
             onPress={() =>
             {
               this.setState({ profil: profils[i] });
@@ -150,11 +150,13 @@ export default class ProfilePicker extends Component
 ProfilePicker.propTypes = {
   selected: PropTypes.objectOf(PropTypes.string),
   editable: PropTypes.objectOf(PropTypes.boolean),
+  error: PropTypes.objectOf(PropTypes.string),
 };
 
 ProfilePicker.defaultProps = {
   selected: null,
   editable: true,
+  error: '',
 };
 
 AppRegistry.registerComponent('ProfilePicker', () => ProfilePicker);

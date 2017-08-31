@@ -280,5 +280,5 @@ export default StyleSheet.create({
   legend: {
     color: legendColor,
     paddingTop: 30,
-  }
+  },
 });

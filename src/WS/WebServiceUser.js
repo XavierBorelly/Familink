@@ -64,10 +64,8 @@ export async function forgotPassword(phone)
   });
 
 
-  return appelPostStatus('/public/forgot-password', body, null, null).then((response) =>
-  {
-    return response.status
-  });
+  return appelPostStatus('/public/forgot-password', body, null, null).then(response =>
+    response.status);
 }
 
 /** permet de modifier un utilisateur
