@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import React, { Component } from 'react';
 import { Text, View, FlatList, TouchableHighlight, Image } from 'react-native';
 import _ from 'lodash';

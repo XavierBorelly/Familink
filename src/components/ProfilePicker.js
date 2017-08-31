@@ -45,12 +45,16 @@ export default class ProfilePicker extends Component
   {
     let selectedValue = this.props.selected;
 
+    let errorNoSelect = this.props.error
+
     if (this.state.profil !== null)
     {
       selectedValue = this.state.profil;
+      errorNoSelect = '';
     }
 
     const items = [];
+
 
     // Montre les profils séléctionnables
     for (let i = 0; i < profils.length; i += 1)
@@ -60,7 +64,9 @@ export default class ProfilePicker extends Component
         items.push(
           <TouchableHighlight
             style={[(selectedValue === profils[i] ?
-              familinkStyles.pickerItemFocused : familinkStyles.pickerItem), styles.leftRounded]}
+              familinkStyles.pickerItemFocused : familinkStyles.pickerItem),
+              (errorNoSelect === '' ?  '' : familinkStyles.pickerItemError),
+              styles.leftRounded]}
             onPress={() =>
             {
               this.setState({ profil: profils[i] });
@@ -75,7 +81,9 @@ export default class ProfilePicker extends Component
         items.push(
           <TouchableHighlight
             style={[(selectedValue === profils[i] ?
-              familinkStyles.pickerItemFocused : familinkStyles.pickerItem), styles.rightRounded]}
+              familinkStyles.pickerItemFocused : familinkStyles.pickerItem),
+              (errorNoSelect === '' ?  '' : familinkStyles.pickerItemError),
+              styles.rightRounded]}
             onPress={() =>
             {
               this.setState({ profil: profils[i] });
@@ -89,8 +97,9 @@ export default class ProfilePicker extends Component
       {
         items.push(
           <TouchableHighlight
-            style={selectedValue === profils[i] ?
-              familinkStyles.pickerItemFocused : familinkStyles.pickerItem}
+            style={[(selectedValue === profils[i] ?
+              familinkStyles.pickerItemFocused : familinkStyles.pickerItem),
+              (errorNoSelect === '' ?  '' : familinkStyles.pickerItemError)]}
             onPress={() =>
             {
               this.setState({ profil: profils[i] });

@@ -7,7 +7,7 @@ import Header from '../components/Header';
 import ProfilePicker from '../components/ProfilePicker';
 import { saveUser } from '../WS/WebServiceUser';
 import { LOGIN_SCENE_NAME } from './LoginScreen';
-import { checkPhoneNumber, checkPassword, checkSurname, checkMail } from '../errors/FamilinkErrors';
+import { checkPhoneNumber, checkPassword, checkSurname, checkMail, checkProfil } from '../errors/FamilinkErrors';
 import { errorPopinTitle, phoneDuplicated } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
 import { labelInformativePopinTitle, labelUserCreated, buttonLabelValidation } from '../Util';
@@ -40,8 +40,8 @@ export default class SignUpScreen extends Component
       name: null,
       firstName: null,
       email: null,
-      profil: 'SENIOR',
-      errors: ['', '', '', ''],
+      profil: null,
+      errors: ['', '', '', '', ''],
     };
   }
 
@@ -179,6 +179,7 @@ export default class SignUpScreen extends Component
             </View>
 
             <ProfilePicker
+              error={this.state.errors[4]}
               ref={(profilePickerComponent) =>
               {
                 this.profilePickerComponent = profilePickerComponent;
@@ -197,6 +198,7 @@ export default class SignUpScreen extends Component
                   errorArray.push(checkPassword(this.state.password, this.state.confirmPassword));
                   errorArray.push(checkSurname(this.state.firstName));
                   errorArray.push(checkMail(this.state.email));
+                  errorArray.push(checkProfil(this.profilePickerComponent.state.profil));
                   this.setState({ errors: errorArray });
 
                   let thereIsErrors = false;
