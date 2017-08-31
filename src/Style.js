@@ -174,25 +174,18 @@ export default StyleSheet.create({
     color: textColor,
   },
 
-  backButtonContainer:
+  bottomBar:
   {
-
     position: 'absolute',
-    bottom: 0,
+    bottom: -10,
     width: Dimensions.get('window').width,
-    height: 36,
+    height: 48,
     backgroundColor: headerBackgroundColor,
     borderTopWidth: 1.2,
     borderColor: headerBorderColor,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  backButtonText:
-  {
-    width: Dimensions.get('window').width,
-    textAlign: 'center',
-    fontSize: 26,
   },
 
   contentList: {

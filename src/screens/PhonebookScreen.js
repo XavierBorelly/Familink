@@ -3,8 +3,6 @@ import { Text, View, FlatList, TouchableHighlight, Image } from 'react-native';
 import _ from 'lodash';
 import familinkStyles from '../Style';
 import { CONTACT_SCENE_NAME } from '../apps/ContactApp';
-import { HOME_SCENE_NAME } from './HomeScreen';
-import BackButton from '../components/BackButton';
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 import { showInformativePopin } from '../Popin';
@@ -112,7 +110,10 @@ export default class PhonebookScreen extends Component
     const listContacts = this.renderListContacts();
     return (
       <View style={familinkStyles.container}>
-        <Header hasMenu navigation={navigation} title="Répertoire" />
+        <Header
+          navigation={navigation}
+          title="Répertoire"
+        />
 
         <View style={familinkStyles.contentList}>
           <View style={familinkStyles.contentButtonAddContact}>
@@ -138,8 +139,7 @@ export default class PhonebookScreen extends Component
           </View>
           {listContacts}
         </View>
-
-        <BackButton navigation={navigation} param={HOME_SCENE_NAME} />
+        <View style={familinkStyles.bottomBar} />
       </View>
     );
   }

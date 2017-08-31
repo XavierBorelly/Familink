@@ -129,7 +129,11 @@ export default class LoginScreen extends Component
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={familinkStyles.container}>
-          <Header navigation={navigation} title="Connexion" />
+          <Header
+            navigation={navigation}
+            title="Connexion"
+            loginPage
+          />
           <View style={familinkStyles.content}>
 
             <View style={familinkStyles.item}>
@@ -210,6 +214,7 @@ export default class LoginScreen extends Component
               </TouchableHighlight>
             </View>
           </View>
+          <View style={familinkStyles.bottomBar} />
         </View>
       </TouchableWithoutFeedback>
     );

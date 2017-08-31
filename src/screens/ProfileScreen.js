@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
 import MenuIcon from '../../assets/icon_profile.png';
-import BackButton from '../components/BackButton';
 import Header from '../components/Header';
-import { HOME_SCENE_NAME } from './HomeScreen';
 import UpdateProfil from '../components/UpdateProfil';
 import familinkStyles from '../Style';
 
@@ -21,9 +19,12 @@ export default class ProfileScreen extends Component
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={familinkStyles.container}>
-          <Header hasMenu navigation={navigation} title="Mon Profil" />
-          <BackButton navigation={navigation} param={HOME_SCENE_NAME} />
+          <Header
+            navigation={navigation}
+            title="Mon Profil"
+          />
           <UpdateProfil />
+          <View style={familinkStyles.bottomBar} />
         </View>
       </TouchableWithoutFeedback>
     );
