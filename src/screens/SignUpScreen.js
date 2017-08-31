@@ -9,7 +9,7 @@ import { LOGIN_SCENE_NAME } from './LoginScreen';
 import { checkPhoneNumber, checkPassword, checkSurname, checkMail, checkProfil } from '../errors/FamilinkErrors';
 import { errorPopinTitle, phoneDuplicated } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
-import { labelInformativePopinTitle, labelUserCreated, buttonLabelValidation } from '../Util';
+import { labelInformativePopinTitle, labelUserCreated, buttonLabelValidation, placeholderFirstnameMandatory, placeholderName, placeholderPhoneNumberMandatory, placeholderEmailMandatory, placeholderPasswordMandatory, placeholderPasswordConfirmMandatory, headerModifySignUp } from '../Util';
 
 export const SIGNUP_SCENE_NAME = 'SIGNUP_SCENE';
 
@@ -66,7 +66,7 @@ export default class SignUpScreen extends Component
         <View style={familinkStyles.container}>
           <Header
             navigation={navigation}
-            title="S'enregistrer"
+            title={headerModifySignUp}
             goBackTo={LOGIN_SCENE_NAME}
           />
           <View style={familinkStyles.content}>
@@ -78,7 +78,7 @@ export default class SignUpScreen extends Component
                 style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                 onChangeText={text => this.setState({ phone: text })}
                 keyboardType="numeric"
-                placeholder="Numéro de téléphone *"
+                placeholder={placeholderPhoneNumberMandatory}
                 selectTextOnFocus
                 autoCorrect={false}
                 underlineColorAndroid="transparent"
@@ -97,7 +97,7 @@ export default class SignUpScreen extends Component
                 style={this.state.errors[1] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                 onChangeText={text => this.setState({ password: text })}
                 keyboardType="numeric"
-                placeholder="Mot de passe *"
+                placeholder={placeholderPasswordMandatory}
                 selectTextOnFocus
                 autoCorrect={false}
                 underlineColorAndroid="transparent"
@@ -116,7 +116,7 @@ export default class SignUpScreen extends Component
                 style={this.state.errors[1] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                 onChangeText={text => this.setState({ confirmPassword: text })}
                 keyboardType="numeric"
-                placeholder="Confirmation du mot de passe *"
+                placeholder={placeholderPasswordConfirmMandatory}
                 selectTextOnFocus
                 autoCorrect={false}
                 underlineColorAndroid="transparent"
@@ -134,7 +134,7 @@ export default class SignUpScreen extends Component
               <TextInput
                 style={familinkStyles.textInput}
                 onChangeText={text => this.setState({ name: text })}
-                placeholder="Nom"
+                placeholder={placeholderName}
                 selectTextOnFocus
                 autoCorrect={false}
                 underlineColorAndroid="transparent"
@@ -151,7 +151,7 @@ export default class SignUpScreen extends Component
               <TextInput
                 style={this.state.errors[2] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                 onChangeText={text => this.setState({ firstName: text })}
-                placeholder="Prenom *"
+                placeholder={placeholderFirstnameMandatory}
                 selectTextOnFocus
                 placeholderTextColor="#909090"
                 autoCorrect={false}
@@ -168,7 +168,7 @@ export default class SignUpScreen extends Component
               <TextInput
                 style={this.state.errors[3] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                 onChangeText={text => this.setState({ email: text })}
-                placeholder="Email *"
+                placeholder={placeholderEmailMandatory}
                 selectTextOnFocus
                 autoCorrect={false}
                 underlineColorAndroid="transparent"

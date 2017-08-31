@@ -14,6 +14,38 @@ export const buttonLabelDelete = 'Supprimer';
 export const buttonLabelUpdate = 'Modifier';
 export const buttonLabelCancel = 'Annuler';
 
+export const placeholderNameMandatory = 'Nom *';
+export const placeholderFirstnameMandatory = 'Prénom *';
+export const placeholderPhoneNumberMandatory = 'Numéro de téléphone *';
+export const placeholderEmailMandatory = 'Email *';
+export const placeholderPasswordMandatory = 'Mot de passe *';
+export const placeholderPasswordConfirmMandatory = 'Confirmation de mot de passe *';
+export const placeholderName = 'Nom';
+export const placeholderpassword = 'Mot de passe';
+export const placeholderPhoneNumber = 'Numéro de téléphone';
+export const placeholderSearchbar = 'Rechercher';
+
+export const textLLabelName = 'Nom';
+export const textLabelFirstname = 'Prénom';
+export const textLabelEmail = 'Email';
+export const textLabelProfil = 'Profil';
+export const textLabelFamilink = 'Familink';
+export const textLabelUrgency = 'Urgence';
+
+export const checkBoxLabel = 'Se souvenir de moi';
+
+export const headerSignIn = 'Connexion';
+export const headerHome = 'Accueil';
+export const headerProfile = 'Mon Profil';
+export const headerContact = 'Repertoire';
+export const headerconfigUrgency = 'Configuration d\'urgence';
+export const headerContactCreate = 'Création contact';
+export const headerModifyContact = 'Modification contact';
+export const headerModifySignUp = 'S\'enregistrer';
+export const headerForgotPassword = 'Mot de passe oublié';
+export const labelSignOut = 'Deconnexion';
+export const labelPopInCall = 'Appel en cours';
+
 export const labelInformativePopinTitle = 'Information';
 export const labelActionPopinTitle = 'Êtes-vous sûr ?';
 export const labelUserCreated = 'Enregistrement réussi !';

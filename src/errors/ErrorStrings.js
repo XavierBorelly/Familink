@@ -19,3 +19,7 @@ export const tokenEmpty = 'session invalide, veillez-vous reconnecter!';
 export const tokenInvalid = 'session expiré, veillez-vous reonnecter!';
 
 export const phoneDuplicated = 'Le numéro de téléphone est déjà enregistré, veuillez en choisir un autre';
+
+export const wrongUserServer = 'User not found';
+export const wrongPasswordServer = 'Password is not valid';
+export const missPasswordServer = 'data and hash arguments required';

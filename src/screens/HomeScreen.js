@@ -5,13 +5,14 @@ import { PROFILE_SCENE_NAME } from './ProfileScreen';
 import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
 import MenuIcon from '../../assets/icon_home.png';
 import familinkStyles from '../Style';
+import { headerHome } from '../Util';
 
 export const HOME_SCENE_NAME = 'HOME_SCENE';
 
 export default class HomeScreen extends Component
 {
   static navigationOptions = {
-    drawerLabel: 'Accueil',
+    drawerLabel: headerHome,
     drawerIcon: (<Image source={MenuIcon} style={[familinkStyles.burgerMenuIcon]} />),
   };
 
@@ -22,7 +23,7 @@ export default class HomeScreen extends Component
       <View style={familinkStyles.container}>
         <Header
           navigation={navigation}
-          title="Menu connecté"
+          title={headerHome}
           homePage
         />
         <View style={familinkStyles.content}>
@@ -48,7 +49,7 @@ export default class HomeScreen extends Component
               }
               }
             >
-              <Text style={familinkStyles.buttonText}>Répertoire</Text>
+              <Text style={familinkStyles.buttonText}>Repertoire</Text>
             </TouchableHighlight>
           </View>
         </View>

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Container, Header, Item, Input, Icon } from 'native-base';
+import { placeholderSearchbar } from '../Util';
 
 export default class SearchBar extends Component
 {
@@ -31,7 +32,7 @@ export default class SearchBar extends Component
           <Item>
             <Icon name="ios-search" />
             <Input
-              placeholder="Search"
+              placeholder={placeholderSearchbar}
               onChangeText={text => this.onCurrentSearchChange(text)}
             />
             <Icon name="ios-people" />
