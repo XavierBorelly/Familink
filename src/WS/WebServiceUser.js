@@ -1,4 +1,4 @@
-import { appelGet, appelPost, appelPut, appelPostStatus } from './AppelWebService';
+import { appelGet, appelPost, appelPut } from './AppelWebService';
 import { saveTokenToBDD, getTokenFromBDD } from '../BDD/Token';
 import { tokenIsFull } from '../errors/Token';
 
@@ -15,7 +15,7 @@ export function setWebServiceNavigationUser(objNavigation)
  */
 export async function getProfil()
 {
-  return appelGet('/public/profiles', null, null);
+  return appelGet('/public/profiles', null, null).then(response => response.data);
 }
 
 /** permet d'obtenir le token d'authentification (et l'enregistre dans la base de donnée)
@@ -29,12 +29,13 @@ export async function login(phone, password)
 
   const messageAppelPost = appelPost('/public/login', body).then((response) =>
   {
-    if (response.token !== undefined && response.token !== '' && response.token !== null)
+    const data = response.data;
+    if (data.token !== undefined && data.token !== '' && data.token !== null)
     {
-      saveTokenToBDD(response.token);
+      saveTokenToBDD(data.token);
     }
 
-    return (response.message);
+    return (data.message);
   });
   return messageAppelPost;
 }
@@ -64,10 +65,7 @@ export async function forgotPassword(phone)
   });
 
 
-  return appelPostStatus('/public/forgot-password', body, null, null).then((response) =>
-  {
-    return response.status
-  });
+  return appelPost('/public/forgot-password', body, null, null).then(response => response.status);
 }
 
 /** permet de modifier un utilisateur
@@ -85,7 +83,7 @@ export async function editUser(name, firstName, email, profile)
         profile,
       });
 
-      const newBodyUser = appelPut('/secured/users', body, token, propsNavigation);
+      const newBodyUser = appelPut('/secured/users', body, token, propsNavigation).then(response => response.data);
       return newBodyUser;
     }
     return '';
@@ -100,7 +98,7 @@ export function getUser()
     const bodyUser = appelGet('/secured/users/current', token, propsNavigation)
       .then((response) =>
       {
-        const message = response;
+        const message = response.data;
         return message;
       });
     return bodyUser;

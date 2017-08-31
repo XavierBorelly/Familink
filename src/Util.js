@@ -10,8 +10,8 @@ export const buttonLabelSignIn = "S'enregistrer";
 export const buttonLabelSend = 'Envoyer';
 export const buttonLabelValidation = 'Valider';
 export const buttonLabelModification = 'Modifier';
-export const buttonLabelDelete = 'Supprimer Contact';
-export const buttonLabelUpdate = 'Modifier Contact';
+export const buttonLabelDelete = 'Supprimer';
+export const buttonLabelUpdate = 'Modifier';
 export const buttonLabelCancel = 'Annuler';
 
 export const labelInformativePopinTitle = 'Information';
@@ -32,6 +32,11 @@ export const labelPopInDeleteContact = 'Voulez-vous supprimer ce contact ?';
 export const button1LabelPopInDeleteContact = 'Supprimer';
 
 export const labelContactCreatedSuccess = 'Contact crée avec succès !';
+export const labelContactCreatedFail = 'Un problème est survenu lors de la création du contact !';
+export const labelContactUpdatedSuccess = 'Contact modifié avec succès !';
+export const labelContactUpdatedFail = 'Un problème est survenu lors de la modification du contact !';
+export const labelContactDeletedSuccess = 'Contact supprimé avec succès !';
+export const labelContactDeletedFail = 'Un problème est survenu lors de la suppression du contact !';
 
 export const keyStorageContact = '@MyContacts:key';
 export const keyRememberMeCheckBox = '@MonEtat:key';
