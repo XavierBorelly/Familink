@@ -52,7 +52,7 @@ export async function saveUser(phone, password, name, firstName, email, profile)
     profile,
   });
 
-  appelPost('/public/sign-in', body, null, null);
+  return appelPost('/public/sign-in', body, null, null);
 }
 
 /** permet de faire une demande pour retrouver son password
@@ -64,10 +64,8 @@ export async function forgotPassword(phone)
   });
 
 
-  return appelPostStatus('/public/forgot-password', body, null, null).then((response) =>
-  {
-    return response.status
-  });
+  return appelPostStatus('/public/forgot-password', body, null, null).then(response =>
+    response.status);
 }
 
 /** permet de modifier un utilisateur

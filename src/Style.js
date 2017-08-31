@@ -142,6 +142,15 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
+  pickerItemError: {
+    backgroundColor: textInputErrorBackgroundColor,
+    flex: 1,
+    borderColor: textInputErrorBorderColor,
+    borderWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   pickerItem: {
     backgroundColor: textInputBackgroundColor,
     flex: 1,
@@ -271,5 +280,5 @@ export default StyleSheet.create({
   legend: {
     color: legendColor,
     paddingTop: 30,
-  }
+  },
 });

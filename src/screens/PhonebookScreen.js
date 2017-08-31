@@ -1,7 +1,6 @@
-import _ from 'lodash';
-
 import React, { Component } from 'react';
 import { Text, View, FlatList, TouchableHighlight, Image } from 'react-native';
+import _ from 'lodash';
 import familinkStyles from '../Style';
 import { CONTACT_SCENE_NAME } from '../apps/ContactApp';
 import { HOME_SCENE_NAME } from './HomeScreen';

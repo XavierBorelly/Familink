@@ -102,3 +102,12 @@ export function checkRequiredStringValue(value, errorMessage)
   return '';
 }
 
+export function checkProfil(profil)
+{
+  if (profil === null || profil === '')
+  {
+    return errStrings.profilRequired;
+  }
+
+  return '';
+}
