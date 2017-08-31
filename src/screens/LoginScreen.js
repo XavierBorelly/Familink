@@ -9,7 +9,7 @@ import { HOME_SCENE_NAME } from './HomeScreen';
 import { SIGNUP_SCENE_NAME } from './SignUpScreen';
 import { PASSWORD_RESET_SCENE_NAME } from './PasswordResetScreen';
 import { login, setWebServiceNavigationUser } from '../WS/WebServiceUser';
-import { checkLogin } from '../errors/FamilinkErrors';
+import { checkLoginUser, checkLoginPassword } from '../errors/FamilinkErrors';
 import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
 import { setWebServiceNavigationContact } from '../WS/WebServiceContact';
@@ -32,7 +32,12 @@ export default class LoginScreen extends Component
   {
     super(props);
     this.navigate = this.props.navigation.navigate;
-    this.state = { checked: false, user: '', password: null, messageInfo: '' };
+    this.state = {
+      checked: false,
+      user: '',
+      password: null,
+      messageInfo: '',
+      errors: ['', ''] };
   }
 
   componentDidMount()
@@ -104,7 +109,9 @@ export default class LoginScreen extends Component
     {
       this.setState({ messageInfo: response });
       errors = [];
-      errors.push(checkLogin(this.state.messageInfo));
+      errors.push(checkLoginUser(this.state.messageInfo));
+      errors.push(checkLoginPassword(this.state.messageInfo));
+      this.setState({ errors });
       let thereIsErrors = false;
       for (let i = 0; i < errors.length; i += 1)
       {
@@ -134,7 +141,7 @@ export default class LoginScreen extends Component
 
             <View style={familinkStyles.item}>
               <TextInput
-                style={familinkStyles.textInput}
+                style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                 onChangeText={user => this.setState({ user })}
                 keyboardType="numeric"
                 placeholder="Numéro de téléphone"
@@ -150,7 +157,7 @@ export default class LoginScreen extends Component
             </View>
             <View style={familinkStyles.item}>
               <TextInput
-                style={familinkStyles.textInput}
+                style={this.state.errors[1] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                 onChangeText={password => this.setState({ password })}
                 keyboardType="numeric"
                 placeholder="Mot de passe"

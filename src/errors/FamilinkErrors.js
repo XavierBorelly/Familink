@@ -62,7 +62,7 @@ export function checkMail(mail)
   return '';
 }
 
-export function checkLogin(message)
+export function checkLoginUser(message)
 {
   if (message === 'User not found')
   {
@@ -72,16 +72,22 @@ export function checkLogin(message)
   {
     return errStrings.wrongPassword;
   }
+  return '';
+}
+
+export function checkLoginPassword(message)
+{
+  if (message === 'Password is not valid')
+  {
+    return errStrings.wrongPassword;
+  }
   else if (message === 'data and hash arguments required')
   {
     return errStrings.missPassword;
   }
-  else if (message !== undefined && message !== '' && message !== null)
-  {
-    return message;
-  }
   return '';
 }
+
 
 export function checkForgotPassword(message)
 {
