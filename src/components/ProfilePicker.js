@@ -59,56 +59,21 @@ export default class ProfilePicker extends Component
     // Montre les profils séléctionnables
     for (let i = 0; i < profils.length; i += 1)
     {
-      if (i === 0)
-      {
-        items.push(
-          <TouchableHighlight
-            style={[(selectedValue === profils[i] ?
-              familinkStyles.pickerItemFocused : familinkStyles.pickerItem),
-              (errorNoSelect === '' ? '' : familinkStyles.pickerItemError),
-              styles.leftRounded]}
-            onPress={() =>
-            {
-              this.setState({ profil: profils[i] });
-            }}
-          >
-            <Text style={styles.text}>{profils[i]}</Text>
-          </TouchableHighlight>,
-        );
-      }
-      else if (i === profils.length - 1)
-      {
-        items.push(
-          <TouchableHighlight
-            style={[(selectedValue === profils[i] ?
-              familinkStyles.pickerItemFocused : familinkStyles.pickerItem),
-              (errorNoSelect === '' ? '' : familinkStyles.pickerItemError),
-              styles.rightRounded]}
-            onPress={() =>
-            {
-              this.setState({ profil: profils[i] });
-            }}
-          >
-            <Text style={styles.text}>{profils[i]}</Text>
-          </TouchableHighlight>,
-        );
-      }
-      else
-      {
-        items.push(
-          <TouchableHighlight
-            style={[(selectedValue === profils[i] ?
-              familinkStyles.pickerItemFocused : familinkStyles.pickerItem),
-              (errorNoSelect === '' ? '' : familinkStyles.pickerItemError)]}
-            onPress={() =>
-            {
-              this.setState({ profil: profils[i] });
-            }}
-          >
-            <Text style={styles.text}>{profils[i]}</Text>
-          </TouchableHighlight>,
-        );
-      }
+      items.push(
+        <TouchableHighlight
+          style={[(selectedValue === profils[i] ?
+            familinkStyles.pickerItemFocused : familinkStyles.pickerItem),
+            (errorNoSelect === '' ? '' : familinkStyles.pickerItemError),
+            (i === 0 ? styles.leftRounded : ''),
+            (i === profils.length - 1 ? styles.rightRounded : '')]}
+          onPress={() =>
+          {
+            this.setState({ profil: profils[i] });
+          }}
+        >
+          <Text style={styles.text}>{profils[i]}</Text>
+        </TouchableHighlight>,
+      );
     }
 
     // Vue qui montre le profil séléctionné lorsque le picker n'est pas editable

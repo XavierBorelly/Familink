@@ -217,22 +217,23 @@ export default class SignUpScreen extends Component
                   {
                     saveUser(this.state.phone, this.state.password, this.state.name,
                       this.state.firstName, this.state.email,
-                      this.profilePickerComponent.state.profil).then((response) =>
-                    {
+                      this.profilePickerComponent.state.profil)
+                      .then((response) =>
+                      {
                       // Affiche une erreur au cas où le numéro de téléphone existe déja dans la BDD
-                      if (response.message === `user validation failed: phone: Error, expected \`phone\` to be unique. Value: \`${this.state.phone}\``)
-                      {
-                        errorArray[0] = response.message;
-                        this.setState({ errors: errorArray });
-                        showInformativePopin(errorPopinTitle, phoneDuplicated);
-                      }
-                      // Sinon, aucune erreures, on revient a la page de login
-                      else
-                      {
-                        showInformativePopin(labelInformativePopinTitle, labelUserCreated);
-                        navigation.navigate(LOGIN_SCENE_NAME);
-                      }
-                    });
+                        if (response.message === `user validation failed: phone: Error, expected \`phone\` to be unique. Value: \`${this.state.phone}\``)
+                        {
+                          errorArray[0] = response.message;
+                          this.setState({ errors: errorArray });
+                          showInformativePopin(errorPopinTitle, phoneDuplicated);
+                        }
+                        // Sinon, aucune erreures, on revient a la page de login
+                        else
+                        {
+                          showInformativePopin(labelInformativePopinTitle, labelUserCreated);
+                          navigation.navigate(LOGIN_SCENE_NAME);
+                        }
+                      });
                   }
                 }
                 }
