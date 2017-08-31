@@ -23,7 +23,7 @@ export function tokenIsFull(token, props)
 
 export function tokenIsValid(codeRetour, props)
 {
-  if (codeRetour !== 200 && codeRetour !== 204)
+  if (codeRetour === 401)
   {
     showInformativePopin(errorPopinTitle, tokenInvalid);
     logout(props);
