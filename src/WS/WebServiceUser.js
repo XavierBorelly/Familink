@@ -53,7 +53,7 @@ export async function saveUser(phone, password, name, firstName, email, profile)
     profile,
   });
 
-  appelPost('/public/sign-in', body, null, null);
+  return appelPost('/public/sign-in', body, null, null);
 }
 
 /** permet de faire une demande pour retrouver son password
@@ -63,7 +63,6 @@ export async function forgotPassword(phone)
   const body = JSON.stringify({
     phone,
   });
-
 
   return appelPost('/public/forgot-password', body, null, null).then(response => response.status);
 }

@@ -45,61 +45,35 @@ export default class ProfilePicker extends Component
   {
     let selectedValue = this.props.selected;
 
+    let errorNoSelect = this.props.error;
+
     if (this.state.profil !== null)
     {
       selectedValue = this.state.profil;
+      errorNoSelect = '';
     }
 
     const items = [];
 
+
     // Montre les profils séléctionnables
     for (let i = 0; i < profils.length; i += 1)
     {
-      if (i === 0)
-      {
-        items.push(
-          <TouchableHighlight
-            style={[(selectedValue === profils[i] ?
-              familinkStyles.pickerItemFocused : familinkStyles.pickerItem), styles.leftRounded]}
-            onPress={() =>
-            {
-              this.setState({ profil: profils[i] });
-            }}
-          >
-            <Text style={styles.text}>{profils[i]}</Text>
-          </TouchableHighlight>,
-        );
-      }
-      else if (i === profils.length - 1)
-      {
-        items.push(
-          <TouchableHighlight
-            style={[(selectedValue === profils[i] ?
-              familinkStyles.pickerItemFocused : familinkStyles.pickerItem), styles.rightRounded]}
-            onPress={() =>
-            {
-              this.setState({ profil: profils[i] });
-            }}
-          >
-            <Text style={styles.text}>{profils[i]}</Text>
-          </TouchableHighlight>,
-        );
-      }
-      else
-      {
-        items.push(
-          <TouchableHighlight
-            style={selectedValue === profils[i] ?
-              familinkStyles.pickerItemFocused : familinkStyles.pickerItem}
-            onPress={() =>
-            {
-              this.setState({ profil: profils[i] });
-            }}
-          >
-            <Text style={styles.text}>{profils[i]}</Text>
-          </TouchableHighlight>,
-        );
-      }
+      items.push(
+        <TouchableHighlight
+          style={[(selectedValue === profils[i] ?
+            familinkStyles.pickerItemFocused : familinkStyles.pickerItem),
+            (errorNoSelect === '' ? '' : familinkStyles.pickerItemError),
+            (i === 0 ? styles.leftRounded : ''),
+            (i === profils.length - 1 ? styles.rightRounded : '')]}
+          onPress={() =>
+          {
+            this.setState({ profil: profils[i] });
+          }}
+        >
+          <Text style={styles.text}>{profils[i]}</Text>
+        </TouchableHighlight>,
+      );
     }
 
     // Vue qui montre le profil séléctionné lorsque le picker n'est pas editable
@@ -141,11 +115,13 @@ export default class ProfilePicker extends Component
 ProfilePicker.propTypes = {
   selected: PropTypes.objectOf(PropTypes.string),
   editable: PropTypes.objectOf(PropTypes.boolean),
+  error: PropTypes.objectOf(PropTypes.string),
 };
 
 ProfilePicker.defaultProps = {
   selected: null,
   editable: true,
+  error: '',
 };
 
 AppRegistry.registerComponent('ProfilePicker', () => ProfilePicker);

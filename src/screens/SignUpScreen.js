@@ -7,8 +7,8 @@ import Header from '../components/Header';
 import ProfilePicker from '../components/ProfilePicker';
 import { saveUser } from '../WS/WebServiceUser';
 import { LOGIN_SCENE_NAME } from './LoginScreen';
-import { checkPhoneNumber, checkPassword, checkSurname, checkMail } from '../errors/FamilinkErrors';
-import { errorPopinTitle } from '../errors/ErrorStrings';
+import { checkPhoneNumber, checkPassword, checkSurname, checkMail, checkProfil } from '../errors/FamilinkErrors';
+import { errorPopinTitle, phoneDuplicated } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
 import { labelInformativePopinTitle, labelUserCreated, buttonLabelValidation } from '../Util';
 
@@ -40,8 +40,8 @@ export default class SignUpScreen extends Component
       name: null,
       firstName: null,
       email: null,
-      profil: 'SENIOR',
-      errors: ['', '', '', ''],
+      profil: null,
+      errors: ['', '', '', '', ''],
     };
   }
 
@@ -179,6 +179,7 @@ export default class SignUpScreen extends Component
             </View>
 
             <ProfilePicker
+              error={this.state.errors[4]}
               ref={(profilePickerComponent) =>
               {
                 this.profilePickerComponent = profilePickerComponent;
@@ -191,14 +192,17 @@ export default class SignUpScreen extends Component
                 style={familinkStyles.button}
                 onPress={() =>
                 {
+                  // Sur l'appui du bouton valider, check si il y a des champs erronés
                   const errorArray = [];
                   errorArray.push(checkPhoneNumber(this.state.phone));
                   errorArray.push(checkPassword(this.state.password, this.state.confirmPassword));
                   errorArray.push(checkSurname(this.state.firstName));
                   errorArray.push(checkMail(this.state.email));
+                  errorArray.push(checkProfil(this.profilePickerComponent.state.profil));
                   this.setState({ errors: errorArray });
 
                   let thereIsErrors = false;
+                  // Check si l'une des cases de 'errorArray' n'est pas vide
                   for (let i = 0; i < errorArray.length; i += 1)
                   {
                     if (errorArray[i] !== '')
@@ -208,13 +212,28 @@ export default class SignUpScreen extends Component
                       break;
                     }
                   }
+                  // Si il n'y a pas d'erreurs, on tente d'enregistrer un user
                   if (!thereIsErrors)
                   {
                     saveUser(this.state.phone, this.state.password, this.state.name,
                       this.state.firstName, this.state.email,
-                      this.profilePickerComponent.state.profil);
-                    showInformativePopin(labelInformativePopinTitle, labelUserCreated);
-                    navigation.navigate(LOGIN_SCENE_NAME);
+                      this.profilePickerComponent.state.profil)
+                      .then((response) =>
+                      {
+                      // Affiche une erreur au cas où le numéro de téléphone existe déja dans la BDD
+                        if (response.message === `user validation failed: phone: Error, expected \`phone\` to be unique. Value: \`${this.state.phone}\``)
+                        {
+                          errorArray[0] = response.message;
+                          this.setState({ errors: errorArray });
+                          showInformativePopin(errorPopinTitle, phoneDuplicated);
+                        }
+                        // Sinon, aucune erreures, on revient a la page de login
+                        else
+                        {
+                          showInformativePopin(labelInformativePopinTitle, labelUserCreated);
+                          navigation.navigate(LOGIN_SCENE_NAME);
+                        }
+                      });
                   }
                 }
                 }

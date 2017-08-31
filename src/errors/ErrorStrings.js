@@ -8,6 +8,7 @@ export const phoneError = 'Numéro de téléphone doit être sous le format 0XXX
 export const lastnameRequired = 'Nom requis';
 export const surnameRequired = 'Prénom requis';
 export const mailRequired = 'Le mail est requis';
+export const profilRequired = 'Le profil est requis';
 export const mailError = 'Le mail doit être au format exemple@exemple.fr';
 
 export const wrongUser = 'Numéro de téléphone incorrect';
@@ -16,3 +17,5 @@ export const missPassword = 'Mot de passe manquant';
 
 export const tokenEmpty = 'session invalide, veillez-vous reconnecter!';
 export const tokenInvalid = 'session expiré, veillez-vous reonnecter!';
+
+export const phoneDuplicated = 'Le numéro de téléphone est déjà enregistré, veuillez en choisir un autre';
