@@ -172,10 +172,15 @@ export default class LoginScreen extends Component
             </View>
 
             <View style={familinkStyles.item}>
-              <ListItem onPress={() => this.checkboxCheck()}>
-                <CheckBox checked={this.state.checked} />
+              <ListItem>
+                <CheckBox
+                  checked={this.state.checked}
+                  onPress={() => this.checkboxCheck()}
+                />
                 <Body>
-                  <Text>Se souvenir de Moi</Text>
+                  <TouchableWithoutFeedback onPress={() => this.checkboxCheck()}>
+                    <Text>Se souvenir de moi</Text>
+                  </TouchableWithoutFeedback>
                 </Body>
               </ListItem>
             </View>
