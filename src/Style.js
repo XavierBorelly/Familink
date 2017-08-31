@@ -82,9 +82,9 @@ export default StyleSheet.create({
   },
 
   itemForgotPassword: {
-    height: 50,
-    paddingTop: 2,
-    paddingBottom: 2,
+    height: 80,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
 
   item: {
@@ -131,6 +131,7 @@ export default StyleSheet.create({
   },
   buttonText: {
     fontSize: 28,
+    textAlign: 'center',
     color: buttonTextColor,
     fontWeight: 'bold',
   },

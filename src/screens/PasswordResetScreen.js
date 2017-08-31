@@ -64,6 +64,8 @@ export default class PasswordResetScreen extends Component
                   {
                     const errors = [];
                     errors.push(checkForgotPassword(response));
+                    this.setState({ errors });
+
                     let thereIsErrors = false;
                     for (let i = 0; i < errors.length; i += 1)
                     {
@@ -83,7 +85,7 @@ export default class PasswordResetScreen extends Component
                 }
                 }
               >
-                <Text>{buttonLabelValidateForgotPassword}</Text>
+                <Text style={familinkStyles.buttonText}>{buttonLabelValidateForgotPassword}</Text>
               </TouchableHighlight>
             </View>
           </View>
