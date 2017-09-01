@@ -16,7 +16,7 @@ export const wrongPassword = 'Numéro de téléphone ou mot de passe incorrect';
 export const missPassword = 'Mot de passe manquant';
 
 export const tokenEmpty = 'session invalide, veuillez-vous reconnecter!';
-export const tokenInvalid = 'session expiré, veuillez-vous reonnecter!';
+export const tokenInvalid = 'session expiré, veuillez-vous reconnecter!';
 
 export const phoneDuplicated = 'Le numéro de téléphone est déjà enregistré, veuillez en choisir un autre';
 
