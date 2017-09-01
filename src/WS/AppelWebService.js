@@ -7,16 +7,19 @@ import { tokenIsValid } from '../errors/Token';
 
 export const NO_CONNECTION = 'NO_CONNECTION';
 
-export async function checkConnectivity()
+/**
+ * Handling network connection
+ */
+export async function isConnected()
 {
-  return NetInfo.isConnected.fetch().then((isConnected) =>
+  return NetInfo.isConnected.fetch().then((connected) =>
   {
     // Show informative alert if no connection
-    if (!isConnected)
+    if (!connected)
     {
       showInformativePopin(errorPopinTitle, noNetwork);
     }
-    return isConnected;
+    return connected;
   });
 }
 
@@ -55,6 +58,13 @@ async function verifToken(response, token, propsNavigation)
 
 export async function appelGet(lien, token, propsNavigation)
 {
+  // No connection => service not called
+  const connected = await isConnected();
+  if (!connected)
+  {
+    return Promise.reject(NO_CONNECTION);
+  }
+
   const response = await fetch(`${urlWs}${lien}`, {
     method: 'GET',
     headers: {
@@ -68,6 +78,13 @@ export async function appelGet(lien, token, propsNavigation)
 
 export async function appelPost(lien, data, token, propsNavigation)
 {
+  // No connection => service not called
+  const connected = await isConnected();
+  if (!connected)
+  {
+    return Promise.reject(NO_CONNECTION);
+  }
+
   const response = await fetch(`${urlWs}${lien}`, {
     method: 'POST',
     headers: {
@@ -83,6 +100,13 @@ export async function appelPost(lien, data, token, propsNavigation)
 
 export async function appelDelete(lien, token, propsNavigation)
 {
+  // No connection => service not called
+  const connected = await isConnected();
+  if (!connected)
+  {
+    return Promise.reject(NO_CONNECTION);
+  }
+
   const response = await fetch(`${urlWs}${lien}`, {
     method: 'DELETE',
     headers: {
@@ -96,6 +120,13 @@ export async function appelDelete(lien, token, propsNavigation)
 
 export async function appelPut(lien, data, token, propsNavigation)
 {
+  // No connection => service not called
+  const connected = await isConnected();
+  if (!connected)
+  {
+    return Promise.reject(NO_CONNECTION);
+  }
+
   const response = await fetch(`${urlWs}${lien}`, {
     method: 'PUT',
     headers: {
