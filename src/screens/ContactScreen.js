@@ -63,17 +63,17 @@ export class ContactScreen extends Component
 
     const params = this.props.navigation.state.params;
     const contact = (params && params.contact) ? params.contact : defaultContact;
-    // eslint-disable-next-line no-underscore-dangle
-    const currentId = contact._id;
+
+    const currentId = (contact && contact.id != null) ? contact.id : null;
 
     this.state = {
-      mode: (currentId != null && currentId !== '') ? Mode.UPDATE : Mode.CREATE,
+      mode: (currentId != null) ? Mode.UPDATE : Mode.CREATE,
       focused: 'null',
-      id: currentId || 0,
+      id: currentId,
       gravatar: contact.gravatar || '',
       lastName: contact.lastName || '',
       firstName: contact.firstName || '',
-      phoneNumber: contact.phone || '',
+      phoneNumber: contact.phoneNumber || '',
       email: contact.email || '',
       isFamilinkUser: contact.isFamilinkUser || false,
       isEmergencyUser: contact.isEmergencyUser || false,
@@ -98,9 +98,21 @@ export class ContactScreen extends Component
     {
       // Vue à coder lors de la modification
       return (
-        <View style={[familinkStyles.item, familinkStyles.textItemContactContainer]}>
-          <Text style={this.state.isFamilinkUser ? familinkStyles.textFamilink : ''}>{this.state.isFamilinkUser ? textLabelFamilink : ''} </Text>
-          <Text style={this.state.isEmergencyUser ? familinkStyles.textUrgency : ''}>{this.state.isEmergencyUser ? textLabelUrgency : ''}</Text>
+        <View style={[familinkStyles.itemEditContact]}>
+          {this.state.isFamilinkUser &&
+          <View style={[familinkStyles.containerTag, familinkStyles.centerElement,
+            familinkStyles.textFamilink]}
+          >
+            <Text style={familinkStyles.textTag}>{textLabelFamilink}</Text>
+          </View>
+          }
+          {this.state.isEmergencyUser &&
+          <View style={[familinkStyles.containerTag, familinkStyles.centerElement,
+            familinkStyles.textUrgency]}
+          >
+            <Text style={familinkStyles.textTag}>{textLabelUrgency}</Text>
+          </View>
+          }
         </View>
       );
     }
@@ -114,28 +126,33 @@ export class ContactScreen extends Component
     if (this.state.mode === Mode.UPDATE)
     {
       return (
-        <View style={[familinkStyles.item, familinkStyles.editContactButtonsContainer]}>
-          <TouchableHighlight
-            style={[familinkStyles.button, familinkStyles.editContactButtonContainer]}
-            onPress={this.update}
-          >
-            <Text style={familinkStyles.buttonText}>{buttonLabelUpdate}</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={[familinkStyles.button, familinkStyles.editContactButtonContainer]}
-            onPress={() => showDeleteContactPopIn(this.delete)}
-          >
-            <Text style={familinkStyles.buttonText}>{buttonLabelDelete}</Text>
-          </TouchableHighlight>
+        <View>
+          <View style={[familinkStyles.itemEditContact]}>
+            <TouchableHighlight
+              style={[familinkStyles.button]}
+              onPress={this.update}
+            >
+              <Text style={familinkStyles.buttonText}>{buttonLabelUpdate}</Text>
+            </TouchableHighlight>
+          </View>
+
+          <View style={[familinkStyles.itemEditContact]}>
+            <TouchableHighlight
+              style={[familinkStyles.button]}
+              onPress={() => showDeleteContactPopIn(this.delete)}
+            >
+              <Text style={familinkStyles.buttonText}>{buttonLabelDelete}</Text>
+            </TouchableHighlight>
+          </View>
         </View>
       );
     }
 
     // Creation mode
     return (
-      <View style={[familinkStyles.item, familinkStyles.editContactButtonsContainer]}>
+      <View style={[familinkStyles.itemEditContact]}>
         <TouchableHighlight
-          style={[familinkStyles.button, familinkStyles.editContactButtonContainer]}
+          style={[familinkStyles.button]}
           onPress={this.add}
         >
           <Text style={familinkStyles.buttonText}>{buttonLabelValidation}</Text>
@@ -262,56 +279,50 @@ export class ContactScreen extends Component
           />
           <View style={familinkStyles.content}>
 
-            <View style={familinkStyles.editContactIdentityContainer}>
-              <View style={familinkStyles.gravatarContainer}>
-                <Gravatar gravatarUrl={this.state.gravatar} email={this.state.email} size={100} />
-              </View>
-              <View style={[familinkStyles.item, familinkStyles.flexColumn]}>
+            <View style={[familinkStyles.itemEditContact, familinkStyles.centerElement]}>
+              <Gravatar gravatarUrl={this.state.gravatar} email={this.state.email} size={64} />
+            </View>
 
-                <View style={this.state.focused === firstNameInput
-                  ? familinkStyles.itemFocused : familinkStyles.item}
-                >
-                  <TextInput
-                    style={this.state.errors[1] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
-                    onChangeText={text => this.setState({ firstName: text })}
-                    placeholder={placeholderFirstnameMandatory}
-                    selectTextOnFocus
-                    autoCorrect={false}
-                    underlineColorAndroid="transparent"
-                    placeholderTextColor="#909090"
-                    onBlur={() => this.resetFocus()}
-                    onFocus={() => this.setFocus(firstNameInput)}
-                    maxLength={15}
-                    value={this.state.firstName}
-                  />
-                </View>
+            <View style={this.state.focused === firstNameInput ?
+              familinkStyles.itemEditContactFocused : familinkStyles.itemEditContact}
+            >
+              <TextInput
+                style={this.state.errors[1] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
+                onChangeText={text => this.setState({ firstName: text })}
+                placeholder={placeholderFirstnameMandatory}
+                selectTextOnFocus
+                autoCorrect={false}
+                underlineColorAndroid="transparent"
+                placeholderTextColor="#909090"
+                onBlur={() => this.resetFocus()}
+                onFocus={() => this.setFocus(firstNameInput)}
+                maxLength={15}
+                value={this.state.firstName}
+              />
+            </View>
 
-                <View style={this.state.focused === lastNameInput ?
-                  familinkStyles.itemFocused : familinkStyles.item}
-                >
-                  <TextInput
-                    style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
-                    onChangeText={text => this.setState({ lastName: text })}
-                    placeholder={placeholderNameMandatory}
-                    selectTextOnFocus
-                    autoCorrect={false}
-                    underlineColorAndroid="transparent"
-                    placeholderTextColor="#909090"
-                    onBlur={() => this.resetFocus()}
-                    onFocus={() => this.setFocus(lastNameInput)}
-                    maxLength={15}
-                    value={this.state.lastName}
-                  />
-                </View>
-
-
-              </View>
+            <View style={this.state.focused === lastNameInput ?
+              familinkStyles.itemEditContactFocused : familinkStyles.itemEditContact}
+            >
+              <TextInput
+                style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
+                onChangeText={text => this.setState({ lastName: text })}
+                placeholder={placeholderNameMandatory}
+                selectTextOnFocus
+                autoCorrect={false}
+                underlineColorAndroid="transparent"
+                placeholderTextColor="#909090"
+                onBlur={() => this.resetFocus()}
+                onFocus={() => this.setFocus(lastNameInput)}
+                maxLength={15}
+                value={this.state.lastName}
+              />
             </View>
 
             {tagView}
 
-            <View style={this.state.focused === phoneNumberInput
-              ? familinkStyles.itemFocused : familinkStyles.item}
+            <View style={this.state.focused === phoneNumberInput ?
+              familinkStyles.itemEditContactFocused : familinkStyles.itemEditContact}
             >
               <TextInput
                 style={this.state.errors[2] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
@@ -329,8 +340,8 @@ export class ContactScreen extends Component
               />
             </View>
 
-            <View style={this.state.focused === mailInput
-              ? familinkStyles.itemFocused : familinkStyles.item}
+            <View style={this.state.focused === mailInput ?
+              familinkStyles.itemEditContactFocused : familinkStyles.itemEditContact}
             >
               <TextInput
                 style={this.state.errors[3] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
