@@ -8,13 +8,14 @@ import { MainStore } from '../MainStore';
 import Screen from '../screens/PhonebookScreen';
 import MenuIcon from '../../assets/icon_phonebook.png';
 import familinkStyles from '../Style';
+import { headerContact } from '../Util';
 
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
 
 export default class PhonebookApp extends Component
 {
   static navigationOptions = {
-    drawerLabel: 'Contacts',
+    drawerLabel: headerContact,
     drawerIcon: (<Image source={MenuIcon} style={[familinkStyles.burgerMenuIcon]} />),
   };
 

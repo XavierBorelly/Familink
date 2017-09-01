@@ -14,7 +14,7 @@ import { errorPopinTitle } from '../errors/ErrorStrings';
 import { showInformativePopin } from '../Popin';
 import { setWebServiceNavigationContact } from '../WS/WebServiceContact';
 import familinkStyles from '../Style';
-import { buttonLabelConnection, buttonLabelForgotPassword, buttonLabelSignIn, keyRememberMeCheckBox, keyUserOnLogin } from '../Util';
+import { buttonLabelConnection, buttonLabelForgotPassword, labelSignOut, buttonLabelSignIn, keyRememberMeCheckBox, keyUserOnLogin, placeholderPhoneNumber, placeholderpassword, checkBoxLabel, headerSignIn } from '../Util';
 
 export const LOGIN_SCENE_NAME = 'LOGIN_SCENE';
 
@@ -23,7 +23,7 @@ let errors = [];
 export default class LoginScreen extends Component
 {
   static navigationOptions = {
-    drawerLabel: 'Déconnexion',
+    drawerLabel: labelSignOut,
     drawerLockMode: 'locked-closed',
     drawerIcon: (<Image source={MenuIcon} style={[familinkStyles.burgerMenuIcon]} />),
   };
@@ -138,7 +138,7 @@ export default class LoginScreen extends Component
         <View style={familinkStyles.container}>
           <Header
             navigation={navigation}
-            title="Connexion"
+            title={headerSignIn}
             loginPage
           />
           <View style={familinkStyles.content}>
@@ -148,7 +148,7 @@ export default class LoginScreen extends Component
                 style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                 onChangeText={user => this.setState({ user })}
                 keyboardType="numeric"
-                placeholder="Numéro de téléphone"
+                placeholder={placeholderPhoneNumber}
                 underlineColorAndroid="transparent"
                 defaultValue={this.state.user}
                 ref={(input) =>
@@ -164,7 +164,7 @@ export default class LoginScreen extends Component
                 style={this.state.errors[1] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                 onChangeText={password => this.setState({ password })}
                 keyboardType="numeric"
-                placeholder="Mot de passe"
+                placeholder={placeholderpassword}
                 underlineColorAndroid="transparent"
                 secureTextEntry
                 maxLength={4}
@@ -179,7 +179,7 @@ export default class LoginScreen extends Component
                 />
                 <Body>
                   <TouchableWithoutFeedback onPress={() => this.checkboxCheck()}>
-                    <Text>Se souvenir de moi</Text>
+                    <Text>{checkBoxLabel}</Text>
                   </TouchableWithoutFeedback>
                 </Body>
               </ListItem>

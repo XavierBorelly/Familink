@@ -4,13 +4,14 @@ import MenuIcon from '../../assets/icon_profile.png';
 import Header from '../components/Header';
 import UpdateProfil from '../components/UpdateProfil';
 import familinkStyles from '../Style';
+import { headerProfile } from '../Util';
 
 export const PROFILE_SCENE_NAME = 'PROFILE_SCENE';
 
 export default class ProfileScreen extends Component
 {
   static navigationOptions = {
-    drawerLabel: 'Mon Profil',
+    drawerLabel: headerProfile,
     drawerIcon: (<Image source={MenuIcon} style={[familinkStyles.burgerMenuIcon]} />),
   };
   render()
@@ -21,7 +22,7 @@ export default class ProfileScreen extends Component
         <View style={familinkStyles.container}>
           <Header
             navigation={navigation}
-            title="Mon Profil"
+            title={headerProfile}
           />
           <UpdateProfil />
           <View style={familinkStyles.bottomBar} />

@@ -64,11 +64,11 @@ export function checkMail(mail)
 
 export function checkLoginUser(message)
 {
-  if (message === 'User not found')
+  if (message === errStrings.wrongUserServer)
   {
     return errStrings.wrongUser;
   }
-  else if (message === 'Password is not valid')
+  else if (message === errStrings.wrongPasswordServer)
   {
     return errStrings.wrongPassword;
   }
@@ -77,11 +77,11 @@ export function checkLoginUser(message)
 
 export function checkLoginPassword(message)
 {
-  if (message === 'Password is not valid')
+  if (message === errStrings.wrongPasswordServer)
   {
     return errStrings.wrongPassword;
   }
-  else if (message === 'data and hash arguments required')
+  else if (message === errStrings.missPasswordServer)
   {
     return errStrings.missPassword;
   }

@@ -12,11 +12,14 @@ import { errorPopinTitle, lastnameRequired, surnameRequired } from '../errors/Er
 import Contact from '../models/Contact';
 import ContactService from '../service/contactService';
 
+
 import { showInformativePopin, showDeleteContactPopIn } from '../Popin';
-import { labelInformativePopinTitle,
-  labelContactCreatedSuccess, labelContactUpdatedSuccess, labelContactDeletedSuccess,
+import { labelContactUpdatedSuccess, labelContactDeletedSuccess,
   labelContactCreatedFail, labelContactUpdatedFail, labelContactDeletedFail,
-  buttonLabelValidation, buttonLabelUpdate, buttonLabelDelete } from '../Util';
+  buttonLabelUpdate, buttonLabelDelete, labelInformativePopinTitle, labelContactCreatedSuccess,
+  textLabelFamilink, textLabelUrgency, buttonLabelValidation, headerModifyContact,
+  headerContactCreate, placeholderFirstnameMandatory, placeholderNameMandatory,
+  placeholderPhoneNumberMandatory, placeholderEmailMandatory } from '../Util';
 
 
 export const CONTACT_SCENE_NAME = 'CONTACT_SCENE';
@@ -96,8 +99,8 @@ export class ContactScreen extends Component
       // Vue à coder lors de la modification
       return (
         <View style={[familinkStyles.item, familinkStyles.textItemContactContainer]}>
-          <Text style={this.state.isFamilinkUser ? familinkStyles.textFamilink : ''}>{this.state.isFamilinkUser ? 'Familink' : ''}</Text>
-          <Text style={this.state.isEmergencyUser ? familinkStyles.textUrgency : ''}>{this.state.isEmergencyUser ? 'Urgence' : ''}</Text>
+          <Text style={this.state.isFamilinkUser ? familinkStyles.textFamilink : ''}>{this.state.isFamilinkUser ? textLabelFamilink : ''} </Text>
+          <Text style={this.state.isEmergencyUser ? familinkStyles.textUrgency : ''}>{this.state.isEmergencyUser ? textLabelUrgency : ''}</Text>
         </View>
       );
     }
@@ -254,7 +257,7 @@ export class ContactScreen extends Component
             navigation={navigation}
             goBackTo={PHONEBOOK_SCENE_NAME}
             title={
-              (this.state.mode === Mode.UPDATE ? 'Modification contact' : 'Création contact')
+              (this.state.mode === Mode.UPDATE ? headerModifyContact : headerContactCreate)
             }
           />
           <View style={familinkStyles.content}>
@@ -271,7 +274,7 @@ export class ContactScreen extends Component
                   <TextInput
                     style={this.state.errors[1] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                     onChangeText={text => this.setState({ firstName: text })}
-                    placeholder="Prenom *"
+                    placeholder={placeholderFirstnameMandatory}
                     selectTextOnFocus
                     autoCorrect={false}
                     underlineColorAndroid="transparent"
@@ -289,7 +292,7 @@ export class ContactScreen extends Component
                   <TextInput
                     style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                     onChangeText={text => this.setState({ lastName: text })}
-                    placeholder="Nom *"
+                    placeholder={placeholderNameMandatory}
                     selectTextOnFocus
                     autoCorrect={false}
                     underlineColorAndroid="transparent"
@@ -314,7 +317,7 @@ export class ContactScreen extends Component
                 style={this.state.errors[2] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                 onChangeText={text => this.setState({ phoneNumber: text })}
                 keyboardType="numeric"
-                placeholder="Numéro de téléphone *"
+                placeholder={placeholderPhoneNumberMandatory}
                 selectTextOnFocus
                 autoCorrect={false}
                 underlineColorAndroid="transparent"
@@ -332,7 +335,7 @@ export class ContactScreen extends Component
               <TextInput
                 style={this.state.errors[3] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                 onChangeText={text => this.setState({ email: text })}
-                placeholder="Email *"
+                placeholder={placeholderEmailMandatory}
                 selectTextOnFocus
                 autoCorrect={false}
                 underlineColorAndroid="transparent"

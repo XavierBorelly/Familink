@@ -5,7 +5,7 @@ import { showInformativePopin } from '../Popin';
 import ProfilePicker from './ProfilePicker';
 import { getUser, editUser } from '../WS/WebServiceUser';
 import familinkStyles from '../Style';
-import { labelInformativePopinTitle, labelUserModified, buttonLabelModification, buttonLabelValidation } from '../Util';
+import { labelInformativePopinTitle, labelUserModified, buttonLabelModification, buttonLabelValidation, textLLabelName, textLabelFirstname, textLabelEmail, textLabelProfil } from '../Util';
 import { checkSurname, checkMail } from '../errors/FamilinkErrors';
 
 export default class UpdateProfil extends Component
@@ -48,7 +48,7 @@ export default class UpdateProfil extends Component
 
         <View style={familinkStyles.item}>
           <Text style={familinkStyles.legend}>
-            {'Nom'}
+            {textLLabelName}
           </Text>
           <TextInput
             style={familinkStyles.textInput}
@@ -62,7 +62,7 @@ export default class UpdateProfil extends Component
 
         <View style={familinkStyles.item}>
           <Text style={familinkStyles.legend}>
-            {'Prénom'}
+            {textLabelFirstname}
           </Text>
           <TextInput
             style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
@@ -76,7 +76,7 @@ export default class UpdateProfil extends Component
 
         <View style={familinkStyles.item}>
           <Text style={familinkStyles.legend}>
-            {'Mail'}
+            {textLabelEmail}
           </Text>
           <TextInput
             style={this.state.errors[1] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
@@ -91,7 +91,7 @@ export default class UpdateProfil extends Component
 
         <View style={familinkStyles.item}>
           <Text style={familinkStyles.legend}>
-            {'Profil'}
+            {textLabelProfil}
           </Text>
           <ProfilePicker
             selected={this.state.profil}

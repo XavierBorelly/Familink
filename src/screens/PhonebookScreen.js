@@ -8,7 +8,7 @@ import Header from '../components/Header';
 import { showInformativePopin } from '../Popin';
 import iconCall from '../../assets/icon_phone.png';
 import ContactService from '../service/contactService';
-import { labelNoContact, labelLoading } from '../Util';
+import { labelNoContact, labelLoading, headerContact, textLabelUrgency, textLabelFamilink, labelPopInCall } from '../Util';
 import Gravatar from '../components/Gravatar';
 
 export const PHONEBOOK_SCENE_NAME = 'PHONEBOOK_SCENE';
@@ -87,11 +87,13 @@ export default class PhonebookScreen extends Component
                     <Text style={familinkStyles.textContact}>{item.firstName} {item.lastName}</Text>
                   </View>
                   <View style={familinkStyles.textItemContactContainer}>
-                    <Text style={item.isFamilinkUser ? familinkStyles.textFamilink : ''}>{item.isFamilinkUser ? 'Familink' : ''} </Text>
-                    <Text style={item.isEmergencyUser ? familinkStyles.textUrgency : ''}>{item.isEmergencyUser ? 'Urgence' : ''}</Text>
+                    <Text style={item.isFamilinkUser ? familinkStyles.textFamilink : ''}>{item.isFamilinkUser ? textLabelFamilink : ''} </Text>
+                    <Text style={item.isEmergencyUser ? familinkStyles.textUrgency : ''}>{item.isEmergencyUser ? textLabelUrgency : ''}</Text>
                   </View>
                 </View>
-                <TouchableHighlight onPress={() => showInformativePopin('call en cours', item.phone)}>
+                <TouchableHighlight onPress={() =>
+                  showInformativePopin(labelPopInCall, item.phone)}
+                >
                   <Image style={familinkStyles.imageContact} source={iconCall} />
                 </TouchableHighlight>
 
@@ -112,7 +114,7 @@ export default class PhonebookScreen extends Component
       <View style={familinkStyles.container}>
         <Header
           navigation={navigation}
-          title="Répertoire"
+          title={headerContact}
         />
 
         <View style={familinkStyles.contentList}>

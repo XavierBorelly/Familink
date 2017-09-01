@@ -7,7 +7,7 @@ import { LOGIN_SCENE_NAME } from './LoginScreen';
 import { errorPopinTitle } from '../errors/ErrorStrings';
 import familinkStyles from '../Style';
 import { showInformativePopin } from '../Popin';
-import { buttonLabelValidateForgotPassword, LabelConfirmForgotPassword } from '../Util';
+import { buttonLabelValidateForgotPassword, LabelConfirmForgotPassword, placeholderpassword, headerForgotPassword } from '../Util';
 
 
 export const PASSWORD_RESET_SCENE_NAME = 'PASSWORD_RESET_SCENE';
@@ -37,7 +37,7 @@ export default class PasswordResetScreen extends Component
         <View style={familinkStyles.container}>
           <Header
             navigation={navigation}
-            title="Mot de passe oublié"
+            title={headerForgotPassword}
             goBackTo={LOGIN_SCENE_NAME}
           />
 
@@ -47,7 +47,7 @@ export default class PasswordResetScreen extends Component
                 style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
                 onChangeText={text => this.setState({ phone: text })}
                 keyboardType="numeric"
-                placeholder="Numéro de téléphone"
+                placeholder={placeholderpassword}
                 autoCorrect={false}
                 underlineColorAndroid="transparent"
                 placeholderTextColor="#909090"
