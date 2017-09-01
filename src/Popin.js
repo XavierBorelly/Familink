@@ -17,7 +17,7 @@ function buildInformativePopin(titleString, infoString, okString)
   Alert.alert(
     titleString, infoString,
     [
-      { text: okString },
+      { text: okString || 'OK' },
     ],
   );
 }
