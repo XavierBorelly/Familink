@@ -81,7 +81,7 @@ export default class PasswordResetScreen extends Component
                       showInformativePopin('changement mot de passe', LabelConfirmForgotPassword);
                       navigation.navigate(LOGIN_SCENE_NAME);
                     }
-                  });
+                  }, () => 0);
                 }
                 }
               >
