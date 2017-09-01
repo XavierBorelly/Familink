@@ -5,7 +5,7 @@ import { PROFILE_SCENE_NAME } from './ProfileScreen';
 import { PHONEBOOK_SCENE_NAME } from '../apps/PhonebookApp';
 import MenuIcon from '../../assets/icon_home.png';
 import familinkStyles from '../Style';
-import { headerHome } from '../Util';
+import { headerHome, headerContact} from '../Util';
 
 export const HOME_SCENE_NAME = 'HOME_SCENE';
 
@@ -49,7 +49,7 @@ export default class HomeScreen extends Component
               }
               }
             >
-              <Text style={familinkStyles.buttonText}>Repertoire</Text>
+              <Text style={familinkStyles.buttonText}>{headerContact}</Text>
             </TouchableHighlight>
           </View>
         </View>
