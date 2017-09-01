@@ -178,13 +178,9 @@ export default class LoginScreen extends Component
                   onPress={() => this.checkboxCheck()}
                 />
                 <Body>
-<<<<<<< HEAD
                   <TouchableWithoutFeedback onPress={() => this.checkboxCheck()}>
-                    <Text>Se souvenir de moi</Text>
+                    <Text>{checkBoxLabel}</Text>
                   </TouchableWithoutFeedback>
-=======
-                  <Text>{checkBoxLabel}</Text>
->>>>>>> Outsourcing strings and orthographic correction
                 </Body>
               </ListItem>
             </View>
