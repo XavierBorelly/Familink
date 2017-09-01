@@ -1,6 +1,24 @@
+import { NetInfo } from 'react-native';
+
 import { urlWs } from '../Util';
+import { showInformativePopin } from '../Popin';
+import { errorPopinTitle, noNetwork } from '../errors/ErrorStrings';
 import { tokenIsValid } from '../errors/Token';
 
+export const NO_CONNECTION = 'NO_CONNECTION';
+
+export async function checkConnectivity()
+{
+  return NetInfo.isConnected.fetch().then((isConnected) =>
+  {
+    // Show informative alert if no connection
+    if (!isConnected)
+    {
+      showInformativePopin(errorPopinTitle, noNetwork);
+    }
+    return isConnected;
+  });
+}
 
 async function getResponseObject(webResponse)
 {

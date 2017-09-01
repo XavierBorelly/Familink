@@ -5,6 +5,7 @@ import familinkStyles from '../Style';
 import Header from '../components/Header';
 import ProfilePicker from '../components/ProfilePicker';
 import { saveUser } from '../WS/WebServiceUser';
+import { checkConnectivity } from '../WS/AppelWebService';
 import { LOGIN_SCENE_NAME } from './LoginScreen';
 import { checkPhoneNumber, checkPassword, checkSurname, checkMail, checkProfil } from '../errors/FamilinkErrors';
 import { errorPopinTitle, phoneDuplicated } from '../errors/ErrorStrings';
