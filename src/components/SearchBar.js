@@ -16,10 +16,15 @@ export default class SearchBar extends Component
   {
     this.props.onChange((item) =>
     {
-      const Surname = item.firstName.toLowerCase();
-      const Name = item.lastName.toLowerCase();
-      return ((Surname.indexOf(text.toLowerCase()) > -1)
-      || (Name.indexOf(text.toLowerCase()) > -1)
+      const surname = item.firstName.toLowerCase();
+
+      let name = '';
+      if(item.lastName !== null && item.lastName !== undefined)
+      {
+        name = item.lastName.toLowerCase();
+      }
+      return ((surname.indexOf(text.toLowerCase()) > -1)
+      || (name.indexOf(text.toLowerCase()) > -1)
       || (item.phone.indexOf(text) > -1));
     });
   }
