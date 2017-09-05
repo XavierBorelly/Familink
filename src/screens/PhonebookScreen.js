@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, TouchableHighlight, Image } from 'react-native';
+import { Container, Content, Spinner } from 'native-base';
 import _ from 'lodash';
 import familinkStyles from '../Style';
 import { CONTACT_SCENE_NAME } from '../apps/ContactApp';
@@ -58,9 +59,15 @@ export default class PhonebookScreen extends Component
     if (this.state.contacts === null)
     {
       return (
-        <View style={familinkStyles.itemContactContainer}>
-          <Text style={familinkStyles.textContact}>{labelLoading}</Text>
-        </View>
+        <Container>
+          <Content>
+            <Spinner color="#C0D8FF" />
+            <Spinner color="#C0D8FF" />
+            <Text style={familinkStyles.textContact}>{labelLoading}</Text>
+            <Spinner color="#FB8C00" />
+            <Spinner color="#C0D8FF" />
+          </Content>
+        </Container>
       );
     }
     if (this.state.contacts.length === 0)
