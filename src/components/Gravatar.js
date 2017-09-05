@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Image } from 'react-native';
 
-import ContactService from '../service/contactService';
+import ContactService from '../service/ContactService';
 import { checkMail } from '../errors/FamilinkErrors';
 import defaultGravatar from '../../assets/icon_defaultGravatar.jpg';
 
@@ -58,4 +58,3 @@ Gravatar.propTypes = {
   gravatarUrl: PropTypes.string,
   size: PropTypes.number.isRequired,
 };
-

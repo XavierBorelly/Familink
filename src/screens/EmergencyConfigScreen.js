@@ -3,7 +3,6 @@ import { Image, View } from 'react-native';
 
 import Header from '../components/Header';
 import MenuIcon from '../../assets/icon_emergency_config.png';
-import { PROFILE_SCENE_NAME } from './ProfileScreen';
 import familinkStyles from '../Style';
 import { headerconfigUrgency } from '../Util';
 

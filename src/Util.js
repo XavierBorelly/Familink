@@ -84,20 +84,6 @@ export const keyStorageToken = '@TokenAuthentification:key';
 
 export const LabelConfirmForgotPassword = 'Un E-mail vous à été envoyé pour changer votre mot de passe.';
 
-// const labelEmergency = 'URGENCE';
-// const tagFamilink = 'Familink';
-// const tagEmergency = 'Urgence';
-
-// MODULE SPECIFIQUE
-/* const labelHello = 'Bonjour'
-                      + user.name
-                      + ', on est le '
-                      + agenda.date
-                      + '. Il est '
-                      + date.hour
-                      + '.';
-  */
-
 // Fonction de Hashage pour le gravatar
 export default class Utils
 {

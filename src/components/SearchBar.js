@@ -19,7 +19,7 @@ export default class SearchBar extends Component
       const surname = item.firstName.toLowerCase();
 
       let name = '';
-      if(item.lastName !== null && item.lastName !== undefined)
+      if (item.lastName !== null && item.lastName !== undefined)
       {
         name = item.lastName.toLowerCase();
       }

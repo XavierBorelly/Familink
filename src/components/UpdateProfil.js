@@ -26,7 +26,7 @@ export default class UpdateProfil extends Component
 
   async getMyProfile()
   {
-    const currentUser = getUser().then((response) =>
+    return getUser().then((response) =>
     {
       this.setState({ name: response.lastName,
         firstName: response.firstName,
@@ -34,7 +34,47 @@ export default class UpdateProfil extends Component
         profil: response.profile,
       });
     });
-    return currentUser;
+  }
+
+  confirmEditProfil()
+  {
+    if (this.state.editing)
+    {
+      const errorsArray = [];
+      errorsArray.push(checkSurname(this.state.firstName));
+      errorsArray.push(checkMail(this.state.email));
+      this.setState({ errors: errorsArray });
+
+      let thereIsErrors = false;
+
+      for (let i = 0; i < errorsArray.length; i += 1)
+      {
+        if (errorsArray[i] !== '')
+        {
+          showInformativePopin(errorPopinTitle, errorsArray[i]);
+          thereIsErrors = true;
+          break;
+        }
+      }
+      if (!thereIsErrors)
+      {
+        this.setState({ editing: false });
+        editUser(this.state.name, this.state.firstName,
+          this.state.email, this.profilePickerComponent.state.profil).then((response) =>
+        {
+          this.setState({ name: response.lastName,
+            firstName: response.firstName,
+            email: response.email,
+            profil: response.profile,
+          });
+        });
+        showInformativePopin(labelInformativePopinTitle, labelUserModified);
+      }
+    }
+    else
+    {
+      this.setState({ editing: true });
+    }
   }
 
   render()
@@ -109,43 +149,7 @@ export default class UpdateProfil extends Component
             style={familinkStyles.button}
             onPress={() =>
             {
-              if (this.state.editing)
-              {
-                const errorsArray = [];
-                errorsArray.push(checkSurname(this.state.firstName));
-                errorsArray.push(checkMail(this.state.email));
-                this.setState({ errors: errorsArray });
-
-                let thereIsErrors = false;
-
-                for (let i = 0; i < errorsArray.length; i += 1)
-                {
-                  if (errorsArray[i] !== '')
-                  {
-                    showInformativePopin(errorPopinTitle, errorsArray[i]);
-                    thereIsErrors = true;
-                    break;
-                  }
-                }
-                if (!thereIsErrors)
-                {
-                  this.setState({ editing: false });
-                  editUser(this.state.name, this.state.firstName,
-                    this.state.email, this.profilePickerComponent.state.profil).then((response) =>
-                  {
-                    this.setState({ name: response.lastName,
-                      firstName: response.firstName,
-                      email: response.email,
-                      profil: response.profile,
-                    });
-                  });
-                  showInformativePopin(labelInformativePopinTitle, labelUserModified);
-                }
-              }
-              else
-              {
-                this.setState({ editing: true });
-              }
+              this.confirmEditProfil();
             }
             }
           >
