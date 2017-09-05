@@ -27,6 +27,7 @@ export default class HomeScreen extends Component
           homePage
         />
         <View style={familinkStyles.content}>
+          <View style={familinkStyles.item} />
           <View style={familinkStyles.item}>
             <TouchableHighlight
               style={familinkStyles.button}
@@ -40,6 +41,8 @@ export default class HomeScreen extends Component
             </TouchableHighlight>
           </View>
 
+          <View style={familinkStyles.item} />
+
           <View style={familinkStyles.item}>
             <TouchableHighlight
               style={familinkStyles.button}
@@ -52,6 +55,8 @@ export default class HomeScreen extends Component
               <Text style={familinkStyles.buttonText}>{headerContact}</Text>
             </TouchableHighlight>
           </View>
+
+          <View style={familinkStyles.item} />
         </View>
       </View>
     );
