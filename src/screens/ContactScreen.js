@@ -217,7 +217,7 @@ export class ContactScreen extends Component
 
     if (!ContactScreen.hasErrors(errorArray))
     {
-      const OptionalAttributes = new OptionnalAttribues(state.lastName, state.email,
+      const OptionalAttributes = new OptionalAttributes(state.lastName, state.email,
         null, false, false);
       const updatedContact = new Contact(state.id, state.phoneNumber, state.firstName,
         null, OptionalAttributes);
