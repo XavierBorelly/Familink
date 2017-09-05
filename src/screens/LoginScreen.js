@@ -126,7 +126,7 @@ export default class LoginScreen extends Component
       {
         this.props.navigation.navigate(HOME_SCENE_NAME);
       }
-    });
+    }, () => 0);
     return true;
   }
 
