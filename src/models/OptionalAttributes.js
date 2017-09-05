@@ -1,4 +1,4 @@
-export default class OptionnalAttribues
+export default class OptionalAttributes
 {
   constructor(lastName, email, gravatar, isFamilinkUser, isEmergencyUser)
   {
