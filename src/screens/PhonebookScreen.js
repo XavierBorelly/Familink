@@ -60,12 +60,9 @@ export default class PhonebookScreen extends Component
     {
       return (
         <Container>
-          <Content>
-            <Spinner color="#C0D8FF" />
-            <Spinner color="#C0D8FF" />
+          <Content style={familinkStyles.centerElement}>
             <Text style={familinkStyles.textContact}>{labelLoading}</Text>
             <Spinner color="#FB8C00" />
-            <Spinner color="#C0D8FF" />
           </Content>
         </Container>
       );
