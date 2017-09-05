@@ -10,7 +10,7 @@ import Header from '../components/Header';
 import { checkRequiredStringValue, checkPhoneNumber, checkMail } from '../errors/FamilinkErrors';
 import { errorPopinTitle, lastnameRequired, surnameRequired } from '../errors/ErrorStrings';
 import Contact from '../models/Contact';
-import OptionnalAttribues from '../models/OptionnalAttribues';
+import OptionalAttributes from '../models/OptionalAttributes';
 import ContactService from '../service/ContactService';
 
 
@@ -183,10 +183,10 @@ export class ContactScreen extends Component
 
     if (!ContactScreen.hasErrors(errorArray))
     {
-      const optionnalAttribues = new OptionnalAttribues(state.lastName, state.email,
+      const OptionalAttributes = new OptionalAttributes(state.lastName, state.email,
         null, false, false);
       const newContact = new Contact(state.id, state.phoneNumber, state.firstName,
-        null, optionnalAttribues);
+        null, OptionalAttributes);
 
       ContactService.addContact(newContact).then((createResponse) =>
       {
@@ -217,10 +217,10 @@ export class ContactScreen extends Component
 
     if (!ContactScreen.hasErrors(errorArray))
     {
-      const optionnalAttribues = new OptionnalAttribues(state.lastName, state.email,
+      const OptionalAttributes = new OptionnalAttribues(state.lastName, state.email,
         null, false, false);
       const updatedContact = new Contact(state.id, state.phoneNumber, state.firstName,
-        null, optionnalAttribues);
+        null, OptionalAttributes);
 
       ContactService.updateContact(updatedContact).then((updateResponse) =>
       {
