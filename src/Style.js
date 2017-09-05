@@ -68,6 +68,9 @@ export default StyleSheet.create({
 
   content: {
     backgroundColor: appBackgroundColor,
+    position: 'absolute',
+    top: (Platform.OS === 'ios') ? 56 : 36,
+    bottom: 38,
     flex: 0.8,
     width: '80%',
     borderRadius: 6,
@@ -85,6 +88,22 @@ export default StyleSheet.create({
     height: 80,
     paddingTop: 10,
     paddingBottom: 10,
+  },
+
+  itemEditContact: {
+    height: 72,
+    paddingTop: 4,
+    paddingBottom: 4,
+  },
+  itemEditContactFocused: {
+    height: 96,
+    paddingTop: 4,
+    paddingBottom: 4,
+  },
+  centerElement: {
+    margin: 2,
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
 
   item: {
@@ -197,17 +216,19 @@ export default StyleSheet.create({
   },
   textFamilink: {
     backgroundColor: textFamilink,
-    borderRadius: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    flex: 1,
   },
   textUrgency: {
     backgroundColor: textEmergency,
+  },
+  containerTag: {
     borderRadius: 20,
     textAlign: 'center',
-    fontWeight: 'bold',
+    justifyContent: 'center',
     flex: 1,
+    overflow: 'hidden',
+  },
+  textTag: {
+    fontWeight: 'bold',
   },
   textItemContactContainer: {
     flex: 1,
@@ -258,18 +279,6 @@ export default StyleSheet.create({
   },
   gravatarContainer: {
     margin: 4,
-  },
-  editContactIdentityContainer: {
-    flexDirection: 'row',
-    alignContent: 'flex-start',
-  },
-  editContactButtonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  editContactButtonContainer: {
-    marginLeft: 5,
-    marginRight: 5,
   },
   legend: {
     color: legendColor,

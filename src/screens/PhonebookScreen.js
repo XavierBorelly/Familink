@@ -86,9 +86,21 @@ export default class PhonebookScreen extends Component
                   <View style={familinkStyles.textItemContactContainer}>
                     <Text style={familinkStyles.textContact}>{item.firstName} {item.lastName}</Text>
                   </View>
-                  <View style={familinkStyles.textItemContactContainer}>
-                    <Text style={item.isFamilinkUser ? familinkStyles.textFamilink : ''}>{item.isFamilinkUser ? textLabelFamilink : ''} </Text>
-                    <Text style={item.isEmergencyUser ? familinkStyles.textUrgency : ''}>{item.isEmergencyUser ? textLabelUrgency : ''}</Text>
+                  <View style={[familinkStyles.textItemContactContainer]}>
+                    {item.isFamilinkUser &&
+                    <View style={[familinkStyles.containerTag, familinkStyles.centerElement,
+                      familinkStyles.textFamilink]}
+                    >
+                      <Text style={familinkStyles.textTag}>{textLabelFamilink}</Text>
+                    </View>
+                    }
+                    {item.isEmergencyUser &&
+                    <View style={[familinkStyles.containerTag, familinkStyles.centerElement,
+                      familinkStyles.textUrgency]}
+                    >
+                      <Text style={familinkStyles.textTag}>{textLabelUrgency}</Text>
+                    </View>
+                    }
                   </View>
                 </View>
                 <TouchableHighlight onPress={() =>
