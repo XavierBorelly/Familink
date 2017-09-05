@@ -6,21 +6,38 @@ import { errorPopinTitle, noNetwork } from '../errors/ErrorStrings';
 import { tokenIsValid } from '../errors/Token';
 
 export const NO_CONNECTION = 'NO_CONNECTION';
-
+let isConnected = false;
 /**
  * Handling network connection
  */
-export async function isConnected()
+export async function isNetworkConnected()
 {
-  return NetInfo.isConnected.fetch().then((connected) =>
-  {
-    // Show informative alert if no connection
-    if (!connected)
+  NetInfo.isConnected.addEventListener(
+    'change',
+    (listenNetwork) =>
     {
+      if (!listenNetwork)
+      {
+        isConnected = false;
+      }
+      else
+      {
+        isConnected = true;
+      }
+    });
+  NetInfo.isConnected.fetch().then((listenNetwork) =>
+  {
+    if (!listenNetwork)
+    {
+      isConnected = false;
       showInformativePopin(errorPopinTitle, noNetwork);
     }
-    return connected;
+    else
+    {
+      isConnected = true;
+    }
   });
+  return isConnected;
 }
 
 async function getResponseObject(webResponse)
@@ -59,8 +76,8 @@ async function verifToken(response, token, propsNavigation)
 export async function appelGet(lien, token, propsNavigation)
 {
   // No connection => service not called
-  const connected = await isConnected();
-  if (!connected)
+  const connected = await isNetworkConnected();
+  if (connected === false)
   {
     return Promise.reject(NO_CONNECTION);
   }
@@ -79,8 +96,8 @@ export async function appelGet(lien, token, propsNavigation)
 export async function appelPost(lien, data, token, propsNavigation)
 {
   // No connection => service not called
-  const connected = await isConnected();
-  if (!connected)
+  const connected = await isNetworkConnected();
+  if (connected === false)
   {
     return Promise.reject(NO_CONNECTION);
   }
@@ -101,8 +118,8 @@ export async function appelPost(lien, data, token, propsNavigation)
 export async function appelDelete(lien, token, propsNavigation)
 {
   // No connection => service not called
-  const connected = await isConnected();
-  if (!connected)
+  const connected = await isNetworkConnected();
+  if (connected === false)
   {
     return Promise.reject(NO_CONNECTION);
   }
@@ -121,8 +138,8 @@ export async function appelDelete(lien, token, propsNavigation)
 export async function appelPut(lien, data, token, propsNavigation)
 {
   // No connection => service not called
-  const connected = await isConnected();
-  if (!connected)
+  const connected = await isNetworkConnected();
+  if (connected === false)
   {
     return Promise.reject(NO_CONNECTION);
   }
