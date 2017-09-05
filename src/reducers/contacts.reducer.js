@@ -2,18 +2,18 @@ export const initialState = {
   contactsList: [],
 };
 
-export default function contactsReducer(state = initialState, action)
+export default function contactsReducer(state = initialState, action = null)
 {
-  switch (action.type)
+  if (action !== null)
   {
-    case 'ADD_CONTACT': {
+    if (action.type === 'ADD_CONTACT')
+    {
       return {
         ...state,
         contactsList: [action.newContact, ...state.contactsList],
       };
     }
-
-    default:
-      return state;
+    return state;
   }
+  return state;
 }

@@ -27,7 +27,7 @@ export async function login(phone, password)
     password,
   });
 
-  const messageAppelPost = appelPost('/public/login', body).then((response) =>
+  return appelPost('/public/login', body).then((response) =>
   {
     const data = response.data;
     if (data.token !== undefined && data.token !== '' && data.token !== null)
@@ -37,7 +37,6 @@ export async function login(phone, password)
 
     return (data.message);
   });
-  return messageAppelPost;
 }
 
 /** permet d'enregistrer un nouveau utilisateur
@@ -45,9 +44,9 @@ export async function login(phone, password)
 export async function saveUser(phone, password, name, firstName, email, profile)
 {
   const body = JSON.stringify({
+    lastName: name,
     phone,
     password,
-    lastName: name,
     firstName,
     email,
     profile,
@@ -71,7 +70,7 @@ export async function forgotPassword(phone)
  */
 export async function editUser(name, firstName, email, profile)
 {
-  const pickToken = getTokenFromBDD().then((token) =>
+  return getTokenFromBDD().then((token) =>
   {
     if (tokenIsFull(token, propsNavigation))
     {
@@ -82,25 +81,15 @@ export async function editUser(name, firstName, email, profile)
         profile,
       });
 
-      const newBodyUser = appelPut('/secured/users', body, token, propsNavigation).then(response => response.data);
-      return newBodyUser;
+      return appelPut('/secured/users', body, token, propsNavigation).then(response => response.data);
     }
     return '';
   });
-  return pickToken;
 }
 
 export function getUser()
 {
-  const pickToken = getTokenFromBDD().then((token) =>
-  {
-    const bodyUser = appelGet('/secured/users/current', token, propsNavigation)
-      .then((response) =>
-      {
-        const message = response.data;
-        return message;
-      });
-    return bodyUser;
-  });
-  return pickToken;
+  return getTokenFromBDD().then(token =>
+    appelGet('/secured/users/current', token, propsNavigation)
+      .then(response => response.data));
 }

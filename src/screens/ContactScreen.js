@@ -10,7 +10,8 @@ import Header from '../components/Header';
 import { checkRequiredStringValue, checkPhoneNumber, checkMail } from '../errors/FamilinkErrors';
 import { errorPopinTitle, lastnameRequired, surnameRequired } from '../errors/ErrorStrings';
 import Contact from '../models/Contact';
-import ContactService from '../service/contactService';
+import OptionnalAttribues from '../models/OptionnalAttribues';
+import ContactService from '../service/ContactService';
 
 
 import { showInformativePopin, showDeleteContactPopIn } from '../Popin';
@@ -161,22 +162,31 @@ export class ContactScreen extends Component
     );
   }
 
+  pushError()
+  {
+    const errorArray = [];
+
+    errorArray.push(checkRequiredStringValue(this.state.lastName, lastnameRequired));
+    errorArray.push(checkRequiredStringValue(this.state.firstName, surnameRequired));
+    errorArray.push(checkPhoneNumber(this.state.phoneNumber));
+    errorArray.push(checkMail(this.state.email));
+
+    return errorArray;
+  }
+
   add()
   {
     const props = this.props;
     const state = this.state;
 
-    const errorArray = [];
-
-    errorArray.push(checkRequiredStringValue(state.lastName, lastnameRequired));
-    errorArray.push(checkRequiredStringValue(state.firstName, surnameRequired));
-    errorArray.push(checkPhoneNumber(state.phoneNumber));
-    errorArray.push(checkMail(state.email));
+    const errorArray = this.pushError();
 
     if (!ContactScreen.hasErrors(errorArray))
     {
+      const optionnalAttribues = new OptionnalAttribues(state.lastName, state.email,
+        null, false, false);
       const newContact = new Contact(state.id, state.phoneNumber, state.firstName,
-        state.lastName, state.email, null, null, false, false);
+        null, optionnalAttribues);
 
       ContactService.addContact(newContact).then((createResponse) =>
       {
@@ -203,17 +213,14 @@ export class ContactScreen extends Component
     const props = this.props;
     const state = this.state;
 
-    const errorArray = [];
-
-    errorArray.push(checkRequiredStringValue(state.lastName, lastnameRequired));
-    errorArray.push(checkRequiredStringValue(state.firstName, surnameRequired));
-    errorArray.push(checkPhoneNumber(state.phoneNumber));
-    errorArray.push(checkMail(state.email));
+    const errorArray = this.pushError();
 
     if (!ContactScreen.hasErrors(errorArray))
     {
+      const optionnalAttribues = new OptionnalAttribues(state.lastName, state.email,
+        null, false, false);
       const updatedContact = new Contact(state.id, state.phoneNumber, state.firstName,
-        state.lastName, state.email, null, null, state.isFamilinkUser, state.isEmergencyUser);
+        null, optionnalAttribues);
 
       ContactService.updateContact(updatedContact).then((updateResponse) =>
       {

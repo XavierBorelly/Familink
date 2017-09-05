@@ -1,16 +1,18 @@
 export default class Contact
 {
-  constructor(id, phone, firstName, lastName, email,
-    profile, gravatar, isFamilinkUser, isEmergencyUser)
+  constructor(id, phone, firstName, profile, OptionnalAttribues)
   {
     this.id = id;
     this.phoneNumber = phone;
     this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
     this.profile = profile;
-    this.gravatar = gravatar;
-    this.isFamilinkUser = isFamilinkUser;
-    this.isEmergencyUser = isEmergencyUser;
+    if (OptionnalAttribues !== undefined)
+    {
+      this.lastName = OptionnalAttribues.lastName;
+      this.email = OptionnalAttribues.email;
+      this.gravatar = OptionnalAttribues.gravatar;
+      this.isFamilinkUser = OptionnalAttribues.isFamilinkUser;
+      this.isEmergencyUser = OptionnalAttribues.isEmergencyUser;
+    }
   }
 }

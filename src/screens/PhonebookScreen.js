@@ -7,7 +7,7 @@ import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 import { showInformativePopin } from '../Popin';
 import iconCall from '../../assets/icon_phone.png';
-import ContactService from '../service/contactService';
+import ContactService from '../service/ContactService';
 import { labelNoContact, labelLoading, headerContact, textLabelUrgency, textLabelFamilink, labelPopInCall } from '../Util';
 import Gravatar from '../components/Gravatar';
 
