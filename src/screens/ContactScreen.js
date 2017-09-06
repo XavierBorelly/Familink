@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Keyboard, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
+import { ScrollView, View, Keyboard, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 
 import familinkStyles from '../Style';
@@ -10,7 +10,7 @@ import Header from '../components/Header';
 import { checkRequiredStringValue, checkPhoneNumber, checkMail } from '../errors/FamilinkErrors';
 import { errorPopinTitle, lastnameRequired, surnameRequired } from '../errors/ErrorStrings';
 import Contact from '../models/Contact';
-import OptionalAttributes from '../models/OptionalAttributes';
+import ContactOptionalAttributes from '../models/ContactOptionalAttributes';
 import ContactService from '../service/ContactService';
 
 
@@ -183,10 +183,10 @@ export class ContactScreen extends Component
 
     if (!ContactScreen.hasErrors(errorArray))
     {
-      const OptionalAttributes = new OptionalAttributes(state.lastName, state.email,
+      const optionalAttributes = new ContactOptionalAttributes(state.lastName, state.email,
         null, false, false);
       const newContact = new Contact(state.id, state.phoneNumber, state.firstName,
-        null, OptionalAttributes);
+        null, optionalAttributes);
 
       ContactService.addContact(newContact).then((createResponse) =>
       {
@@ -217,10 +217,10 @@ export class ContactScreen extends Component
 
     if (!ContactScreen.hasErrors(errorArray))
     {
-      const OptionalAttributes = new OptionalAttributes(state.lastName, state.email,
+      const optionalAttributes = new ContactOptionalAttributes(state.lastName, state.email,
         null, false, false);
       const updatedContact = new Contact(state.id, state.phoneNumber, state.firstName,
-        null, OptionalAttributes);
+        null, optionalAttributes);
 
       ContactService.updateContact(updatedContact).then((updateResponse) =>
       {
@@ -285,89 +285,90 @@ export class ContactScreen extends Component
             }
           />
           <View style={familinkStyles.content}>
+            <ScrollView>
+              <View style={[familinkStyles.itemEditContact, familinkStyles.centerElement]}>
+                <Gravatar gravatarUrl={this.state.gravatar} email={this.state.email} size={50} />
+              </View>
 
-            <View style={[familinkStyles.itemEditContact, familinkStyles.centerElement]}>
-              <Gravatar gravatarUrl={this.state.gravatar} email={this.state.email} size={64} />
-            </View>
+              <View style={this.state.focused === firstNameInput ?
+                familinkStyles.itemEditContactFocused : familinkStyles.itemEditContact}
+              >
+                <TextInput
+                  style={this.state.errors[1] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
+                  onChangeText={text => this.setState({ firstName: text })}
+                  placeholder={placeholderFirstnameMandatory}
+                  selectTextOnFocus
+                  autoCorrect={false}
+                  underlineColorAndroid="transparent"
+                  placeholderTextColor="#909090"
+                  onBlur={() => this.resetFocus()}
+                  onFocus={() => this.setFocus(firstNameInput)}
+                  maxLength={15}
+                  value={this.state.firstName}
+                />
+              </View>
 
-            <View style={this.state.focused === firstNameInput ?
-              familinkStyles.itemEditContactFocused : familinkStyles.itemEditContact}
-            >
-              <TextInput
-                style={this.state.errors[1] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
-                onChangeText={text => this.setState({ firstName: text })}
-                placeholder={placeholderFirstnameMandatory}
-                selectTextOnFocus
-                autoCorrect={false}
-                underlineColorAndroid="transparent"
-                placeholderTextColor="#909090"
-                onBlur={() => this.resetFocus()}
-                onFocus={() => this.setFocus(firstNameInput)}
-                maxLength={15}
-                value={this.state.firstName}
-              />
-            </View>
+              <View style={this.state.focused === lastNameInput ?
+                familinkStyles.itemEditContactFocused : familinkStyles.itemEditContact}
+              >
+                <TextInput
+                  style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
+                  onChangeText={text => this.setState({ lastName: text })}
+                  placeholder={placeholderNameMandatory}
+                  selectTextOnFocus
+                  autoCorrect={false}
+                  underlineColorAndroid="transparent"
+                  placeholderTextColor="#909090"
+                  onBlur={() => this.resetFocus()}
+                  onFocus={() => this.setFocus(lastNameInput)}
+                  maxLength={15}
+                  value={this.state.lastName}
+                />
+              </View>
 
-            <View style={this.state.focused === lastNameInput ?
-              familinkStyles.itemEditContactFocused : familinkStyles.itemEditContact}
-            >
-              <TextInput
-                style={this.state.errors[0] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
-                onChangeText={text => this.setState({ lastName: text })}
-                placeholder={placeholderNameMandatory}
-                selectTextOnFocus
-                autoCorrect={false}
-                underlineColorAndroid="transparent"
-                placeholderTextColor="#909090"
-                onBlur={() => this.resetFocus()}
-                onFocus={() => this.setFocus(lastNameInput)}
-                maxLength={15}
-                value={this.state.lastName}
-              />
-            </View>
+              {tagView}
 
-            {tagView}
+              <View style={this.state.focused === phoneNumberInput ?
+                familinkStyles.itemEditContactFocused : familinkStyles.itemEditContact}
+              >
+                <TextInput
+                  style={this.state.errors[2] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
+                  onChangeText={text => this.setState({ phoneNumber: text })}
+                  keyboardType="numeric"
+                  placeholder={placeholderPhoneNumberMandatory}
+                  selectTextOnFocus
+                  autoCorrect={false}
+                  underlineColorAndroid="transparent"
+                  placeholderTextColor="#909090"
+                  onBlur={() => this.resetFocus()}
+                  onFocus={() => this.setFocus(phoneNumberInput)}
+                  maxLength={10}
+                  value={this.state.phoneNumber}
+                />
+              </View>
 
-            <View style={this.state.focused === phoneNumberInput ?
-              familinkStyles.itemEditContactFocused : familinkStyles.itemEditContact}
-            >
-              <TextInput
-                style={this.state.errors[2] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
-                onChangeText={text => this.setState({ phoneNumber: text })}
-                keyboardType="numeric"
-                placeholder={placeholderPhoneNumberMandatory}
-                selectTextOnFocus
-                autoCorrect={false}
-                underlineColorAndroid="transparent"
-                placeholderTextColor="#909090"
-                onBlur={() => this.resetFocus()}
-                onFocus={() => this.setFocus(phoneNumberInput)}
-                maxLength={10}
-                value={this.state.phoneNumber}
-              />
-            </View>
+              <View style={this.state.focused === mailInput ?
+                familinkStyles.itemEditContactFocused : familinkStyles.itemEditContact}
+              >
+                <TextInput
+                  style={this.state.errors[3] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
+                  onChangeText={text => this.setState({ email: text })}
+                  placeholder={placeholderEmailMandatory}
+                  selectTextOnFocus
+                  autoCorrect={false}
+                  underlineColorAndroid="transparent"
+                  placeholderTextColor="#909090"
+                  maxLength={50}
+                  onBlur={() => this.resetFocus()}
+                  onFocus={() => this.setFocus(mailInput)}
+                  keyboardType="email-address"
+                  value={this.state.email}
+                />
+              </View>
 
-            <View style={this.state.focused === mailInput ?
-              familinkStyles.itemEditContactFocused : familinkStyles.itemEditContact}
-            >
-              <TextInput
-                style={this.state.errors[3] === '' ? familinkStyles.textInput : familinkStyles.textInputError}
-                onChangeText={text => this.setState({ email: text })}
-                placeholder={placeholderEmailMandatory}
-                selectTextOnFocus
-                autoCorrect={false}
-                underlineColorAndroid="transparent"
-                placeholderTextColor="#909090"
-                maxLength={50}
-                onBlur={() => this.resetFocus()}
-                onFocus={() => this.setFocus(mailInput)}
-                keyboardType="email-address"
-                value={this.state.email}
-              />
-            </View>
+              {actionButtons}
 
-            {actionButtons}
-
+            </ScrollView>
           </View>
           <View style={familinkStyles.bottomBar} />
         </View>

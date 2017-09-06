@@ -1,4 +1,4 @@
-export default class OptionalAttributes
+export default class ContactOptionalAttributes
 {
   constructor(lastName, email, gravatar, isFamilinkUser, isEmergencyUser)
   {
