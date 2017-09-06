@@ -38,7 +38,7 @@ export default class ProfilePicker extends Component
         profils.push(p[i]);
       }
       this.setState({ isLoaded: true });
-    });
+    }, () => 0);
   }
 
   render()

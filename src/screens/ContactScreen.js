@@ -200,7 +200,7 @@ export class ContactScreen extends Component
         {
           showInformativePopin(labelInformativePopinTitle, labelContactCreatedFail);
         }
-      });
+      }, () => 0);
     }
     else
     {
@@ -234,7 +234,7 @@ export class ContactScreen extends Component
         {
           showInformativePopin(labelInformativePopinTitle, labelContactUpdatedFail);
         }
-      });
+      }, () => 0);
     }
     else
     {
@@ -256,7 +256,7 @@ export class ContactScreen extends Component
       {
         showInformativePopin(labelInformativePopinTitle, labelContactDeletedFail);
       }
-    });
+    }, () => 0);
   }
 
 

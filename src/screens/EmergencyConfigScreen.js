@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 
 import Header from '../components/Header';
-import MenuIcon from '../../assets/icon_emergency_config.png';
+// import MenuIcon from '../../assets/icon_emergency_config.png';
+// import { PROFILE_SCENE_NAME } from './ProfileScreen';
 import familinkStyles from '../Style';
 import { headerconfigUrgency } from '../Util';
 
@@ -12,7 +13,7 @@ export default class EmergencyConfigScreen extends Component
 {
   static navigationOptions = {
     drawerLabel: headerconfigUrgency,
-    drawerIcon: (<Image source={MenuIcon} style={[familinkStyles.burgerMenuIcon]} />),
+    // drawerIcon: (<Image source={MenuIcon} style={[familinkStyles.burgerMenuIcon]} />),
   };
 
   render()
