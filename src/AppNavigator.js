@@ -19,6 +19,9 @@ stackNavigatorConfig[HOME_SCENE_NAME] = {
 
 stackNavigatorConfig[EMERGENCY_CONFIG_SCENE_NAME] = {
   screen: EmergencyConfigScreen,
+  navigationOptions: {
+    drawerLabel: <Hidden />,
+  },
 };
 
 stackNavigatorConfig[PHONEBOOK_SCENE_NAME] = {
