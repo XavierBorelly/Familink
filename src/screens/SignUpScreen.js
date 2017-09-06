@@ -58,6 +58,53 @@ export default class SignUpScreen extends Component
     });
   }
 
+  createNewUser(navigation)
+  {
+    // Sur l'appui du bouton valider, check si il y a des champs erronés
+    const errorArray = [];
+    errorArray.push(checkPhoneNumber(this.state.phone));
+    errorArray.push(checkPassword(this.state.password, this.state.confirmPassword));
+    errorArray.push(checkSurname(this.state.firstName));
+    errorArray.push(checkMail(this.state.email));
+    errorArray.push(checkProfil(this.profilePickerComponent.state.profil));
+    this.setState({ errors: errorArray });
+
+    let thereIsErrors = false;
+    // Check si l'une des cases de 'errorArray' n'est pas vide
+    for (let i = 0; i < errorArray.length; i += 1)
+    {
+      if (errorArray[i] !== '')
+      {
+        showInformativePopin(errorPopinTitle, errorArray[i]);
+        thereIsErrors = true;
+        break;
+      }
+    }
+    // Si il n'y a pas d'erreurs, on tente d'enregistrer un user
+    if (!thereIsErrors)
+    {
+      saveUser(this.state.phone, this.state.password, this.state.name,
+        this.state.firstName, this.state.email,
+        this.profilePickerComponent.state.profil)
+        .then((response) =>
+        {
+        // Affiche une erreur au cas où le numéro de téléphone existe déja dans la BDD
+          if (response.message === `user validation failed: phone: Error, expected \`phone\` to be unique. Value: \`${this.state.phone}\``)
+          {
+            errorArray[0] = response.message;
+            this.setState({ errors: errorArray });
+            showInformativePopin(errorPopinTitle, phoneDuplicated);
+          }
+          // Sinon, aucune erreures, on revient a la page de login
+          else
+          {
+            showInformativePopin(labelInformativePopinTitle, labelUserCreated);
+            navigation.navigate(LOGIN_SCENE_NAME);
+          }
+        });
+    }
+  }
+
   render()
   {
     const navigation = this.props.navigation;
@@ -194,49 +241,7 @@ export default class SignUpScreen extends Component
                 style={familinkStyles.button}
                 onPress={() =>
                 {
-                  // Sur l'appui du bouton valider, check si il y a des champs erronés
-                  const errorArray = [];
-                  errorArray.push(checkPhoneNumber(this.state.phone));
-                  errorArray.push(checkPassword(this.state.password, this.state.confirmPassword));
-                  errorArray.push(checkSurname(this.state.firstName));
-                  errorArray.push(checkMail(this.state.email));
-                  errorArray.push(checkProfil(this.profilePickerComponent.state.profil));
-                  this.setState({ errors: errorArray });
-
-                  let thereIsErrors = false;
-                  // Check si l'une des cases de 'errorArray' n'est pas vide
-                  for (let i = 0; i < errorArray.length; i += 1)
-                  {
-                    if (errorArray[i] !== '')
-                    {
-                      showInformativePopin(errorPopinTitle, errorArray[i]);
-                      thereIsErrors = true;
-                      break;
-                    }
-                  }
-                  // Si il n'y a pas d'erreurs, on tente d'enregistrer un user
-                  if (!thereIsErrors)
-                  {
-                    saveUser(this.state.phone, this.state.password, this.state.name,
-                      this.state.firstName, this.state.email,
-                      this.profilePickerComponent.state.profil)
-                      .then((response) =>
-                      {
-                      // Affiche une erreur au cas où le numéro de téléphone existe déja dans la BDD
-                        if (response.message === `user validation failed: phone: Error, expected \`phone\` to be unique. Value: \`${this.state.phone}\``)
-                        {
-                          errorArray[0] = response.message;
-                          this.setState({ errors: errorArray });
-                          showInformativePopin(errorPopinTitle, phoneDuplicated);
-                        }
-                        // Sinon, aucune erreures, on revient a la page de login
-                        else
-                        {
-                          showInformativePopin(labelInformativePopinTitle, labelUserCreated);
-                          navigation.navigate(LOGIN_SCENE_NAME);
-                        }
-                      });
-                  }
+                  this.createNewUser(navigation);
                 }
                 }
               >

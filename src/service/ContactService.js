@@ -4,6 +4,7 @@ import Utils from '../Util';
 import { checkMail } from '../errors/FamilinkErrors';
 import { getAllContacts, saveContact, updateContact, deleteContact } from '../WS/WebServiceContact';
 import Contact from '../models/Contact';
+import OptionalAttributes from '../models/OptionalAttributes';
 
 const GRAVATAR_BASE_URI = 'https://www.gravatar.com/avatar/';
 
@@ -13,9 +14,10 @@ export default class ContactService
   // Transforme l'objet JSON du serveur pour manipuler des objets Contact
   static mapToContactModel(obj)
   {
+    const OptionalAttributes = new OptionalAttributes(obj.lastName, obj.email, obj.gravatar,
+      obj.isFamilinkUser, obj.isEmergencyUser);
     // eslint-disable-next-line no-underscore-dangle
-    return new Contact(obj._id, obj.phone, obj.firstName, obj.lastName, obj.email,
-      obj.profile, obj.gravatar, obj.isFamilinkUser, obj.isEmergencyUser);
+    return new Contact(obj._id, obj.phone, obj.firstName, obj.profile, OptionalAttributes);
   }
 
   static getAllContacts()
