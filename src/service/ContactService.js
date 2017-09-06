@@ -14,10 +14,10 @@ export default class ContactService
   // Transforme l'objet JSON du serveur pour manipuler des objets Contact
   static mapToContactModel(obj)
   {
-    const OptionalAttributes = new OptionalAttributes(obj.lastName, obj.email, obj.gravatar,
+    const optionalAttributes = new OptionalAttributes(obj.lastName, obj.email, obj.gravatar,
       obj.isFamilinkUser, obj.isEmergencyUser);
     // eslint-disable-next-line no-underscore-dangle
-    return new Contact(obj._id, obj.phone, obj.firstName, obj.profile, OptionalAttributes);
+    return new Contact(obj._id, obj.phone, obj.firstName, obj.profile, optionalAttributes);
   }
 
   static getAllContacts()
