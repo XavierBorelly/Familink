@@ -25,7 +25,7 @@ export default class SearchBar extends Component
       }
       return ((surname.indexOf(text.toLowerCase()) > -1)
       || (name.indexOf(text.toLowerCase()) > -1)
-      || (item.phone.indexOf(text) > -1));
+      || (item.phoneNumber.indexOf(text) > -1));
     });
   }
 

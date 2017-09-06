@@ -74,6 +74,7 @@ export default StyleSheet.create({
     flex: 0.8,
     width: '80%',
     borderRadius: 6,
+    overflow: 'hidden',
   },
 
   contentForgotPassword: {
@@ -91,12 +92,12 @@ export default StyleSheet.create({
   },
 
   itemEditContact: {
-    height: 72,
+    height: 60,
     paddingTop: 4,
     paddingBottom: 4,
   },
   itemEditContactFocused: {
-    height: 96,
+    height: 90,
     paddingTop: 4,
     paddingBottom: 4,
   },

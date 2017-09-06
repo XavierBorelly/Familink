@@ -36,14 +36,20 @@ export default class PhonebookScreen extends Component
   {
     super(props);
 
-    this.state = { contacts: null };
+    this.state = {
+      isLoading: true,
+      contacts: [],
+    };
   }
 
   componentDidMount()
   {
     ContactService.getAllContacts().then((contacts) =>
     {
-      this.setState({ contacts });
+      this.setState({
+        isLoading: false,
+        contacts,
+      });
     });
   }
 
@@ -56,7 +62,7 @@ export default class PhonebookScreen extends Component
   // fonction appeller en fonction du rendu voulu (écrant de chargement ou annuaire)
   renderListContacts()
   {
-    if (this.state.contacts === null)
+    if (this.state.isLoading)
     {
       return (
         <View>
@@ -106,7 +112,7 @@ export default class PhonebookScreen extends Component
                   </View>
                 </View>
                 <TouchableHighlight onPress={() =>
-                  showInformativePopin(labelPopInCall, item.phone)}
+                  showInformativePopin(labelPopInCall, item.phoneNumber)}
                 >
                   <Image style={familinkStyles.imageContact} source={iconCall} />
                 </TouchableHighlight>
